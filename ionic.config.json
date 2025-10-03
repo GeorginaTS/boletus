@@ -1,0 +1,7 @@
+{
+  "name": "mushroom-finder",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
