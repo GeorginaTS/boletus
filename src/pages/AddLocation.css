@@ -1,0 +1,63 @@
+/* Estils específics per AddLocation (usa classes globals del theme/variables.css) */
+
+/* Estil per icones de ubicació més grans */
+.location-icon-large {
+  font-size: 48px;
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Estil per mostrar coordenades amb font monospace */
+.coordinates-display {
+  font-family: "Courier New", monospace;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  color: var(--ion-color-primary);
+}
+
+/* Estil per l'estat de càrrega */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-2xl);
+  color: var(--ion-color-medium);
+}
+
+/* Estil per l'estat d'error */
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-2xl);
+  text-align: center;
+}
+
+.error-state ion-icon {
+  font-size: 64px;
+  color: var(--ion-color-danger);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Animació subtle per coordenades quan s'actualitzen */
+@keyframes locationUpdate {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.coordinates-updated {
+  animation: locationUpdate 0.3s ease-out;
+}
+
+/* Estil per theme fosc */
+@media (prefers-color-scheme: dark) {
+  .coordinates-display {
+    color: #7fb068;
+  }
+}

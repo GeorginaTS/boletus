@@ -1,0 +1,97 @@
+/* Estils específics del Profile (usa classes globals del theme/variables.css) */
+
+/* 
+ * Les següents classes s'han mogut a variables.css com a globals:
+ * - .container substitueix .profile-container
+ * - .segment-container substitueix .profile-segment  
+ * - .card-header-centered substitueix .profile-header
+ * - .avatar-lg substitueix .profile-avatar
+ * - .avatar-placeholder és global
+ * - .btn-danger substitueix .logout-button estàndard
+ */
+
+.profile-card {
+  margin-bottom: var(--spacing-md);
+}
+
+.profile-actions {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--ion-border-color);
+}
+
+/* Millor espaiament pels items de la llista */
+.profile-card ion-list {
+  background: transparent;
+  padding: 0;
+}
+
+.profile-card ion-item {
+  --background: transparent;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-card ion-item:last-child {
+  margin-bottom: 0;
+}
+
+.profile-incomplete-message {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  background: var(--ion-color-primary-tint);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--ion-color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.profile-incomplete-message ion-icon {
+  font-size: 32px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-incomplete-message p {
+  color: var(--ion-color-primary-shade);
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--font-size-sm);
+}
+
+/* Estil específic per a l'avatar placeholder en el context del perfil */
+.profile-card .avatar-placeholder ion-icon {
+  font-size: 48px;
+}
+
+/* Utilitzem la classe global .small-text de variables.css per texts petits */
+
+/* Ara usem classes globals de variables.css:
+ * - .location-card substitueix .location-section
+ * - .data-display substitueix .location-info  
+ * - .data-group substitueix .coordinates
+ * - .data-value substitueix .coordinate-values
+ * - .data-timestamp substitueix .location-timestamp
+ */
+
+/* Estils per tema fosc */
+@media (prefers-color-scheme: dark) {
+  .profile-actions {
+    border-top-color: var(--ion-border-color);
+  }
+
+  .profile-incomplete-message {
+    background: rgba(127, 176, 104, 0.15);
+    border-color: #7fb068;
+  }
+
+  .profile-incomplete-message p {
+    color: #a5c4a5;
+  }
+
+  /* Estils de tema fosc per ubicació ara són globals a variables.css */
+}

@@ -1,2 +1,609 @@
-/* For information on how to create your own theme, please see:
-http://ionicframework.com/docs/theming/ */
+/* 
+ * Mushroom Finder Theme - Inspirat en la natura i els bolets
+ * Colors basats en tons terrestres, verds del bosc i marrons dels bolets
+ */
+
+/* Paleta de colors principal */
+:root {
+  /* Colors primaris - Tons verds del bosc */
+  --ion-color-primary: #4a7c3c;
+  --ion-color-primary-rgb: 74, 124, 60;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #41693a;
+  --ion-color-primary-tint: #5d8850;
+
+  /* Colors secundaris - Tons de terra i fulla seca */
+  --ion-color-secondary: #8b4513;
+  --ion-color-secondary-rgb: 139, 69, 19;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #7a3d11;
+  --ion-color-secondary-tint: #97582b;
+
+  /* Colors terciaris - Tons de bolet (beix/crema) */
+  --ion-color-tertiary: #d2b48c;
+  --ion-color-tertiary-rgb: 210, 180, 140;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast-rgb: 0, 0, 0;
+  --ion-color-tertiary-shade: #b99f7b;
+  --ion-color-tertiary-tint: #d7bc98;
+
+  /* Colors de sistema personalitzats */
+  --ion-color-success: #28a745;
+  --ion-color-success-rgb: 40, 167, 69;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #23933d;
+  --ion-color-success-tint: #3eb158;
+
+  --ion-color-warning: #f39c12;
+  --ion-color-warning-rgb: 243, 156, 18;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #d68910;
+  --ion-color-warning-tint: #f4a62a;
+
+  --ion-color-danger: #dc3545;
+  --ion-color-danger-rgb: 220, 53, 69;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #c2303d;
+  --ion-color-danger-tint: #e04858;
+
+  /* Colors de fons - Inspirats en la natura */
+  --ion-background-color: #f8f9f4;
+  --ion-background-color-rgb: 248, 249, 244;
+
+  --ion-text-color: #2d3e35;
+  --ion-text-color-rgb: 45, 62, 53;
+
+  /* Colors de targetes i superfícies */
+  --ion-card-background: #ffffff;
+  --ion-item-background: #ffffff;
+
+  /* Colors de borders i separadors */
+  --ion-border-color: #e8ede8;
+  --ion-border-color-rgb: 232, 237, 232;
+
+  /* Colors personalitzats per la temàtica */
+  --mushroom-brown: #8b4513;
+  --forest-green: #228b22;
+  --bark-brown: #654321;
+  --moss-green: #8fbc8f;
+  --earth-brown: #a0522d;
+  --leaf-green: #9acd32;
+
+  /* Gradients personalitzats */
+  --forest-gradient: linear-gradient(135deg, #4a7c3c 0%, #2d5a27 100%);
+  --earth-gradient: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+  --nature-gradient: linear-gradient(
+    135deg,
+    #4a7c3c 0%,
+    #8b4513 50%,
+    #d2b48c 100%
+  );
+}
+
+/* 
+ * Colors personalitzats adicionals com classes CSS 
+ */
+.mushroom-color {
+  --ion-color-base: var(--mushroom-brown);
+  --ion-color-contrast: #ffffff;
+}
+
+.forest-color {
+  --ion-color-base: var(--forest-green);
+  --ion-color-contrast: #ffffff;
+}
+
+.earth-color {
+  --ion-color-base: var(--earth-brown);
+  --ion-color-contrast: #ffffff;
+}
+
+/*
+ * Tema fosc - Colors de nit al bosc
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colors primaris més brillants per millor contrast */
+    --ion-color-primary: #7fb068;
+    --ion-color-primary-rgb: 127, 176, 104;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast-rgb: 0, 0, 0;
+    --ion-color-primary-shade: #6b9359;
+    --ion-color-primary-tint: #8bc277;
+
+    /* Colors secundaris més brillants */
+    --ion-color-secondary: #d2691e;
+    --ion-color-secondary-rgb: 210, 105, 30;
+    --ion-color-secondary-contrast: #000000;
+    --ion-color-secondary-contrast-rgb: 0, 0, 0;
+    --ion-color-secondary-shade: #a0522d;
+    --ion-color-secondary-tint: #d7733b;
+
+    /* Fons fosc més clar per millor contrast */
+    --ion-background-color: #0f1a0f;
+    --ion-background-color-rgb: 15, 26, 15;
+
+    --ion-text-color: #f0f5f0;
+    --ion-text-color-rgb: 240, 245, 240;
+
+    /* Superfícies fosques amb millor contrast */
+    --ion-card-background: #1e2d24;
+    --ion-item-background: #1e2d24; /* Borders més subtils */
+    --ion-border-color: #3d4a3d;
+    --ion-border-color-rgb: 61, 74, 61;
+
+    /* Colors del toolbar fosc amb millor contrast */
+    --ion-toolbar-background: #1e2d24;
+    --ion-toolbar-color: #f0f5f0;
+
+    /* Colors dels tabs foscos amb millor contrast */
+    --ion-tab-bar-background: #0f1a0f;
+    --ion-tab-bar-color: #a5c4a5;
+    --ion-tab-bar-color-selected: #7fb068;
+
+    /* Colors adicionals per millor contrast */
+    --ion-color-medium: #92a092;
+    --ion-color-medium-rgb: 146, 160, 146;
+    --ion-color-light: #2a3f2a;
+    --ion-color-light-rgb: 42, 63, 42;
+    --ion-color-dark: #3a4d3a;
+    --ion-color-dark-rgb: 58, 77, 58;
+  }
+}
+
+/* Variables globals personalitzades (aplicables en tots els temes) */
+:root {
+  /* Tipografia */
+  --font-family-primary: "Roboto", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", sans-serif;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Mides de font */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+
+  /* Espaiats */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  /* Border radius */
+  --border-radius-sm: 4px;
+  --border-radius-base: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 50%;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-nature: 0 4px 12px rgba(74, 124, 60, 0.15);
+
+  /* Transicions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Alçades estàndard */
+  --height-input: 48px;
+  --height-button: 48px;
+  --height-header: 56px;
+}
+
+/*
+ * Estils globals personalitzats
+ */
+.nature-gradient-bg {
+  background: var(--nature-gradient);
+}
+
+.forest-gradient-bg {
+  background: var(--forest-gradient);
+}
+
+.earth-gradient-bg {
+  background: var(--earth-gradient);
+}
+
+/* Estil per headers amb temàtica natural */
+.nature-header {
+  --background: var(--forest-gradient);
+  --color: white;
+}
+
+/* Estil per buttons amb temàtica natural */
+.mushroom-button {
+  --background: var(--mushroom-brown);
+  --background-hover: var(--bark-brown);
+  --color: white;
+}
+
+.forest-button {
+  --background: var(--forest-green);
+  --background-hover: var(--ion-color-primary-shade);
+  --color: white;
+}
+
+/* Card amb aspecte natural */
+.nature-card {
+  --background: linear-gradient(145deg, #ffffff 0%, #f8f9f4 100%);
+  border: 1px solid var(--moss-green);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(74, 124, 60, 0.15);
+}
+
+/* Nature card en tema fosc */
+@media (prefers-color-scheme: dark) {
+  .nature-card {
+    --background: linear-gradient(145deg, #1e2d24 0%, #253328 100%);
+    border: 1px solid #4a5d4a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --color: #f0f5f0;
+  }
+}
+
+/* Efectes hover naturals */
+.nature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 124, 60, 0.2);
+  transition: all 0.3s ease;
+}
+
+/*
+ * ESTILS GLOBALS REUTILITZABLES
+ */
+
+/* === CONTENIDORS === */
+.container {
+  padding: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.container-sm {
+  padding: var(--spacing-sm);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.container-lg {
+  padding: var(--spacing-lg);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* === TÍTOLS GLOBALS === */
+.title-primary {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.title-secondary {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--ion-text-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.title-section {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* === FORMULARIS GLOBALS === */
+.form-container {
+  margin: 0;
+}
+
+.form-container ion-item {
+  --border-radius: var(--border-radius-base);
+  --background: transparent;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+.form-container ion-input {
+  --padding-start: var(--spacing-md);
+  --padding-end: var(--spacing-md);
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-color: var(--ion-border-color);
+  --border-width: 1px;
+  --border-style: solid;
+  border-radius: var(--border-radius-base);
+}
+
+.form-container ion-item.item-has-focus ion-input {
+  --border-color: var(--ion-color-primary);
+}
+
+.form-actions {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+}
+
+/* === BOTONS GLOBALS === */
+.btn-primary {
+  --background: var(--ion-color-primary);
+  --background-hover: var(--ion-color-primary-shade);
+  --color: var(--ion-color-primary-contrast);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition-base);
+}
+
+.btn-secondary {
+  --background: var(--ion-color-secondary);
+  --background-hover: var(--ion-color-secondary-shade);
+  --color: var(--ion-color-secondary-contrast);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition-base);
+}
+
+.btn-danger {
+  --background: var(--ion-color-danger);
+  --background-hover: var(--ion-color-danger-shade);
+  --color: var(--ion-color-danger-contrast);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+}
+
+.btn-outline {
+  --border-color: var(--ion-color-primary);
+  --border-width: 2px;
+  --color: var(--ion-color-primary);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* === AVATARS GLOBALS === */
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.avatar-md {
+  width: 60px;
+  height: 60px;
+}
+
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-placeholder {
+  background: var(--ion-color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+  color: var(--ion-color-medium);
+}
+
+/* === SEGMENTS GLOBALS === */
+.segment-container {
+  margin-bottom: var(--spacing-md);
+  --background: var(--ion-color-light);
+}
+
+.segment-container ion-segment-button {
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-primary);
+  --background-checked: var(--ion-color-primary-tint);
+  --indicator-color: var(--ion-color-primary);
+}
+
+/* === LLISTES I CARDS === */
+.list-container {
+  margin-bottom: var(--spacing-md);
+}
+
+.card-header-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+/* === UTILITATS === */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mb-xs {
+  margin-bottom: var(--spacing-xs);
+}
+.mb-sm {
+  margin-bottom: var(--spacing-sm);
+}
+.mb-md {
+  margin-bottom: var(--spacing-md);
+}
+.mb-lg {
+  margin-bottom: var(--spacing-lg);
+}
+.mb-xl {
+  margin-bottom: var(--spacing-xl);
+}
+
+.mt-xs {
+  margin-top: var(--spacing-xs);
+}
+.mt-sm {
+  margin-top: var(--spacing-sm);
+}
+.mt-md {
+  margin-top: var(--spacing-md);
+}
+.mt-lg {
+  margin-top: var(--spacing-lg);
+}
+.mt-xl {
+  margin-top: var(--spacing-xl);
+}
+
+.p-xs {
+  padding: var(--spacing-xs);
+}
+.p-sm {
+  padding: var(--spacing-sm);
+}
+.p-md {
+  padding: var(--spacing-md);
+}
+.p-lg {
+  padding: var(--spacing-lg);
+}
+.p-xl {
+  padding: var(--spacing-xl);
+}
+
+/* === TEMA FOSC PER ESTILS GLOBALS === */
+@media (prefers-color-scheme: dark) {
+  .form-container ion-item ion-input {
+    --border-color: #4a5d4a;
+    --background: var(--ion-item-background);
+    --color: #f0f5f0;
+  }
+
+  .form-container ion-item.item-has-focus ion-input {
+    --border-color: #7fb068;
+  }
+
+  .form-container ion-label {
+    --color: #a5c4a5;
+  }
+
+  .segment-container {
+    --background: var(--ion-color-dark);
+  }
+
+  .avatar-placeholder {
+    background: var(--ion-color-dark);
+    color: #a5c4a5;
+  }
+}
+
+/* === CLASSES GLOBALS PER UBICACIÓ I DADES === */
+.location-card {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.location-card ion-card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--ion-color-primary);
+}
+
+.location-card ion-card-title ion-icon {
+  font-size: 20px;
+}
+
+.data-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.data-group h3 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.data-value {
+  font-family: "Courier New", monospace;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  margin: 0;
+  padding: var(--spacing-sm);
+  background: var(--ion-color-light);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+}
+
+.data-timestamp h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--ion-color-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.data-timestamp p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--ion-color-dark);
+}
+
+.small-text {
+  font-size: var(--font-size-xs);
+  color: var(--ion-color-medium);
+  margin-top: var(--spacing-xs);
+}
+
+/* === TEMA FOSC PER CLASSES DE UBICACIÓ === */
+@media (prefers-color-scheme: dark) {
+  .data-group h3 {
+    color: var(--ion-color-light);
+  }
+
+  .data-value {
+    background: var(--ion-color-dark-tint);
+    color: var(--ion-color-primary-tint);
+  }
+
+  .data-timestamp p {
+    color: var(--ion-color-light);
+  }
+}

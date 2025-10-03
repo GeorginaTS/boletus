@@ -1,0 +1,119 @@
+/* Estils específics del Login (usa classes globals del theme/variables.css) */
+
+.login-content {
+  --background: var(--nature-gradient);
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+}
+
+.login-container ion-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.login-header h1 {
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-3xl);
+}
+
+.login-header p {
+  color: var(--ion-color-medium);
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+.login-switch {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.login-switch ion-text {
+  color: var(--ion-color-medium);
+  font-size: var(--font-size-base);
+}
+
+.login-switch ion-button {
+  --color: var(--ion-color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Separador visual */
+.login-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+  position: relative;
+}
+
+.login-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ion-color-medium);
+  opacity: 0.3;
+}
+
+.login-divider ion-text {
+  background: var(--ion-background-color);
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  z-index: 1;
+}
+
+/* Botó específic de Google (no es pot generalitzar) */
+.google-login-button {
+  margin-top: var(--spacing-sm);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+  --border-color: #dadce0;
+  --color: #3c4043;
+  --background: #ffffff;
+  --border-radius: var(--border-radius-lg);
+  transition: var(--transition-base);
+}
+
+.google-login-button:hover {
+  --background: #f8f9fa;
+  --border-color: #dadce0;
+}
+
+/* Tema fosc per Google button */
+@media (prefers-color-scheme: dark) {
+  .google-login-button {
+    --border-color: #5f6368;
+    --color: #e8eaed;
+    --background: #3c4043;
+  }
+
+  .google-login-button:hover {
+    --background: #48494a;
+  }
+
+  .login-divider ion-text {
+    background: var(--ion-background-color);
+  }
+}

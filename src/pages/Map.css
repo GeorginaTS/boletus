@@ -1,0 +1,114 @@
+/* Contenidor del contingut del mapa */
+.map-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  height: 100%;
+  position: relative;
+}
+
+/* Mapa principal */
+.main-map {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Contenidor d'error */
+.error-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+}
+
+.error-message {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 300px;
+}
+
+.error-message ion-icon {
+  font-size: 48px;
+  color: var(--color-error);
+  margin-bottom: var(--spacing-md);
+}
+
+.error-message h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--color-error);
+}
+
+.error-message p {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--color-text-secondary);
+}
+
+/* Contenidor de loading */
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+}
+
+.loading-container ion-spinner {
+  --color: var(--color-primary);
+  transform: scale(1.5);
+  margin-bottom: var(--spacing-md);
+}
+
+.loading-container p {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Estils per Leaflet */
+.leaflet-map {
+  background: #f8f9fa;
+}
+
+/* Popup personalitzat */
+.leaflet-popup-content h4 {
+  margin: 0 0 8px 0;
+  color: var(--color-primary);
+}
+
+.leaflet-popup-content p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.leaflet-popup-content strong {
+  color: var(--color-text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .error-message {
+    margin: var(--spacing-md);
+    max-width: none;
+  }
+}
