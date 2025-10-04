@@ -11,7 +11,6 @@ import {
     locationOutline,
     mapOutline,
     navigateOutline,
-    timeOutline,
     trashOutline
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
@@ -104,13 +103,6 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
                 <IonIcon icon={calendarOutline} />
                 <span className='ml-4'>{formatDate(location.createdAt)}</span>
               </div>
-              
-              {location.updatedAt && location.updatedAt !== location.createdAt && (
-                <div>
-                  <IonIcon icon={timeOutline} />
-                  <span className='ml-4'>Updated: {formatDate(location.updatedAt)}</span>
-                </div>
-              )}
             </div>
             
             {/* Botons d'acció sempre visibles */}
