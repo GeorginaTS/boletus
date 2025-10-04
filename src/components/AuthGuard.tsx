@@ -15,12 +15,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
     return (
       <IonPage>
         <IonContent className="ion-padding">
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '100%' 
-          }}>
+          <div className="flex justify-center items-center h-full">
             <IonSpinner name="crescent" />
           </div>
         </IonContent>

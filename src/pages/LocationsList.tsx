@@ -1,4 +1,5 @@
 import LocationCard from '@/components/LocationCard';
+import SectionHeader from '@/components/SectionHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { Location } from '@/types/location';
 import {
@@ -14,13 +15,13 @@ import {
     IonPage,
     IonRefresher,
     IonRefresherContent,
-    IonTitle,
     IonToast,
     IonToolbar
 } from '@ionic/react';
 import { firestoreService } from '@services/firestoreService';
 import { googleMapsService } from '@services/googleMapsService';
 import {
+    listOutline,
     locationOutline,
     refreshOutline
 } from 'ionicons/icons';
@@ -107,15 +108,12 @@ const LocationsList: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className="nature-header">
-          <IonTitle>Localitzacions</IonTitle>
-        </IonToolbar>
+        <SectionHeader icon={listOutline} title="Les Meves Localitzacions" />
       </IonHeader>
       
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Localitzacions</IonTitle>
           </IonToolbar>
         </IonHeader>
 
@@ -132,13 +130,12 @@ const LocationsList: React.FC = () => {
               <IonCardContent className="text-center p-lg">
                 <IonIcon 
                   icon={locationOutline} 
-                  style={{ fontSize: '64px', color: 'var(--ion-color-medium)', marginBottom: '16px' }} 
+                  className="text-6xl text-gray-500 mb-1" 
                 />
                 <h2>Cap localització trobada</h2>
                 <p>Afegeix la teva primera localització des de la pestanya "Afegir lloc"</p>
                 <IonButton 
                   fill="outline" 
-                  className="btn-primary"
                   routerLink="/add-location"
                 >
                   <IonIcon icon={locationOutline} slot="start" />
@@ -152,8 +149,8 @@ const LocationsList: React.FC = () => {
             <>
               <IonCard className="nature-card">
                 <IonCardHeader>
-                  <IonCardTitle className="title-section">
-                    <IonIcon icon={locationOutline} style={{ marginRight: '8px' }} />
+                  <IonCardTitle className="card-title">
+                    <IonIcon icon={locationOutline} />
                     {locations.length} Localització{locations.length !== 1 ? 's' : ''} Guardada{locations.length !== 1 ? 's' : ''}
                   </IonCardTitle>
                 </IonCardHeader>
@@ -163,7 +160,6 @@ const LocationsList: React.FC = () => {
                     <IonButton
                       expand="block"
                       fill="outline"
-                      className="btn-secondary"
                       onClick={loadLocations}
                     >
                       <IonIcon icon={refreshOutline} slot="start" />

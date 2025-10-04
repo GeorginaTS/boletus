@@ -75,16 +75,8 @@ const MapView: React.FC<MapViewProps> = ({
   return (
     <div 
       ref={mapRef} 
-      style={{ 
-        height, 
-        width: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
-      }}
-      className={`google-map ${className}`}
+      style={{ height }} 
+      className={`w-full absolute inset-0 google-map ${className}`}
     />
   );
 };

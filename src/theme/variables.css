@@ -3,157 +3,95 @@
  * Colors basats en tons terrestres, verds del bosc i marrons dels bolets
  */
 
-/* Paleta de colors principal */
+/* Paleta de colors terra natural */
 :root {
-  /* Colors primaris - Tons verds del bosc */
-  --ion-color-primary: #4a7c3c;
-  --ion-color-primary-rgb: 74, 124, 60;
+  /* Colors primaris - Brown com a color principal */
+  --ion-color-primary: #99582a;
+  --ion-color-primary-rgb: 153, 88, 42;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #41693a;
-  --ion-color-primary-tint: #5d8850;
+  --ion-color-primary-shade: #864f25;
+  --ion-color-primary-tint: #a3663f;
 
-  /* Colors secundaris - Tons de terra i fulla seca */
-  --ion-color-secondary: #8b4513;
-  --ion-color-secondary-rgb: 139, 69, 19;
+  /* Colors secundaris - Lion daurat */
+  --ion-color-secondary: #bb9457;
+  --ion-color-secondary-rgb: 187, 148, 87;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #7a3d11;
-  --ion-color-secondary-tint: #97582b;
+  --ion-color-secondary-shade: #a4824d;
+  --ion-color-secondary-tint: #c29f68;
 
-  /* Colors terciaris - Tons de bolet (beix/crema) */
-  --ion-color-tertiary: #d2b48c;
-  --ion-color-tertiary-rgb: 210, 180, 140;
-  --ion-color-tertiary-contrast: #000000;
-  --ion-color-tertiary-contrast-rgb: 0, 0, 0;
-  --ion-color-tertiary-shade: #b99f7b;
-  --ion-color-tertiary-tint: #d7bc98;
+  /* Colors terciaris - Peach suau */
+  --ion-color-tertiary: #ffe6a7;
+  --ion-color-tertiary-rgb: 255, 230, 167;
+  --ion-color-tertiary-contrast: #432818;
+  --ion-color-tertiary-contrast-rgb: 67, 40, 24;
+  --ion-color-tertiary-shade: #e0ca93;
+  --ion-color-tertiary-tint: #ffe9b0;
 
-  /* Colors de sistema personalitzats */
-  --ion-color-success: #28a745;
-  --ion-color-success-rgb: 40, 167, 69;
+  /* Colors de sistema amb tons terra */
+  --ion-color-success: #bb9457;
+  --ion-color-success-rgb: 187, 148, 87;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #23933d;
-  --ion-color-success-tint: #3eb158;
+  --ion-color-success-shade: #a4824d;
+  --ion-color-success-tint: #c29f68;
 
-  --ion-color-warning: #f39c12;
-  --ion-color-warning-rgb: 243, 156, 18;
+  --ion-color-warning: #99582a;
+  --ion-color-warning-rgb: 153, 88, 42;
   --ion-color-warning-contrast: #ffffff;
   --ion-color-warning-contrast-rgb: 255, 255, 255;
-  --ion-color-warning-shade: #d68910;
-  --ion-color-warning-tint: #f4a62a;
+  --ion-color-warning-shade: #864f25;
+  --ion-color-warning-tint: #a3663f;
 
-  --ion-color-danger: #dc3545;
-  --ion-color-danger-rgb: 220, 53, 69;
+  --ion-color-danger: #6f1d1b;
+  --ion-color-danger-rgb: 111, 29, 27;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #c2303d;
-  --ion-color-danger-tint: #e04858;
+  --ion-color-danger-shade: #621918;
+  --ion-color-danger-tint: #7d3432;
 
-  /* Colors de fons - Inspirats en la natura */
-  --ion-background-color: #f8f9f4;
-  --ion-background-color-rgb: 248, 249, 244;
+  /* Colors de fons - Peach molt suau */
+  --ion-background-color: #fffbf3;
+  --ion-background-color-rgb: 255, 251, 243;
 
-  --ion-text-color: #2d3e35;
-  --ion-text-color-rgb: 45, 62, 53;
+  --ion-text-color: #432818;
+  --ion-text-color-rgb: 67, 40, 24;
 
   /* Colors de targetes i superfícies */
   --ion-card-background: #ffffff;
   --ion-item-background: #ffffff;
 
   /* Colors de borders i separadors */
-  --ion-border-color: #e8ede8;
-  --ion-border-color-rgb: 232, 237, 232;
+  --ion-border-color: #f0e4c7;
+  --ion-border-color-rgb: 240, 228, 199;
 
-  /* Colors personalitzats per la temàtica */
-  --mushroom-brown: #8b4513;
-  --forest-green: #228b22;
-  --bark-brown: #654321;
-  --moss-green: #8fbc8f;
-  --earth-brown: #a0522d;
-  --leaf-green: #9acd32;
+  /* Nova paleta de colors personalitzats */
+  --falu-red: #6f1d1b;
+  --lion: #bb9457;
+  --bistre: #432818;
+  --brown: #99582a;
+  --peach: #ffe6a7;
+  --peach-light: #fff5dc;
+  --bistre-light: #5a3722;
+  --brown-light: #a66237;
 
-  /* Gradients personalitzats */
-  --forest-gradient: linear-gradient(135deg, #4a7c3c 0%, #2d5a27 100%);
-  --earth-gradient: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+  /* Variables específiques per Ion Segment amb nova paleta */
+  --ion-segment-background: var(--peach-light);
+  --ion-segment-button-color: var(--bistre);
+  --ion-segment-button-color-checked: #ffffff;
+  --ion-segment-button-background-checked: var(--brown);
+  --ion-segment-indicator-color: var(--brown);
+
+  /* Gradients amb nova paleta */
+
+  --autumn-gradient: linear-gradient(135deg, var(--lion) 0%, var(--brown) 100%);
   --nature-gradient: linear-gradient(
     135deg,
-    #4a7c3c 0%,
-    #8b4513 50%,
-    #d2b48c 100%
+    var(--brown) 0%,
+    var(--lion) 50%,
+    var(--peach) 100%
   );
-}
-
-/* 
- * Colors personalitzats adicionals com classes CSS 
- */
-.mushroom-color {
-  --ion-color-base: var(--mushroom-brown);
-  --ion-color-contrast: #ffffff;
-}
-
-.forest-color {
-  --ion-color-base: var(--forest-green);
-  --ion-color-contrast: #ffffff;
-}
-
-.earth-color {
-  --ion-color-base: var(--earth-brown);
-  --ion-color-contrast: #ffffff;
-}
-
-/*
- * Tema fosc - Colors de nit al bosc
- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Colors primaris més brillants per millor contrast */
-    --ion-color-primary: #7fb068;
-    --ion-color-primary-rgb: 127, 176, 104;
-    --ion-color-primary-contrast: #000000;
-    --ion-color-primary-contrast-rgb: 0, 0, 0;
-    --ion-color-primary-shade: #6b9359;
-    --ion-color-primary-tint: #8bc277;
-
-    /* Colors secundaris més brillants */
-    --ion-color-secondary: #d2691e;
-    --ion-color-secondary-rgb: 210, 105, 30;
-    --ion-color-secondary-contrast: #000000;
-    --ion-color-secondary-contrast-rgb: 0, 0, 0;
-    --ion-color-secondary-shade: #a0522d;
-    --ion-color-secondary-tint: #d7733b;
-
-    /* Fons fosc més clar per millor contrast */
-    --ion-background-color: #0f1a0f;
-    --ion-background-color-rgb: 15, 26, 15;
-
-    --ion-text-color: #f0f5f0;
-    --ion-text-color-rgb: 240, 245, 240;
-
-    /* Superfícies fosques amb millor contrast */
-    --ion-card-background: #1e2d24;
-    --ion-item-background: #1e2d24; /* Borders més subtils */
-    --ion-border-color: #3d4a3d;
-    --ion-border-color-rgb: 61, 74, 61;
-
-    /* Colors del toolbar fosc amb millor contrast */
-    --ion-toolbar-background: #1e2d24;
-    --ion-toolbar-color: #f0f5f0;
-
-    /* Colors dels tabs foscos amb millor contrast */
-    --ion-tab-bar-background: #0f1a0f;
-    --ion-tab-bar-color: #a5c4a5;
-    --ion-tab-bar-color-selected: #7fb068;
-
-    /* Colors adicionals per millor contrast */
-    --ion-color-medium: #92a092;
-    --ion-color-medium-rgb: 146, 160, 146;
-    --ion-color-light: #2a3f2a;
-    --ion-color-light-rgb: 42, 63, 42;
-    --ion-color-dark: #3a4d3a;
-    --ion-color-dark-rgb: 58, 77, 58;
-  }
 }
 
 /* Variables globals personalitzades (aplicables en tots els temes) */
@@ -209,4 +147,109 @@
   --height-input: 48px;
   --height-button: 48px;
   --height-header: 56px;
+}
+
+/*
+ * Tema fosc - Combinació perfecta amb els tons terra
+ */
+.ion-palette-dark {
+  /* Colors primaris ajustats per fosc */
+  --ion-color-primary: #bb9457;
+  --ion-color-primary-rgb: 187, 148, 87;
+  --ion-color-primary-contrast: #2c1810;
+  --ion-color-primary-contrast-rgb: 44, 24, 16;
+  --ion-color-primary-shade: #a4824d;
+  --ion-color-primary-tint: #c29f68;
+
+  /* Colors secundaris per fosc */
+  --ion-color-secondary: #ffe6a7;
+  --ion-color-secondary-rgb: 255, 230, 167;
+  --ion-color-secondary-contrast: #432818;
+  --ion-color-secondary-contrast-rgb: 67, 40, 24;
+  --ion-color-secondary-shade: #e0ca93;
+  --ion-color-secondary-tint: #ffe9b0;
+
+  /* Colors de fons fosc amb tons terra */
+  --ion-background-color: #1a1611;
+  --ion-background-color-rgb: 26, 22, 17;
+
+  --ion-text-color: #050505;
+  --ion-text-color-rgb: 232, 220, 198;
+
+  --ion-color-step-50: #242018;
+  --ion-color-step-100: #2e2a1f;
+  --ion-color-step-150: #383426;
+  --ion-color-step-200: #423e2d;
+  --ion-color-step-250: #4c4834;
+  --ion-color-step-300: #56523b;
+  --ion-color-step-350: #605c42;
+  --ion-color-step-400: #6a6649;
+  --ion-color-step-450: #747050;
+  --ion-color-step-500: #7e7a57;
+  --ion-color-step-550: #88845e;
+  --ion-color-step-600: #928e65;
+  --ion-color-step-650: #9c986c;
+  --ion-color-step-700: #a6a273;
+  --ion-color-step-750: #b0ac7a;
+  --ion-color-step-800: #bab681;
+  --ion-color-step-850: #c4c088;
+  --ion-color-step-900: #ceca8f;
+  --ion-color-step-950: #d8d496;
+
+  /* Colors de sistema per tema fosc */
+  --ion-color-success: #7cb342;
+  --ion-color-success-rgb: 124, 179, 66;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #6d9e3a;
+  --ion-color-success-tint: #89bb55;
+
+  --ion-color-warning: #ffb74d;
+  --ion-color-warning-rgb: 255, 183, 77;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0a144;
+  --ion-color-warning-tint: #ffbf5f;
+
+  --ion-color-danger: #f44336;
+  --ion-color-danger-rgb: 244, 67, 54;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d73930;
+  --ion-color-danger-tint: #f5574a;
+
+  --ion-color-light: #3a3530;
+  --ion-color-light-rgb: 58, 53, 48;
+  --ion-color-light-contrast: #ffffff;
+  --ion-color-light-contrast-rgb: 255, 255, 255;
+  --ion-color-light-shade: #33302b;
+  --ion-color-light-tint: #4e4945;
+
+  --ion-color-medium: #706b60;
+  --ion-color-medium-rgb: 112, 107, 96;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #635e55;
+  --ion-color-medium-tint: #7e7970;
+
+  --ion-color-dark: #e8dcc6;
+  --ion-color-dark-rgb: 232, 220, 198;
+  --ion-color-dark-contrast: #1a1611;
+  --ion-color-dark-contrast-rgb: 26, 22, 17;
+  --ion-color-dark-shade: #ccc2ae;
+  --ion-color-dark-tint: #eadfcc;
+
+  /* Backgrounds i superfícies */
+  --ion-item-background: var(--ion-color-step-100);
+  --ion-card-background: var(--ion-color-step-100);
+  --ion-toolbar-background: var(--ion-color-step-50);
+  --ion-tab-bar-background: var(--ion-color-step-50);
+  --ion-searchbar-background: var(--ion-color-step-100);
+
+  /* Bordes i separadors */
+  --ion-border-color: var(--ion-color-step-200);
+  --ion-item-border-color: var(--ion-color-step-200);
+
+  /* Placeholder text */
+  --ion-placeholder-color: var(--ion-color-step-400);
 }

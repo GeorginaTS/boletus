@@ -115,7 +115,10 @@ const NotificationSettings: React.FC = () => {
         <IonContent className="ion-padding">
           <IonCard>
             <IonCardHeader>
-              <IonCardTitle>Autenticació requerida</IonCardTitle>
+              <IonCardTitle className="card-title">
+                <IonIcon icon={warning} />
+                Autenticació requerida
+              </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
               Has d'estar autenticat per configurar les notificacions.
@@ -131,7 +134,7 @@ const NotificationSettings: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>
-            <IonIcon icon={notifications} className="mr-2" />
+            <IonIcon icon={notifications} />
             Notificacions
           </IonTitle>
         </IonToolbar>
@@ -145,7 +148,7 @@ const NotificationSettings: React.FC = () => {
           <IonCard color="danger">
             <IonCardContent>
               <div className="flex items-center">
-                <IonIcon icon={warning} className="mr-2" />
+                <IonIcon icon={warning} />
                 <span>{error}</span>
               </div>
             </IonCardContent>
@@ -155,11 +158,10 @@ const NotificationSettings: React.FC = () => {
         {/* Status Card */}
         <IonCard>
           <IonCardHeader>
-            <IonCardTitle className="flex items-center">
+            <IonCardTitle className="card-title">
               <IonIcon 
                 icon={hasPermission ? checkmark : close} 
                 color={hasPermission ? 'success' : 'danger'}
-                className="mr-2"
               />
               Estat de les Notificacions
             </IonCardTitle>
@@ -214,7 +216,10 @@ const NotificationSettings: React.FC = () => {
         {settings && hasPermission && (
           <IonCard>
             <IonCardHeader>
-              <IonCardTitle>Preferències de Notificacions</IonCardTitle>
+              <IonCardTitle className="card-title">
+                <IonIcon icon={notifications} />
+                Preferències de Notificacions
+              </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
               <IonList>
@@ -285,7 +290,10 @@ const NotificationSettings: React.FC = () => {
         {!hasPermission && (
           <IonCard color="warning">
             <IonCardHeader>
-              <IonCardTitle>Permisos requerits</IonCardTitle>
+              <IonCardTitle className="card-title">
+                <IonIcon icon={warning} />
+                Permisos requerits
+              </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
               <p>

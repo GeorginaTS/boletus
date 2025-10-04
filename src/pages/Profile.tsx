@@ -1,3 +1,4 @@
+import SectionHeader from '@/components/SectionHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import UserProfileForm from '@components/UserProfileForm';
 import {
@@ -16,7 +17,6 @@ import {
   IonPage,
   IonSegment,
   IonSegmentButton,
-  IonTitle,
   IonToast,
   IonToolbar
 } from '@ionic/react';
@@ -57,14 +57,11 @@ const Profile: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className="nature-header">
-          <IonTitle>Perfil</IonTitle>
-        </IonToolbar>
+        <SectionHeader icon={person} title="El Meu Perfil" />
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Perfil</IonTitle>
           </IonToolbar>
         </IonHeader>
         
@@ -160,7 +157,7 @@ const Profile: React.FC = () => {
               {userProfile?.latitude && userProfile?.longitude && (
                 <IonCard className="location-card">
                   <IonCardHeader>
-                    <IonCardTitle>
+                    <IonCardTitle className="card-title">
                       <IonIcon icon={navigateOutline} />
                       Última Ubicació
                     </IonCardTitle>

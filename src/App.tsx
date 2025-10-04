@@ -1,5 +1,7 @@
+import AppTabBar from '@/components/AppTabBar';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { AppRoutes, AppTabBar } from '@/routes/routes';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { AppRoutes } from '@/routes/routes';
 import AuthGuard from '@components/AuthGuard';
 import {
   IonApp,
@@ -35,8 +37,8 @@ import '@ionic/react/css/text-transformation.css';
  */
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+import '@ionic/react/css/palettes/dark.class.css';
+/* import '@ionic/react/css/palettes/dark.system.css'; */
 
 /* Theme variables */
 import './theme/variables.css';
@@ -45,24 +47,26 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <AuthProvider>
-      <IonReactRouter>
-        <AuthGuard>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Suspense fallback={
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                  <IonSpinner name="circular" />
-                </div>
-              }>
-                <AppRoutes />
-              </Suspense>
-            </IonRouterOutlet>
-            <AppTabBar />
-          </IonTabs>
-        </AuthGuard>
-      </IonReactRouter>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <IonReactRouter>
+          <AuthGuard>
+            <IonTabs>
+              <IonRouterOutlet>
+                <Suspense fallback={
+                  <div className="flex justify-center items-center h-screen">
+                    <IonSpinner name="circular" />
+                  </div>
+                }>
+                  <AppRoutes />
+                </Suspense>
+              </IonRouterOutlet>
+              <AppTabBar />
+            </IonTabs>
+          </AuthGuard>
+        </IonReactRouter>
+      </AuthProvider>
+    </ThemeProvider>
   </IonApp>
 );
 

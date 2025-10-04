@@ -1,3 +1,4 @@
+import SectionHeader from '@/components/SectionHeader';
 import useGeolocation from '@/hooks/useGeolocation';
 import MapView from '@components/MapView';
 import {
@@ -7,12 +8,11 @@ import {
   IonIcon,
   IonPage,
   IonSpinner,
-  IonTitle,
   IonToast,
   IonToolbar
 } from '@ionic/react';
 import { googleMapsService } from '@services/googleMapsService';
-import { layersOutline, locationOutline, refreshOutline, resizeOutline } from 'ionicons/icons';
+import { layersOutline, locationOutline, mapOutline, refreshOutline, resizeOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import './Map.css';
 
@@ -44,8 +44,8 @@ const Map: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
+        <SectionHeader icon={mapOutline} title="Mapa" />
         <IonToolbar>
-          <IonTitle>Mapa</IonTitle>
           <IonButton
             slot="end"
             fill="clear"
@@ -84,7 +84,7 @@ const Map: React.FC = () => {
             <div className="error-message">
               {/* Exemple d'integració Tailwind + Ionic */}
               <div className="flex items-center justify-center mb-4">
-                <IonIcon icon={locationOutline} className="text-4xl text-red-500" />
+                <IonIcon icon={locationOutline} className="icon-xl icon-danger" />
               </div>
               <h3 className="text-lg font-bold text-center text-gray-800 mb-2">Error de geolocalització</h3>
               <p className="text-center text-gray-600 mb-4">{error.message}</p>
@@ -92,7 +92,6 @@ const Map: React.FC = () => {
                 <IonButton 
                   onClick={handleRefreshLocation}
                   disabled={loading}
-                  className="btn-earth"
                 >
                   <IonIcon icon={refreshOutline} slot="start" />
                   Tornar a intentar

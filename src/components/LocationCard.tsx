@@ -1,18 +1,18 @@
 import { Location } from '@/types/location';
 import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonIcon
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonIcon
 } from '@ionic/react';
 import { photoService } from '@services/photoService';
 import {
-  calendarOutline,
-  locationOutline,
-  mapOutline,
-  navigateOutline,
-  timeOutline,
-  trashOutline
+    calendarOutline,
+    locationOutline,
+    mapOutline,
+    navigateOutline,
+    timeOutline,
+    trashOutline
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 
@@ -62,67 +62,51 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
   };
 
   return (
-    <IonCard className="nature-card" style={{ marginBottom: '16px' }}>
+    <IonCard className="nature-card mb-4">
       <IonCardContent>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+        <div className="flex items-start gap-3">
           {/* Foto de la localització si existeix */}
           {photoUrl ? (
             <img
               src={photoUrl}
               alt={location.name}
-              style={{
-                width: '80px',
-                height: '80px',
-                borderRadius: '8px',
-                objectFit: 'cover',
-                border: '2px solid var(--ion-color-primary)',
-                flexShrink: 0
-              }}
+              className="w-20 h-20 rounded-lg object-cover border-2 border-primary-500 flex-shrink-0"
             />
           ) : (
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '8px',
-              backgroundColor: 'var(--ion-color-primary-tint)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0
-            }}>
+            <div className="w-20 h-20 rounded-lg bg-primary-500 flex items-center justify-center flex-shrink-0">
               <IonIcon 
                 icon={locationOutline} 
                 color="primary"
-                style={{ fontSize: '32px' }}
+                className="text-3xl"
               />
             </div>
           )}
           
           {/* Contingut principal */}
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <h2 className="location-name" style={{ margin: '0 0 8px 0', fontSize: '1.2em', fontWeight: 'bold' }}>
+          <div className="flex-1 min-w-0">
+            <h2 className="location-name m-0 mb-2 text-lg font-bold">
               🍄 {location.name}
             </h2>
             
             {location.description && (
-              <p className="location-description" style={{ margin: '0 0 12px 0', color: 'var(--ion-color-medium)', fontSize: '0.9em' }}>
+              <p className="location-description m-0 mb-3 text-gray-500 text-sm">
                 {location.description}
               </p>
             )}
             
-            <div className="location-details" style={{ marginBottom: '16px' }}>
-              <div className="detail-item" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', fontSize: '0.85em', color: 'var(--ion-color-medium)' }}>
+            <div className="location-details mb-4">
+              <div className="detail-item flex items-center gap-1-5 mb-1 text-xs text-gray-500">
                 <IonIcon icon={navigateOutline} />
                 <span>{formatCoordinates(location.lat, location.lng)}</span>
               </div>
               
-              <div className="detail-item" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', fontSize: '0.85em', color: 'var(--ion-color-medium)' }}>
+              <div className="detail-item flex items-center gap-1-5 mb-1 text-xs text-gray-500">
                 <IonIcon icon={calendarOutline} />
                 <span>{formatDate(location.createdAt)}</span>
               </div>
               
               {location.updatedAt && location.updatedAt !== location.createdAt && (
-                <div className="detail-item" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85em', color: 'var(--ion-color-medium)' }}>
+                <div className="detail-item flex items-center gap-1-5 text-xs text-gray-500">
                   <IonIcon icon={timeOutline} />
                   <span>Actualitzat: {formatDate(location.updatedAt)}</span>
                 </div>
@@ -130,7 +114,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
             </div>
             
             {/* Botons d'acció sempre visibles */}
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className="flex gap-2">
               <IonButton
                 size="small"
                 fill="outline"
@@ -143,12 +127,12 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
               
               <IonButton
                 size="small"
-                fill="outline"
-                color="danger"
+                fill="clear"
+                className="btn-delete-icon"
                 onClick={() => onDelete(location)}
+                title="Eliminar localització"
               >
-                <IonIcon icon={trashOutline} slot="start" />
-                Eliminar
+                <IonIcon icon={trashOutline} />
               </IonButton>
             </div>
           </div>

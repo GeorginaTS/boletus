@@ -111,7 +111,7 @@ const Login: React.FC = () => {
                 <IonButton
                   expand="block"
                   type="submit"
-                  className="btn-primary mt-lg"
+                  className="mt-lg"
                   disabled={loading}
                 >
                   {isRegisterMode ? 'Crear Compte' : 'Iniciar Sessió'}

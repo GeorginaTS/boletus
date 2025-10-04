@@ -1,64 +1,69 @@
-/* Estils específics per AddLocation (usa classes globals del theme/variables.css) */
+/* === ESTILS ESPECÍFICS PER ADDLOCATION === */
+/* Classes globals: .loading-state, .error-state, .coordinates-display */
+/* Els estils d'inputs i textarea ara són globals a globals.css */
 
-/* Estil per icones de ubicació més grans */
-.location-icon-large {
-  font-size: 48px;
-  color: var(--ion-color-primary);
-  margin-bottom: var(--spacing-md);
-}
-
-/* Estil per mostrar coordenades amb font monospace */
-.coordinates-display {
-  font-family: "Courier New", monospace;
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-lg);
-  color: var(--ion-color-primary);
-}
-
-/* Estil per l'estat de càrrega */
-.loading-state {
+/* Estils per centrar botons en les cards */
+.form-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--spacing-2xl);
-  color: var(--ion-color-medium);
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
-/* Estil per l'estat d'error */
-.error-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--spacing-2xl);
+.form-actions ion-button {
+  min-width: 180px;
+}
+
+/* Botons de ubicació en la mateixa línia */
+.location-card-compact .form-actions {
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.location-card-compact .form-actions ion-button {
+  min-width: 120px;
+  flex: 0 1 auto;
+}
+
+/* Centrar botons dins de seccions amb text d'error */
+.text-center {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
-.error-state ion-icon {
-  font-size: 64px;
-  color: var(--ion-color-danger);
+/* Centrar secció de foto */
+.photo-section {
+  width: 100%;
+  margin-top: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
-/* Animació subtle per coordenades quan s'actualitzen */
-@keyframes locationUpdate {
-  0% {
-    opacity: 0.6;
-    transform: scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.coordinates-updated {
-  animation: locationUpdate 0.3s ease-out;
+.photo-section ion-button {
+  min-width: 160px;
 }
 
 /* Estils per la funcionalitat de foto */
 .photo-preview-container {
   position: relative;
   margin-top: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.photo-preview-container ion-button {
+  min-width: 160px;
 }
 
 .photo-preview {
@@ -82,16 +87,17 @@
 
 .photo-select-button {
   margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
 /* Estil per theme fosc */
 @media (prefers-color-scheme: dark) {
   .coordinates-display {
-    color: #7fb068;
+    color: var(--ion-color-primary);
   }
 
   .photo-preview {
-    border-color: var(--ion-color-medium-shade);
+    border-color: var(--ion-border-color);
   }
 
   .photo-remove-button {

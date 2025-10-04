@@ -1,5 +1,6 @@
 import { auth, db } from '@/config/firebase';
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonList } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonItem, IonLabel, IonList } from '@ionic/react';
+import { bug } from 'ionicons/icons';
 import React from 'react';
 
 const FirebaseDebug: React.FC = () => {
@@ -29,7 +30,10 @@ const FirebaseDebug: React.FC = () => {
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle>Firebase Debug</IonCardTitle>
+        <IonCardTitle className="card-title">
+          <IonIcon icon={bug} />
+          Firebase Debug
+        </IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         <IonList>

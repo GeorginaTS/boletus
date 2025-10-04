@@ -1,3 +1,4 @@
+import SectionHeader from '@/components/SectionHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import useGeolocation from '@/hooks/useGeolocation';
 import { CreateLocation } from '@/types/location';
@@ -20,7 +21,6 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonTextarea,
-  IonTitle,
   IonToast,
   IonToolbar
 } from '@ionic/react';
@@ -30,7 +30,6 @@ import { googleMapsService } from '@services/googleMapsService';
 import { photoService } from '@services/photoService';
 import { addOutline, cameraOutline, checkmarkOutline, closeOutline, listOutline, locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import './AddLocation.css';
 
 const AddLocation: React.FC = () => {
@@ -38,7 +37,6 @@ const AddLocation: React.FC = () => {
   const { location, loading, error, accuracy, isHighAccuracy, getCurrentLocation, getHighAccuracyLocation } = useGeolocation(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const history = useHistory();
   
   // Estat del formulari
   const [formData, setFormData] = useState({
@@ -101,8 +99,7 @@ const AddLocation: React.FC = () => {
         // Usa la webPath directament per a la previsualització
         setPhotoPreviewUrl(image.webPath);
       }
-    } catch (error) {
-      console.error('Error fent la foto:', error);
+    } catch {
       setToastMessage('Error accedint a la càmera. Comprova els permisos.');
       setShowToast(true);
     }
@@ -159,17 +156,13 @@ const AddLocation: React.FC = () => {
         setIsUploadingPhoto(true);
         try {
           await photoService.uploadPhotoForLocation(selectedPhoto, savedLocation.id);
-          console.log('Foto pujada amb èxit per localització:', savedLocation.id);
-        } catch (photoError) {
-          console.error('Error pujant foto:', photoError);
+        } catch {
           setToastMessage('Localització guardada, però error pujant la foto.');
           setShowToast(true);
         } finally {
           setIsUploadingPhoto(false);
         }
       }
-      
-      console.log('Localització guardada:', savedLocation);
       
       // Afegir el marker al mapa immediatament
       googleMapsService.addLocation(savedLocation);
@@ -181,15 +174,7 @@ const AddLocation: React.FC = () => {
       setToastMessage('Localització guardada amb èxit! 🍄');
       setShowToast(true);
       
-      // Opcional: navegar a la llista després d'un temps
-      setTimeout(() => {
-        if (window.confirm('Vols veure totes les localitzacions guardades?')) {
-          history.push('/locations');
-        }
-      }, 2000);
-      
-    } catch (error) {
-      console.error('Error guardant localització:', error);
+    } catch {
       setToastMessage('Error guardant la localització. Torna-ho a provar.');
       setShowToast(true);
     } finally {
@@ -204,14 +189,11 @@ const AddLocation: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className="nature-header">
-          <IonTitle>Afegir Localització</IonTitle>
-        </IonToolbar>
+        <SectionHeader icon={addOutline} title="Afegir Localització" />
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Afegir Localització</IonTitle>
           </IonToolbar>
         </IonHeader>
 
@@ -223,37 +205,38 @@ const AddLocation: React.FC = () => {
         <IonLoading isOpen={loading} message="Obtenint ubicació..." />
 
         <div className="container">
-          <IonCard className="nature-card">
+          <IonCard className="nature-card location-card-compact">
             <IonCardHeader>
-              <IonCardTitle className="title-section">
-                <IonIcon icon={locationOutline} style={{ marginRight: '8px' }} />
+              <IonCardTitle className="card-title">
+                <IonIcon icon={locationOutline} />
                 La Teva Ubicació
               </IonCardTitle>
             </IonCardHeader>
             
             <IonCardContent>
               {loading && (
-                <div className="text-center p-lg">
-                  <p>Obtenint la teva ubicació actual...</p>
+                <div className="text-center">
+                  <p>Obtenint ubicació...</p>
                 </div>
               )}
 
               {error && !loading && (
-                <div className="text-center p-lg">
+                <div className="text-center">
                   <IonIcon 
                     icon={locationOutline} 
-                    style={{ fontSize: '48px', color: 'var(--ion-color-danger)', marginBottom: '16px' }} 
+                    className="icon-danger mb-2" 
+                    style={{ fontSize: '1.5rem' }}
                   />
-                  <p style={{ color: 'var(--ion-color-danger)', marginBottom: '16px' }}>
+                  <p className="text-red-500 mb-2" style={{ fontSize: '0.9rem' }}>
                     {error?.message}
                   </p>
                   <IonButton 
                     fill="outline" 
-                    className="btn-primary"
                     onClick={handleLocationUpdate}
+                    size="small"
                   >
                     <IonIcon icon={refreshOutline} slot="start" />
-                    Tornar a Intentar
+                    Reintentar
                   </IonButton>
                 </div>
               )}
@@ -277,10 +260,10 @@ const AddLocation: React.FC = () => {
                       <IonLabel>
                         <h3>Precisió GPS</h3>
                         <p>
-                          ±{accuracy.toFixed(0)} metres 
+                          ±{accuracy.toFixed(0)}m 
                           {accuracy <= 20 && " (Excel·lent)"}
-                          {accuracy > 20 && accuracy <= 50 && " (Acceptable)"}
-                          {accuracy > 50 && " (Baixa - considera millorar)"}
+                          {accuracy > 20 && accuracy <= 50 && " (OK)"}
+                          {accuracy > 50 && " (Baixa)"}
                         </p>
                       </IonLabel>
                     </IonItem>
@@ -290,26 +273,24 @@ const AddLocation: React.FC = () => {
 
               <div className="form-actions">
                 <IonButton
-                  expand="block"
-                  className="btn-primary"
                   onClick={handleLocationUpdate}
                   disabled={loading}
+                  size="small"
                 >
                   <IonIcon icon={refreshOutline} slot="start" />
-                  {location ? 'Actualitzar Ubicació' : 'Obtenir Ubicació'}
+                  {location ? 'Actualitzar' : 'Obtenir'}
                 </IonButton>
                 
                 {location && accuracy && accuracy > 20 && (
                   <IonButton
-                    expand="block"
                     fill="outline"
                     color="warning"
                     onClick={handleHighAccuracyLocation}
                     disabled={loading}
-                    className="mt-2"
+                    size="small"
                   >
                     <IonIcon icon={locationOutline} slot="start" />
-                    Millorar Precisió (Alta Qualitat)
+                    Precisió
                   </IonButton>
                 )}
               </div>
@@ -320,8 +301,8 @@ const AddLocation: React.FC = () => {
           {location && !loading && (
             <IonCard className="nature-card">
               <IonCardHeader>
-                <IonCardTitle className="title-section">
-                  <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
+                <IonCardTitle className="card-title">
+                  <IonIcon icon={addOutline} />
                   Afegir Nova Localització
                 </IonCardTitle>
               </IonCardHeader>
@@ -332,7 +313,7 @@ const AddLocation: React.FC = () => {
                     <IonLabel position="stacked">Nom de la localització *</IonLabel>
                     <IonInput
                       value={formData.name}
-                      placeholder="Exemple: Bosc de pins del parc"
+                      placeholder="Exemple: Rovelló gran"
                       onIonInput={(e) => handleInputChange('name', e.detail.value!)}
                       required
                     />
@@ -351,12 +332,10 @@ const AddLocation: React.FC = () => {
                   {/* Secció de foto */}
                   <IonItem>
                     <IonLabel position="stacked">Foto (opcional)</IonLabel>
-                    <div style={{ width: '100%', marginTop: '8px' }}>
+                    <div className="photo-section">
                       {/* Botó per fer foto */}
                       {!photoPreviewUrl && (
                         <IonButton
-                          expand="block"
-                          fill="outline"
                           onClick={handleTakePhoto}
                         >
                           <IonIcon icon={cameraOutline} slot="start" />
@@ -383,13 +362,7 @@ const AddLocation: React.FC = () => {
                           </IonButton>
                           
                           {/* Botó per fer nova foto */}
-                          <IonButton
-                            expand="block"
-                            fill="outline"
-                            size="small"
-                            onClick={handleTakePhoto}
-                            className="photo-select-button"
-                          >
+                          <IonButton onClick={handleTakePhoto}>
                             <IonIcon icon={cameraOutline} slot="start" />
                             Fer Nova Foto
                           </IonButton>
@@ -402,7 +375,6 @@ const AddLocation: React.FC = () => {
                 <div className="form-actions">
                   <IonButton
                     expand="block"
-                    className="btn-primary"
                     onClick={handleSubmitLocation}
                     disabled={isSubmitting || !formData.name.trim()}
                   >
@@ -417,9 +389,9 @@ const AddLocation: React.FC = () => {
                   <IonButton
                     expand="block"
                     fill="outline"
-                    className="btn-secondary"
+                    color="primary"
+                    className="mt-3"
                     routerLink="/locations"
-                    style={{ marginTop: '12px' }}
                   >
                     <IonIcon icon={listOutline} slot="start" />
                     Veure totes les localitzacions

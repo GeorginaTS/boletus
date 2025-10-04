@@ -106,8 +106,8 @@ const UserProfileForm: React.FC<UserProfileFormProps> = ({ isNew = false, onSave
   return (
     <IonCard className="nature-card form-container">
       <IonCardHeader>
-        <IonCardTitle className="title-section">
-          <IonIcon icon={person} style={{ marginRight: '8px' }} />
+        <IonCardTitle className="card-title">
+          <IonIcon icon={person} />
           {isNew ? 'Crear Perfil' : 'Editar Perfil'}
         </IonCardTitle>
       </IonCardHeader>
@@ -167,7 +167,6 @@ const UserProfileForm: React.FC<UserProfileFormProps> = ({ isNew = false, onSave
             <IonButton
               expand="block"
               type="submit"
-              className="btn-primary"
               disabled={isSubmitting || loading}
             >
               <IonIcon icon={save} slot="start" />
