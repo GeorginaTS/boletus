@@ -4,10 +4,12 @@ import AuthGuard from '@components/AuthGuard';
 import {
   IonApp,
   IonRouterOutlet,
+  IonSpinner,
   IonTabs,
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Suspense } from 'react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -48,7 +50,13 @@ const App: React.FC = () => (
         <AuthGuard>
           <IonTabs>
             <IonRouterOutlet>
-              <AppRoutes />
+              <Suspense fallback={
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                  <IonSpinner name="circular" />
+                </div>
+              }>
+                <AppRoutes />
+              </Suspense>
             </IonRouterOutlet>
             <AppTabBar />
           </IonTabs>

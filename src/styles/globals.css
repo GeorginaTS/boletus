@@ -116,8 +116,6 @@
   .map-marker {
     @apply bg-white border-2 border-green-600 rounded-full shadow-lg;
   }
-}
-
   /* Spacing utilities personalitzats */
   .space-xs {
     @apply space-y-1;
@@ -153,6 +151,7 @@
   .slide-up {
     @apply animate-slide-up;
   }
+}
 
 /* Utilities personalitzades */
 @layer utilities {
@@ -341,26 +340,7 @@
   padding-top: var(--spacing-md);
 }
 
-/* === BOTONS GLOBALS === */
-.btn-primary {
-  --background: var(--ion-color-primary);
-  --background-hover: var(--ion-color-primary-shade);
-  --color: var(--ion-color-primary-contrast);
-  --border-radius: var(--border-radius-lg);
-  height: var(--height-button);
-  font-weight: var(--font-weight-semibold);
-  transition: var(--transition-base);
-}
-
-.btn-secondary {
-  --background: var(--ion-color-secondary);
-  --background-hover: var(--ion-color-secondary-shade);
-  --color: var(--ion-color-secondary-contrast);
-  --border-radius: var(--border-radius-lg);
-  height: var(--height-button);
-  font-weight: var(--font-weight-semibold);
-  transition: var(--transition-base);
-}
+/* === BOTONS GLOBALS (duplicats eliminats) === */
 
 .btn-danger {
   --background: var(--ion-color-danger);

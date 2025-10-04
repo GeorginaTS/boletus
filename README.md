@@ -1,40 +1,52 @@
 # 🍄 Mushroom Finder
 
-A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated mapping system and user geolocation features.
+A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated Google Maps system and comprehensive location management.
 
 ## 🌟 Features
 
-- **🗺️ Interactive Mapping**: Full-screen Leaflet maps with user location tracking
-- **📍 Geolocation Services**: Real-time GPS coordinates with high accuracy positioning
-- **👤 User Profiles**: Complete user management with authentication via Firebase
-- **🔐 Authentication**: Secure login and registration system
-- **💾 Data Persistence**: Cloud storage with Firestore for user profiles and locations
+- **🗺️ Google Maps Integration**: Advanced mapping with Google Maps JavaScript API and custom mushroom markers
+- **🍄 Mushroom Location Management**: Complete CRUD system for tracking mushroom spots with detailed information
+- **� Interactive Markers**: Click-to-add locations with emoji mushroom markers (🍄) on the map
+- **📱 Location List Management**: Comprehensive list view with swipe actions and map navigation
+- **🔐 Firebase Authentication**: Secure user authentication and session management
+- **💾 Firestore Database**: Real-time cloud storage for locations and user data
+- **🚀 Production Ready**: Deployed to Firebase Hosting with optimized build performance
+- **⚡ Code Splitting**: Lazy loading and manual chunking for optimal performance
 - **📱 Cross-Platform**: Native mobile experience with web compatibility
-- **🎨 Nature-Inspired Theme**: Custom design with forest and earth tones
-- **🌓 Dark Mode Support**: Adaptive theming for all lighting conditions
+- **🎨 Modern UI**: Clean Ionic design with intuitive navigation and responsive layout
 
 ## 🚀 Tech Stack
 
 ### Frontend
 
 - **Framework**: [Ionic React](https://ionicframework.com/) v8.5.0
-- **Language**: TypeScript
-- **Build Tool**: Vite v5.4.20
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v3.x with custom nature theme
-- **Maps**: [Leaflet](https://leafletjs.com/) v1.9.4
+- **Language**: TypeScript v5.1.6
+- **Build Tool**: Vite v5.4.20 with optimized chunking
+- **Styling**: Ionic CSS with custom theming
+- **Maps**: Google Maps JavaScript API with AdvancedMarkerElement
 - **UI Icons**: Ionicons v7.4.0
+- **Performance**: Code splitting with React.lazy and Suspense
 
 ### Backend & Cloud
 
-- **Database**: [Firebase Firestore](https://firebase.google.com/products/firestore)
-- **Authentication**: Firebase Auth
-- **Storage**: Firebase Cloud Storage
+- **Database**: [Firebase Firestore](https://firebase.google.com/products/firestore) v10.x
+- **Authentication**: Firebase Auth v10.x
+- **Hosting**: Firebase Hosting with SPA configuration
+- **Deployment**: Firebase CLI with automated builds
 
 ### Mapping & Location
 
-- **Maps**: Google Maps JavaScript API with optimized async loading
-- **Geolocation**: @capacitor/geolocation v7.1.5 with web fallback
-- **Location Storage**: Automatic saving to Firebase Firestore
+- **Maps**: Google Maps JavaScript API with custom mushroom markers
+- **Advanced Markers**: Modern AdvancedMarkerElement with emoji icons (🍄)
+- **Location Services**: Browser geolocation with Firebase persistence
+- **Map Interactions**: Click-to-add locations and location-focused navigation
+
+### Performance & Optimization
+
+- **Code Splitting**: Dynamic imports with React.lazy for pages
+- **Bundle Optimization**: Manual chunking (React, Firebase, Vendor, Pages)
+- **Build Optimization**: Terser minification with console removal
+- **Caching**: Optimized Firebase Hosting cache headers
 
 ### Mobile Development
 
@@ -53,34 +65,37 @@ A modern hybrid mobile application built with Ionic React and TypeScript for mus
 mushroom-finder/
 ├── src/
 │   ├── components/          # Reusable UI components
-│   │   ├── AuthGuard.tsx   # Route protection
-│   │   ├── MapView.tsx     # Leaflet map component
-│   │   └── UserProfileForm.tsx
+│   │   ├── AuthGuard.tsx   # Route protection component
+│   │   └── ExploreContainer.tsx # Template component
 │   ├── contexts/           # React Context providers
 │   │   └── AuthContext.tsx # Authentication state management
-│   ├── hooks/              # Custom React hooks
-│   │   ├── useGeolocation.ts    # Geolocation management
-│   │   └── useLocationStorage.ts # Location persistence
-│   ├── pages/              # Main application screens
-│   │   ├── Login.tsx       # Authentication
+│   ├── pages/              # Main application screens (lazy loaded)
+│   │   ├── Map.tsx         # Google Maps with mushroom markers
+│   │   ├── AddLocation.tsx # Location creation form
+│   │   ├── LocationsList.tsx # Location management list
 │   │   ├── Profile.tsx     # User profile management
-│   │   ├── Map.tsx         # Full-screen mapping
-│   │   └── Tab1.tsx, Tab2.tsx, Tab3.tsx
+│   │   └── Login.tsx       # Authentication page
+│   ├── routes/             # Application routing
+│   │   └── routes.tsx      # Lazy-loaded route configuration
 │   ├── services/           # API and external services
-│   │   ├── authService.ts      # Firebase authentication
-│   │   ├── firestoreService.ts # Database operations
-│   │   └── geolocationService.ts # Location services
-│   ├── theme/              # Global styling and theming
-│   │   └── variables.css   # CSS custom properties and utilities
+│   │   ├── firestoreService.ts # Complete Firestore CRUD operations
+│   │   ├── googleMapsService.ts # Google Maps integration
+│   │   └── authService.ts  # Firebase authentication
 │   ├── types/              # TypeScript type definitions
+│   │   ├── location.ts     # Location interfaces and types
 │   │   └── user.ts         # User profile interfaces
+│   ├── theme/              # Global styling and theming
+│   │   └── variables.css   # Ionic CSS custom properties
 │   └── config/             # Configuration files
 │       └── firebase.ts     # Firebase initialization
 ├── public/                 # Static assets
+│   ├── manifest.json       # PWA manifest
+│   └── favicon.png         # App icon
 ├── cypress/                # E2E testing configuration
-├── docs/                   # Project documentation
-│   └── copilot-instructions.md # Development guidelines
-└── dist/                   # Build output
+├── firebase.json           # Firebase Hosting configuration
+├── .firebaserc            # Firebase project configuration
+├── vite.config.ts         # Optimized Vite configuration
+└── dist/                  # Optimized build output (chunked)
 ```
 
 ## 🛠️ Installation
@@ -105,34 +120,45 @@ mushroom-finder/
    npm install
    ```
 
-3. **Environment Configuration**
-   Copy `.env.example` to `.env` and configure your API keys:
+3. **Firebase Configuration**
+   Configure Firebase in `src/config/firebase.ts`:
+
    ```typescript
-   # Google Maps API Key (required)
-   VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
-   
-   # Firebase Configuration (required)
-   VITE_FIREBASE_API_KEY=your_firebase_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   # ... other Firebase configs
-   export const db = getFirestore(app);
+   // Firebase Configuration (required)
+   const firebaseConfig = {
+     apiKey: "your_firebase_api_key",
+     authDomain: "your_project.firebaseapp.com",
+     projectId: "your_project_id",
+     storageBucket: "your_project.appspot.com",
+     messagingSenderId: "123456789",
+     appId: "your_app_id"
+   };
    ```
 
-4. **Start development server**
+4. **Google Maps Setup**
+   Add your Google Maps API key to the HTML head in `index.html`:
+
+   ```html
+   <script async defer
+     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=marker">
+   </script>
+   ```
+
+5. **Start development server**
+
    ```bash
    npm run dev
    ```
 
-5. **Access the application**
+6. **Access the application**
    Open [http://localhost:5173](http://localhost:5173) in your browser
 
-### 🗺️ Google Maps Setup
+### 🗺️ Google Maps API Setup
 
 1. **Get API Key**: Visit [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/)
-2. **Enable APIs**: Enable "Maps JavaScript API" for your project
+2. **Enable APIs**: Enable "Maps JavaScript API" and "Advanced Markers API"
 3. **Set Restrictions**: Configure API key restrictions for security
-4. **Add to Environment**: Set `VITE_GOOGLE_MAPS_API_KEY` in your `.env` file
+4. **Add to HTML**: Add the script tag with your API key to `index.html`
 
 > **Note**: This project uses Tailwind CSS v3.4.x with CommonJS configuration files (`tailwind.config.cjs` and `postcss.config.cjs`) to ensure compatibility with ES modules.
 
@@ -268,18 +294,52 @@ interface UserProfile {
 
 ## 🚀 Deployment
 
-### Web Deployment
+### Firebase Hosting (Production)
+
+The application is deployed to Firebase Hosting with optimized performance:
+
+**Live Application**: [https://boletus-eb305.web.app](https://boletus-eb305.web.app)
 
 ```bash
-npm run build
-# Deploy the 'dist' folder to your hosting provider
+# Build optimized production version
+ionic build --prod
+
+# Deploy to Firebase Hosting
+firebase deploy --only hosting
 ```
+
+### Build Optimization Features
+
+- **Code Splitting**: Pages loaded dynamically with React.lazy()
+- **Manual Chunking**: Separated vendor libraries (React, Firebase, Google Maps)
+- **Terser Minification**: Compressed JavaScript with console.log removal
+- **Optimized Caching**: Firebase Hosting cache headers for static assets
+
+### Build Output Analysis
+
+```bash
+# Production build creates optimized chunks:
+dist/assets/react-*.js        (~256kB) # React & React DOM
+dist/assets/firebase-*.js     (~495kB) # Firebase services  
+dist/assets/vendor-*.js       (~500kB) # Third-party libraries
+dist/assets/pages-*.js        (~15kB)  # Application pages (lazy loaded)
+dist/assets/services-*.js     (~17kB)  # Application services
+dist/assets/components-*.js   (~5kB)   # UI components
+```
+
+### Firebase Configuration
+
+- **Hosting**: Single Page Application (SPA) configuration
+- **Rewrites**: Client-side routing support for Ionic React
+- **Cache Headers**: Optimized for static assets and dynamic content
+- **Build Directory**: `dist` (Vite build output)
 
 ### PWA Features
 
 - Service worker support
-- Offline capability
+- Offline capability  
 - App manifest for home screen installation
+- Progressive loading with code splitting
 
 ## 🤝 Contributing
 
@@ -303,26 +363,92 @@ npm run build
 - iOS requires location permissions configuration in Info.plist
 - Some older Android devices may have reduced GPS accuracy
 
+## 🍄 Location Management System
+
+### Core Features
+
+- **Interactive Map**: Click anywhere on the map to add new mushroom locations
+- **Mushroom Markers**: Custom emoji markers (🍄) for visual location identification
+- **Location Details**: Name, description, coordinates, and timestamps for each location
+- **CRUD Operations**: Complete Create, Read, Update, Delete functionality
+- **Real-time Sync**: Instant synchronization with Firebase Firestore
+- **List Management**: Comprehensive location list with swipe-to-delete actions
+- **Map Navigation**: Jump directly to locations from the list view
+
+### Location Data Structure
+
+```typescript
+interface Location {
+  id: string;
+  name: string;
+  description: string;
+  lat: number;
+  lng: number;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+}
+```
+
+### User Interface
+
+- **Map Page**: Google Maps with click-to-add functionality and user location tracking
+- **Add Location Page**: Form-based location creation with validation
+- **Locations List Page**: Swipeable list with edit, delete, and map navigation actions
+- **Responsive Design**: Optimized for both mobile and desktop experiences
+
+### Technical Implementation
+
+- **Google Maps Integration**: Advanced markers with custom styling
+- **Firestore Service**: Comprehensive database operations with error handling
+- **Real-time Updates**: Live synchronization across all application instances
+- **Performance Optimization**: Lazy loading and efficient data fetching
+
 ## 🔮 Roadmap
 
-- [ ] Mushroom species database integration
-- [ ] Photo upload for mushroom findings
-- [ ] Social features for sharing discoveries
-- [ ] Offline map caching
+- [ ] Photo upload for mushroom findings with image storage
+- [ ] Mushroom species database and identification features
 - [ ] Weather integration for optimal foraging conditions
+- [ ] Offline map caching and location storage
+- [ ] Social features for sharing discoveries with community
 - [ ] Advanced filtering and search capabilities
+- [ ] GPS track recording for foraging routes
+- [ ] Push notifications for nearby discoveries
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## ⚡ Performance Optimizations
+
+### Build Optimizations
+
+- **Code Splitting**: Dynamic imports with React.lazy() for all pages
+- **Manual Chunking**: Strategic separation of vendor libraries
+- **Bundle Analysis**: Optimized chunk sizes under warning thresholds
+- **Minification**: Terser optimization with production-ready output
+
+### Loading Performance
+
+- **Lazy Loading**: Pages load only when accessed
+- **Suspense Loading**: Smooth loading states with spinner feedback  
+- **Efficient Caching**: Firebase Hosting optimized cache headers
+- **Reduced Bundle Size**: Separated chunks for better cache utilization
+
+### Runtime Performance
+
+- **Google Maps Optimization**: Efficient marker management and API usage
+- **Firestore Optimization**: Batched operations and real-time listeners
+- **React Optimization**: Proper component lifecycle and state management
+
 ## 🙏 Acknowledgments
 
 - [Ionic Framework](https://ionicframework.com/) for the excellent hybrid development platform
-- [Firebase](https://firebase.google.com/) for backend services
-- [Leaflet](https://leafletjs.com/) for beautiful interactive maps
-- [OpenStreetMap](https://www.openstreetmap.org/) for map data
-- Nature photographers for inspiring the visual design
+- [Firebase](https://firebase.google.com/) for comprehensive backend services and hosting
+- [Google Maps](https://developers.google.com/maps) for advanced mapping capabilities
+- [Vite](https://vitejs.dev/) for fast build tooling and optimization features
+- [React](https://reactjs.org/) for the robust component architecture
+- Nature photographers and mushroom enthusiasts for inspiring the application concept
 
 ## 📞 Support
 

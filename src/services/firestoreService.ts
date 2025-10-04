@@ -1,6 +1,8 @@
 import { db } from "@/config/firebase";
 import {
+  addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -11,6 +13,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import { CreateLocation, Location, UpdateLocation } from "../types/location";
 import {
   CreateUserProfileData,
   UpdateUserProfileData,
@@ -18,6 +21,7 @@ import {
 } from "../types/user";
 
 const USERS_COLLECTION = "users";
+const LOCATIONS_COLLECTION = "locations";
 
 export interface FirestoreService {
   // Crear perfil d'usuari
@@ -50,6 +54,30 @@ export interface FirestoreService {
     latitude: number,
     longitude: number
   ) => Promise<void>;
+
+  // === OPERACIONS DE LOCALITZACIONS ===
+
+  // Crear nova localització
+  createLocation: (locationData: CreateLocation) => Promise<Location>;
+
+  // Obtenir localització per ID
+  getLocation: (id: string) => Promise<Location | null>;
+
+  // Obtenir totes les localitzacions
+  getAllLocations: () => Promise<Location[]>;
+
+  // Actualitzar localització
+  updateLocation: (id: string, locationData: UpdateLocation) => Promise<void>;
+
+  // Eliminar localització
+  deleteLocation: (id: string) => Promise<void>;
+
+  // Obtenir localitzacions properes a una ubicació
+  getNearbyLocations: (
+    lat: number,
+    lng: number,
+    radiusKm?: number
+  ) => Promise<Location[]>;
 }
 
 class FirestoreUserService implements FirestoreService {
@@ -275,7 +303,206 @@ class FirestoreUserService implements FirestoreService {
     }
   }
 
+  // === OPERACIONS DE LOCALITZACIONS ===
+
+  async createLocation(locationData: CreateLocation): Promise<Location> {
+    try {
+      console.log("Creant nova localització:", locationData);
+
+      const locationsRef = collection(db, LOCATIONS_COLLECTION);
+
+      const newLocation = {
+        ...locationData,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      };
+
+      const docRef = await addDoc(locationsRef, newLocation);
+
+      // Retornar la localització creada
+      return {
+        id: docRef.id,
+        ...locationData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      } as Location;
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error creant localització:", {
+        error,
+        code: firestoreError?.code,
+        message: firestoreError?.message,
+        locationData,
+      });
+
+      throw new Error(
+        `Error creant localització: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
+  async getLocation(id: string): Promise<Location | null> {
+    try {
+      const locationRef = doc(db, LOCATIONS_COLLECTION, id);
+      const locationSnap = await getDoc(locationRef);
+
+      if (locationSnap.exists()) {
+        const data = locationSnap.data();
+        return {
+          id: locationSnap.id,
+          ...data,
+          createdAt:
+            data.createdAt instanceof Timestamp
+              ? data.createdAt.toDate()
+              : data.createdAt,
+          updatedAt:
+            data.updatedAt instanceof Timestamp
+              ? data.updatedAt.toDate()
+              : data.updatedAt,
+        } as Location;
+      }
+
+      return null;
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error obtenint localització:", error);
+      throw new Error(
+        `Error obtenint localització: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
+  async getAllLocations(): Promise<Location[]> {
+    try {
+      const locationsRef = collection(db, LOCATIONS_COLLECTION);
+      const querySnapshot = await getDocs(locationsRef);
+
+      const locations: Location[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        locations.push({
+          id: doc.id,
+          ...data,
+          createdAt:
+            data.createdAt instanceof Timestamp
+              ? data.createdAt.toDate()
+              : data.createdAt,
+          updatedAt:
+            data.updatedAt instanceof Timestamp
+              ? data.updatedAt.toDate()
+              : data.updatedAt,
+        } as Location);
+      });
+
+      return locations;
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error obtenint localitzacions:", error);
+      throw new Error(
+        `Error obtenint localitzacions: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
+  async updateLocation(
+    id: string,
+    locationData: UpdateLocation
+  ): Promise<void> {
+    try {
+      const locationRef = doc(db, LOCATIONS_COLLECTION, id);
+
+      const updateData = {
+        ...locationData,
+        updatedAt: serverTimestamp(),
+      };
+
+      await updateDoc(locationRef, updateData);
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error actualitzant localització:", error);
+      throw new Error(
+        `Error actualitzant localització: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
+  async deleteLocation(id: string): Promise<void> {
+    try {
+      const locationRef = doc(db, LOCATIONS_COLLECTION, id);
+      await deleteDoc(locationRef);
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error eliminant localització:", error);
+      throw new Error(
+        `Error eliminant localització: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
+  async getNearbyLocations(
+    lat: number,
+    lng: number,
+    radiusKm: number = 10
+  ): Promise<Location[]> {
+    try {
+      // Nota: Aquesta és una implementació simple. Per una funcionalitat més avançada
+      // es podria utilitzar GeoFirestore o implementar queries geoespacials més complexes
+      const allLocations = await this.getAllLocations();
+
+      return allLocations.filter((location) => {
+        const distance = this.calculateDistance(
+          lat,
+          lng,
+          location.lat,
+          location.lng
+        );
+        return distance <= radiusKm;
+      });
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error obtenint localitzacions properes:", error);
+      throw new Error(
+        `Error obtenint localitzacions properes: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
   // Mètodes auxiliars
+  private calculateDistance(
+    lat1: number,
+    lng1: number,
+    lat2: number,
+    lng2: number
+  ): number {
+    const R = 6371; // Radi de la Terra en km
+    const dLat = this.deg2rad(lat2 - lat1);
+    const dLng = this.deg2rad(lng2 - lng1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) *
+        Math.cos(this.deg2rad(lat2)) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  private deg2rad(deg: number): number {
+    return deg * (Math.PI / 180);
+  }
+
   private getErrorMessage(errorCode: string): string {
     switch (errorCode) {
       case "permission-denied":

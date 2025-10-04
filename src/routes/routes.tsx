@@ -1,9 +1,13 @@
 import { IonIcon, IonLabel, IonTabBar, IonTabButton } from '@ionic/react';
-import AddLocation from '@pages/AddLocation';
-import Map from '@pages/Map';
-import Profile from '@pages/Profile';
-import { addCircle, map, person } from 'ionicons/icons';
+import { addCircle, list, map, person } from 'ionicons/icons';
+import { lazy } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+
+// Lazy load components for code splitting
+const Map = lazy(() => import('@pages/Map'));
+const AddLocation = lazy(() => import('@pages/AddLocation'));
+const LocationsList = lazy(() => import('@pages/LocationsList'));
+const Profile = lazy(() => import('@pages/Profile'));
 
 // Configuració de routes
 const routesConfig = [
@@ -22,6 +26,14 @@ const routesConfig = [
     label: "Afegir lloc",
     icon: addCircle,
     tabId: "add-location",
+  },
+  {
+    path: "/locations",
+    component: LocationsList,
+    exact: true,
+    label: "Localitzacions",
+    icon: list,
+    tabId: "locations",
   },
   {
     path: "/profile",

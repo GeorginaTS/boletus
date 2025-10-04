@@ -1,4 +1,5 @@
 import useGeolocation from '@/hooks/useGeolocation';
+import { CreateLocation } from '@/types/location';
 import {
   IonButton,
   IonCard,
@@ -8,6 +9,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonInput,
   IonItem,
   IonLabel,
   IonList,
@@ -15,19 +17,31 @@ import {
   IonPage,
   IonRefresher,
   IonRefresherContent,
+  IonTextarea,
   IonTitle,
   IonToast,
   IonToolbar
 } from '@ionic/react';
+import { firestoreService } from '@services/firestoreService';
 import { geolocationService } from '@services/geolocationService';
-import { locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
+import { googleMapsService } from '@services/googleMapsService';
+import { addOutline, checkmarkOutline, listOutline, locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './AddLocation.css';
 
 const AddLocation: React.FC = () => {
   const { location, loading, error, getCurrentLocation } = useGeolocation(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const history = useHistory();
+  
+  // Estat del formulari
+  const [formData, setFormData] = useState({
+    name: '',
+    description: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleRefresh = async (event: CustomEvent) => {
     await getCurrentLocation();
@@ -38,6 +52,65 @@ const AddLocation: React.FC = () => {
     await getCurrentLocation();
     setToastMessage(location ? 'Ubicació actualitzada!' : 'Ubicació obtinguda!');
     setShowToast(true);
+  };
+
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmitLocation = async () => {
+    if (!location) {
+      setToastMessage('Primer has d\'obtenir la teva ubicació!');
+      setShowToast(true);
+      return;
+    }
+
+    if (!formData.name.trim()) {
+      setToastMessage('El nom de la localització és obligatori!');
+      setShowToast(true);
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      
+      const newLocation: CreateLocation = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        lat: location.latitude,
+        lng: location.longitude
+      };
+
+      const savedLocation = await firestoreService.createLocation(newLocation);
+      
+      console.log('Localització guardada:', savedLocation);
+      
+      // Afegir el marker al mapa immediatament
+      googleMapsService.addLocation(savedLocation);
+      
+      // Resetear formulari
+      setFormData({ name: '', description: '' });
+      
+      setToastMessage('Localització guardada amb èxit! 🍄');
+      setShowToast(true);
+      
+      // Opcional: navegar a la llista després d'un temps
+      setTimeout(() => {
+        if (window.confirm('Vols veure totes les localitzacions guardades?')) {
+          history.push('/locations');
+        }
+      }, 2000);
+      
+    } catch (error) {
+      console.error('Error guardant localització:', error);
+      setToastMessage('Error guardant la localització. Torna-ho a provar.');
+      setShowToast(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
 
@@ -107,35 +180,7 @@ const AddLocation: React.FC = () => {
                       <h3>Coordenades</h3>
                       <p>{geolocationService.formatCoordinates(location)}</p>
                     </IonLabel>
-                  </IonItem>
-                  
-                  <IonItem>
-                    <IonLabel>
-                      <h3>Latitud</h3>
-                      <p>{location.latitude.toFixed(6)}°</p>
-                    </IonLabel>
-                  </IonItem>
-                  
-                  <IonItem>
-                    <IonLabel>
-                      <h3>Longitud</h3>
-                      <p>{location.longitude.toFixed(6)}°</p>
-                    </IonLabel>
-                  </IonItem>
-                  
-                  <IonItem>
-                    <IonLabel>
-                      <h3>Precisió</h3>
-                      <p>{geolocationService.formatAccuracy(location.accuracy)}</p>
-                    </IonLabel>
-                  </IonItem>
-                  
-                  <IonItem>
-                    <IonLabel>
-                      <h3>Última Actualització</h3>
-                      <p>{geolocationService.formatTimestamp(location.timestamp)}</p>
-                    </IonLabel>
-                  </IonItem>
+                  </IonItem>            
                 </IonList>
               )}
 
@@ -152,6 +197,65 @@ const AddLocation: React.FC = () => {
               </div>
             </IonCardContent>
           </IonCard>
+
+          {/* Formulari per afegir localització */}
+          {location && !loading && (
+            <IonCard className="nature-card">
+              <IonCardHeader>
+                <IonCardTitle className="title-section">
+                  <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
+                  Afegir Nova Localització
+                </IonCardTitle>
+              </IonCardHeader>
+              
+              <IonCardContent>
+                <div className="form-container">
+                  <IonItem>
+                    <IonLabel position="stacked">Nom de la localització *</IonLabel>
+                    <IonInput
+                      value={formData.name}
+                      placeholder="Exemple: Bosc de pins del parc"
+                      onIonInput={(e) => handleInputChange('name', e.detail.value!)}
+                      required
+                    />
+                  </IonItem>
+                  
+                  <IonItem>
+                    <IonLabel position="stacked">Descripció</IonLabel>
+                    <IonTextarea
+                      value={formData.description}
+                      placeholder="Descripció de la localització, tipus de bolets trobats, etc."
+                      rows={4}
+                      onIonInput={(e) => handleInputChange('description', e.detail.value!)}
+                    />
+                  </IonItem>
+                </div>
+                
+                <div className="form-actions">
+                  <IonButton
+                    expand="block"
+                    className="btn-primary"
+                    onClick={handleSubmitLocation}
+                    disabled={isSubmitting || !formData.name.trim()}
+                  >
+                    <IonIcon icon={checkmarkOutline} slot="start" />
+                    {isSubmitting ? 'Guardant...' : 'Guardar Localització'}
+                  </IonButton>
+                  
+                  <IonButton
+                    expand="block"
+                    fill="outline"
+                    className="btn-secondary"
+                    routerLink="/locations"
+                    style={{ marginTop: '12px' }}
+                  >
+                    <IonIcon icon={listOutline} slot="start" />
+                    Veure totes les localitzacions
+                  </IonButton>
+                </div>
+              </IonCardContent>
+            </IonCard>
+          )}
         </div>
 
         <IonToast

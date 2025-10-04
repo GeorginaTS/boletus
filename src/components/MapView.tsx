@@ -26,6 +26,9 @@ const MapView: React.FC<MapViewProps> = ({
         isInitialized.current = true;
         console.log('🗺️ Google Maps inicialitzat');
         
+        // Carrega les localitzacions guardades
+        await googleMapsService.loadAndDisplayLocations();
+        
         // Redimensiona el mapa després d'un petit retard
         setTimeout(() => {
           googleMapsService.resize();

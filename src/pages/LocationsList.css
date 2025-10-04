@@ -1,0 +1,67 @@
+/* === ESTILS ESPECÍFICS PER LOCATIONSLIST === */
+
+.location-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-color: var(--ion-color-light);
+  margin-bottom: 8px;
+}
+
+.location-item:last-child {
+  margin-bottom: 0;
+}
+
+.location-name {
+  font-weight: 600;
+  color: var(--ion-color-primary);
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+}
+
+.location-description {
+  color: var(--ion-color-medium);
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.location-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--ion-color-medium-shade);
+}
+
+.detail-item ion-icon {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+}
+
+/* === TEMA FOSC === */
+@media (prefers-color-scheme: dark) {
+  .location-name {
+    color: var(--ion-color-primary-tint);
+  }
+
+  .location-description {
+    color: var(--ion-color-light);
+  }
+
+  .detail-item {
+    color: var(--ion-color-light-shade);
+  }
+
+  .detail-item ion-icon {
+    color: var(--ion-color-light-tint);
+  }
+}
