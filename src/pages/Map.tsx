@@ -48,15 +48,22 @@ const Map: React.FC = () => {
         {error && (
           <div className="error-container">
             <div className="error-message">
-              <IonIcon icon={locationOutline} />
-              <h3>Error de geolocalització</h3>
-              <p>{error.message}</p>
-              <IonButton 
-                onClick={handleRefreshLocation}
-                disabled={loading}
-              >
-                Tornar a intentar
-              </IonButton>
+              {/* Exemple d'integració Tailwind + Ionic */}
+              <div className="flex items-center justify-center mb-4">
+                <IonIcon icon={locationOutline} className="text-4xl text-red-500" />
+              </div>
+              <h3 className="text-lg font-bold text-center text-gray-800 mb-2">Error de geolocalització</h3>
+              <p className="text-center text-gray-600 mb-4">{error.message}</p>
+              <div className="flex justify-center">
+                <IonButton 
+                  onClick={handleRefreshLocation}
+                  disabled={loading}
+                  className="btn-earth"
+                >
+                  <IonIcon icon={refreshOutline} slot="start" />
+                  Tornar a intentar
+                </IonButton>
+              </div>
             </div>
           </div>
         )}

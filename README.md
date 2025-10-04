@@ -20,6 +20,7 @@ A modern hybrid mobile application built with Ionic React and TypeScript for mus
 - **Framework**: [Ionic React](https://ionicframework.com/) v8.5.0
 - **Language**: TypeScript
 - **Build Tool**: Vite v5.4.20
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v3.x with custom nature theme
 - **Maps**: [Leaflet](https://leafletjs.com/) v1.9.4
 - **UI Icons**: Ionicons v7.4.0
 
@@ -29,10 +30,15 @@ A modern hybrid mobile application built with Ionic React and TypeScript for mus
 - **Authentication**: Firebase Auth
 - **Storage**: Firebase Cloud Storage
 
+### Mapping & Location
+
+- **Maps**: Google Maps JavaScript API with optimized async loading
+- **Geolocation**: @capacitor/geolocation v7.1.5 with web fallback
+- **Location Storage**: Automatic saving to Firebase Firestore
+
 ### Mobile Development
 
 - **Hybrid Framework**: [Capacitor](https://capacitorjs.com/) v7.4.3
-- **Geolocation**: @capacitor/geolocation v7.1.5
 - **Native Features**: Haptics, Status Bar, Keyboard integration
 
 ### Development Tools
@@ -83,6 +89,7 @@ mushroom-finder/
 
 - Node.js 18+ and npm
 - Firebase project with Firestore and Authentication enabled
+- Google Maps API key with Maps JavaScript API enabled
 - (Optional) Android Studio or Xcode for native development
 
 ### Setup Steps
@@ -98,19 +105,17 @@ mushroom-finder/
    npm install
    ```
 
-3. **Firebase Configuration**
-   Create `src/config/firebase.ts` with your Firebase configuration:
+3. **Environment Configuration**
+   Copy `.env.example` to `.env` and configure your API keys:
    ```typescript
-   import { initializeApp } from 'firebase/app';
-   import { getAuth } from 'firebase/auth';
-   import { getFirestore } from 'firebase/firestore';
-
-   const firebaseConfig = {
-     // Your Firebase config object
-   };
-
-   const app = initializeApp(firebaseConfig);
-   export const auth = getAuth(app);
+   # Google Maps API Key (required)
+   VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
+   
+   # Firebase Configuration (required)
+   VITE_FIREBASE_API_KEY=your_firebase_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   # ... other Firebase configs
    export const db = getFirestore(app);
    ```
 
@@ -121,6 +126,15 @@ mushroom-finder/
 
 5. **Access the application**
    Open [http://localhost:5173](http://localhost:5173) in your browser
+
+### 🗺️ Google Maps Setup
+
+1. **Get API Key**: Visit [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/)
+2. **Enable APIs**: Enable "Maps JavaScript API" for your project
+3. **Set Restrictions**: Configure API key restrictions for security
+4. **Add to Environment**: Set `VITE_GOOGLE_MAPS_API_KEY` in your `.env` file
+
+> **Note**: This project uses Tailwind CSS v3.4.x with CommonJS configuration files (`tailwind.config.cjs` and `postcss.config.cjs`) to ensure compatibility with ES modules.
 
 ## 📱 Building for Mobile
 
@@ -164,18 +178,35 @@ npm run lint
 
 ## 🎨 Theming & Styling
 
-The application uses a comprehensive theming system with:
+The application uses a hybrid theming system combining Tailwind CSS with Ionic's design system:
 
+- **Tailwind CSS**: Primary styling framework with custom nature-themed configuration
 - **CSS Custom Properties**: Centralized design tokens in `src/theme/variables.css`
-- **Global Utility Classes**: Reusable styling classes following BEM methodology
+- **Custom Components**: Tailwind-based components in `src/styles/tailwind.css`
 - **Nature-Inspired Palette**: Forest greens, earth browns, and mushroom tones
-- **Responsive Design**: Mobile-first approach with desktop compatibility
-- **Dark Mode**: Automatic theme switching based on system preferences
+- **Responsive Design**: Mobile-first approach using Tailwind's responsive utilities
+- **Dark Mode**: Automatic theme switching with both Tailwind and Ionic support
 
 ### Key Style Classes
 
+#### Tailwind Custom Components
+
+- `.btn-forest`, `.btn-earth`, `.btn-mushroom` - Nature-themed buttons
+- `.card-nature`, `.data-card` - Custom card components
+- `.input-nature` - Form inputs with nature theme
+- `.data-value-highlight`, `.location-marker` - Data display utilities
+
+#### Tailwind Utilities (Primary)
+
+- `bg-primary-500`, `text-primary-600` - Custom color palette
+- `bg-forest`, `text-earth`, `bg-mushroom` - Theme-specific colors
+- `flex`, `grid`, `p-4`, `rounded-lg` - Layout and spacing
+- `sm:`, `md:`, `lg:` - Responsive design utilities
+
+#### Ionic Classes (Secondary)
+
 - `.container`, `.container-sm`, `.container-lg` - Layout containers
-- `.btn-primary`, `.btn-secondary`, `.btn-danger` - Button variants
+- `.btn-primary`, `.btn-secondary`, `.btn-danger` - Ionic button variants
 - `.data-display`, `.data-value`, `.data-timestamp` - Data presentation
 - `.location-card`, `.nature-card` - Specialized card components
 

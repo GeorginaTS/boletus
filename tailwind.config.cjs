@@ -1,0 +1,72 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        // Colors personalitzats del theme de Mushroom Finder
+        primary: {
+          DEFAULT: "#4a7c3c",
+          50: "#f0f5f0",
+          100: "#d9e7d9",
+          200: "#b8d4b8",
+          300: "#8fbc8f",
+          400: "#6ca56c",
+          500: "#4a7c3c",
+          600: "#41693a",
+          700: "#365630",
+          800: "#2b4326",
+          900: "#22331f",
+        },
+        secondary: {
+          DEFAULT: "#8b4513",
+          50: "#faf7f2",
+          100: "#f2e6d6",
+          200: "#e6ccad",
+          300: "#d4a574",
+          400: "#c08a4a",
+          500: "#8b4513",
+          600: "#7a3d11",
+          700: "#66320e",
+          800: "#52280b",
+          900: "#422009",
+        },
+        tertiary: {
+          DEFAULT: "#d2b48c",
+          50: "#fbf9f5",
+          100: "#f5f0e6",
+          200: "#ede1cc",
+          300: "#e0ccac",
+          400: "#d2b48c",
+          500: "#c49f7b",
+          600: "#b08a6a",
+          700: "#97755a",
+          800: "#7e614a",
+          900: "#68503d",
+        },
+        forest: "#228b22",
+        moss: "#8fbc8f",
+        earth: "#a0522d",
+        bark: "#654321",
+        mushroom: "#8b4513",
+      },
+      fontFamily: {
+        mono: ["Courier New", "monospace"],
+      },
+      spacing: {
+        xs: "0.25rem",
+        sm: "0.5rem",
+        md: "1rem",
+        lg: "1.5rem",
+        xl: "2rem",
+      },
+      borderRadius: {
+        sm: "0.25rem",
+        md: "0.5rem",
+        lg: "0.75rem",
+        full: "9999px",
+      },
+    },
+  },
+  plugins: [],
+};

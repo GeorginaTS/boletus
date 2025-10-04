@@ -2,75 +2,158 @@
 
 ## Política d'Estils i CSS
 
-### PRIORITAT 1: Usar Classes Globals Existents
+### PRIORITAT 1: Usar Tailwind CSS Utilities
 
-Abans de crear qualsevol estil nou, **SEMPRE** revisar primer les classes globals disponibles a `src/theme/variables.css`:
+**SEMPRE** prioritzar les classes d'utilitat de Tailwind abans que qualsevol altre enfocament:
 
-1. **Comprovar variables CSS disponibles** (`--spacing-*`, `--font-size-*`, `--border-radius-*`, etc.)
-2. **Buscar classes globals existents** (`.container`, `.btn-primary`, `.card-header-centered`, etc.)
-3. **Usar classes d'utilitat disponibles** (`.mb-md`, `.mt-lg`, `.text-center`, etc.)
+1. **Classes d'utilitat de Tailwind** (`bg-primary-500`, `text-white`, `p-4`, `rounded-lg`, etc.)
+2. **Components personalitzats de Tailwind** (definits a `src/styles/tailwind.css`)
+3. **Classes globals del theme** (`src/theme/variables.css` per a estils específics d'Ionic)
 
-### PRIORITAT 2: Crear Classes Globals Reutilitzables
+### PRIORITAT 2: Components Personalitzats de Tailwind
 
-Si no existeix una classe adequada, crear-la com a **classe global** a `variables.css`:
+Si cal crear un patró reutilitzable, usar `@layer components` a `src/styles/tailwind.css`:
 
-- **Components reutilitzables**: `.data-display`, `.location-card`, `.form-actions`
-- **Patrons comuns**: `.data-value`, `.data-timestamp`, `.small-text`
-- **Layouts generals**: `.container-*`, `.grid-*`, `.flex-*`
+- **Botons personalitzats**: `.btn-forest`, `.btn-earth`, `.btn-mushroom`
+- **Cards temàtiques**: `.card-nature`, `.data-card`
+- **Inputs personalitzats**: `.input-nature`
+- **Utilitats específiques**: `.data-value-highlight`, `.location-marker`
 
-### PRIORITAT 3: Estils Específics com a Última Opció
+### PRIORITAT 3: Classes Globals d'Ionic (variables.css)
+
+Només per a estils específics d'Ionic que no es poden fer amb Tailwind:
+
+- **Variables CSS d'Ionic** (`--ion-color-*`, ion component overrides)
+- **Estils específics d'Ionic components** que requereixen selectors específics
+
+### PRIORITAT 4: Estils Específics com a Última Opció
 
 Només crear estils específics al fitxer CSS del component quan:
 
 - L'estil és úniquament específic per aquest component
-- No es pot generalitzar per reutilitzar
-- És una modificació menor d'una classe global
+- No es pot crear amb Tailwind utilities
+- És una modificació menor d'un component d'Ionic
 
-## Classes Globals Disponibles
+## Classes Disponibles
 
-### Layout i Contenidors
+### Tailwind CSS Utilities (PRIORITAT 1)
+
+#### Layout & Spacing
+
+- `container`, `mx-auto`, `px-4`, `py-2`, `m-4`, `p-6`
+- `flex`, `grid`, `block`, `inline-block`, `hidden`
+- `w-full`, `h-screen`, `max-w-md`, `min-h-full`
+
+#### Colors (Theme Personalitzat)
+
+- `bg-primary-500`, `text-primary-600`, `border-primary-200`
+- `bg-secondary-400`, `text-secondary-700`
+- `bg-forest`, `text-earth`, `bg-mushroom`
+- `bg-gradient-to-br`, `from-primary-500`, `to-secondary-500`
+
+#### Typography
+
+- `text-sm`, `text-lg`, `text-xl`, `font-bold`, `font-mono`
+- `text-center`, `text-left`, `uppercase`, `tracking-wide`
+
+#### Borders & Rounded
+
+- `rounded-md`, `rounded-lg`, `rounded-full`
+- `border`, `border-2`, `border-primary-200`
+- `shadow-md`, `shadow-lg`
+
+### Components Personalitzats de Tailwind (PRIORITAT 2)
+
+#### Botons Temàtics
+
+- `.btn-forest`, `.btn-earth`, `.btn-mushroom`
+
+#### Cards i Containers
+
+- `.card-nature`, `.data-card`, `.container-responsive`
+
+#### Inputs i Forms
+
+- `.input-nature`
+
+#### Dades i Valors
+
+- `.data-value-highlight`, `.data-timestamp`
+
+#### Utilitats Específiques
+
+- `.location-marker`, `.transition-smooth`, `.text-shadow`
+
+### Classes Globals d'Ionic (PRIORITAT 3)
+
+#### Layout i Contenidors
 
 - `.container`, `.container-sm`, `.container-lg`
 - `.form-container`, `.card-header-centered`
 - `.data-display`, `.segment-container`
 
-### Botons
+#### Botons Ionic
 
 - `.btn-primary`, `.btn-secondary`, `.btn-danger`
 - `.mushroom-button`, `.forest-button`
 
-### Targetes i Components
+#### Components Ionic
 
 - `.nature-card`, `.location-card`
 - `.avatar-lg`, `.avatar-md`, `.avatar-sm`, `.avatar-placeholder`
 
-### Tipografia
+#### Tipografia Ionic
 
 - `.title-primary`, `.title-secondary`, `.title-section`
 - `.small-text`
 
-### Dades i Valors
-
-- `.data-display`, `.data-group`, `.data-value`, `.data-timestamp`
-
-### Utilitats d'Espaiament
+#### Utilitats d'Espaiament Ionic
 
 - `.mb-xs`, `.mb-sm`, `.mb-md`, `.mb-lg`, `.mb-xl`
 - `.mt-xs`, `.mt-sm`, `.mt-md`, `.mt-lg`, `.mt-xl`
 - `.p-xs`, `.p-sm`, `.p-md`, `.p-lg`, `.p-xl`
 
-### Utilitats de Text
+#### Utilitats de Text Ionic
 
 - `.text-center`, `.text-left`, `.text-right`
+
+## Combinant Tailwind amb Ionic
+
+### Bones Pràctiques
+
+1. **Usar Tailwind per layout i estils generals**: `flex`, `grid`, `p-4`, `bg-white`
+2. **Mantenir Ionic per components específics**: `IonButton`, `IonCard`, `IonItem`
+3. **Evitar conflictes**: No sobreescriure estils d'Ionic amb Tailwind force
+4. **Responsive design**: Preferir Tailwind (`sm:`, `md:`, `lg:`) sobre CSS custom
+
+### Exemples d'Implementació Correcta
+
+```tsx
+// ✅ CORRECTE - Combinar Tailwind amb Ionic
+<IonCard className="card-nature">
+  <div className="flex items-center justify-between p-4">
+    <h3 className="text-lg font-bold text-primary-600">Ubicació</h3>
+    <IonIcon icon={navigateOutline} className="text-primary-500" />
+  </div>
+  <div className="data-value-highlight">
+    41.123456°, 2.654321°
+  </div>
+</IonCard>
+
+// ❌ MALAMENT - Crear CSS específic
+<div className="my-custom-location-card">
+  <div className="my-header-style">...</div>
+</div>
+```
 
 ## Flux de Treball Recomanat
 
 1. **Analitzar els requeriments d'estil**
-2. **Buscar a variables.css** si ja existeix una solució
-3. **Combinar classes globals** existents si cal
-4. **Si no n'hi ha cap**: Crear classe global reutilitzable
-5. **Documentar la nova classe** amb comentaris explicatius
-6. **Actualitzar components** per usar les noves classes globals
+2. **Intentar primer amb Tailwind utilities** (`bg-primary-500`, `p-4`, etc.)
+3. **Combinar amb components personalitzats de Tailwind** (`.btn-forest`, `.data-card`)
+4. **Si cal modificar Ionic**: Usar variables CSS a `variables.css`
+5. **Si no existeix**: Crear component personalitzat a `tailwind.css`
+6. **Última opció**: Estils específics al component
 
 ## Exemple d'Implementació Correcta
 
