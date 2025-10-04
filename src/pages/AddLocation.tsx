@@ -1,5 +1,6 @@
 import useGeolocation from '@/hooks/useGeolocation';
 import { CreateLocation } from '@/types/location';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import {
   IonButton,
   IonCard,
@@ -25,7 +26,8 @@ import {
 import { firestoreService } from '@services/firestoreService';
 import { geolocationService } from '@services/geolocationService';
 import { googleMapsService } from '@services/googleMapsService';
-import { addOutline, checkmarkOutline, listOutline, locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
+import { photoService } from '@services/photoService';
+import { addOutline, cameraOutline, checkmarkOutline, closeOutline, listOutline, locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './AddLocation.css';
@@ -42,6 +44,11 @@ const AddLocation: React.FC = () => {
     description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Estat per la foto
+  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+  const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
   const handleRefresh = async (event: CustomEvent) => {
     await getCurrentLocation();
@@ -61,6 +68,49 @@ const AddLocation: React.FC = () => {
     }));
   };
 
+  const handleTakePhoto = async () => {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+      });
+
+      if (image.webPath) {
+        // Converteix la imatge a File per pujar-la
+        const response = await fetch(image.webPath);
+        const blob = await response.blob();
+        const file = new File([blob], `photo_${Date.now()}.jpg`, { type: 'image/jpeg' });
+        
+        setSelectedPhoto(file);
+        
+        // Neteja la URL anterior si existeix
+        if (photoPreviewUrl) {
+          photoService.revokePreviewUrl(photoPreviewUrl);
+        }
+        
+        // Usa la webPath directament per a la previsualització
+        setPhotoPreviewUrl(image.webPath);
+      }
+    } catch (error) {
+      console.error('Error fent la foto:', error);
+      setToastMessage('Error accedint a la càmera. Comprova els permisos.');
+      setShowToast(true);
+    }
+  };
+
+  const handleRemovePhoto = () => {
+    if (photoPreviewUrl) {
+      // Només revoca si és una URL creada amb createObjectURL
+      if (photoPreviewUrl.startsWith('blob:')) {
+        photoService.revokePreviewUrl(photoPreviewUrl);
+      }
+    }
+    setSelectedPhoto(null);
+    setPhotoPreviewUrl(null);
+  };
+
   const handleSubmitLocation = async () => {
     if (!location) {
       setToastMessage('Primer has d\'obtenir la teva ubicació!');
@@ -77,14 +127,31 @@ const AddLocation: React.FC = () => {
     try {
       setIsSubmitting(true);
       
+      // Primer crea la localització sense foto
       const newLocation: CreateLocation = {
         name: formData.name.trim(),
         description: formData.description.trim(),
         lat: location.latitude,
-        lng: location.longitude
+        lng: location.longitude,
+        hasPhoto: !!selectedPhoto
       };
 
       const savedLocation = await firestoreService.createLocation(newLocation);
+      
+      // Després puja la foto amb la ID de la localització si n'hi ha una
+      if (selectedPhoto && savedLocation.id) {
+        setIsUploadingPhoto(true);
+        try {
+          await photoService.uploadPhotoForLocation(selectedPhoto, savedLocation.id);
+          console.log('Foto pujada amb èxit per localització:', savedLocation.id);
+        } catch (photoError) {
+          console.error('Error pujant foto:', photoError);
+          setToastMessage('Localització guardada, però error pujant la foto.');
+          setShowToast(true);
+        } finally {
+          setIsUploadingPhoto(false);
+        }
+      }
       
       console.log('Localització guardada:', savedLocation);
       
@@ -93,6 +160,7 @@ const AddLocation: React.FC = () => {
       
       // Resetear formulari
       setFormData({ name: '', description: '' });
+      handleRemovePhoto();
       
       setToastMessage('Localització guardada amb èxit! 🍄');
       setShowToast(true);
@@ -135,6 +203,9 @@ const AddLocation: React.FC = () => {
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
+        {/* Loading component fora del contenidor condicional */}
+        <IonLoading isOpen={loading} message="Obtenint ubicació..." />
+
         <div className="container">
           <IonCard className="nature-card">
             <IonCardHeader>
@@ -147,7 +218,6 @@ const AddLocation: React.FC = () => {
             <IonCardContent>
               {loading && (
                 <div className="text-center p-lg">
-                  <IonLoading isOpen={loading} message="Obtenint ubicació..." />
                   <p>Obtenint la teva ubicació actual...</p>
                 </div>
               )}
@@ -229,6 +299,56 @@ const AddLocation: React.FC = () => {
                       onIonInput={(e) => handleInputChange('description', e.detail.value!)}
                     />
                   </IonItem>
+                  
+                  {/* Secció de foto */}
+                  <IonItem>
+                    <IonLabel position="stacked">Foto (opcional)</IonLabel>
+                    <div style={{ width: '100%', marginTop: '8px' }}>
+                      {/* Botó per fer foto */}
+                      {!photoPreviewUrl && (
+                        <IonButton
+                          expand="block"
+                          fill="outline"
+                          onClick={handleTakePhoto}
+                        >
+                          <IonIcon icon={cameraOutline} slot="start" />
+                          Fer Foto
+                        </IonButton>
+                      )}
+                      
+                      {/* Previsualització de la foto */}
+                      {photoPreviewUrl && (
+                        <div className="photo-preview-container">
+                          <img
+                            src={photoPreviewUrl}
+                            alt="Previsualització"
+                            className="photo-preview"
+                          />
+                          <IonButton
+                            fill="clear"
+                            size="small"
+                            color="danger"
+                            onClick={handleRemovePhoto}
+                            className="photo-remove-button"
+                          >
+                            <IonIcon icon={closeOutline} />
+                          </IonButton>
+                          
+                          {/* Botó per fer nova foto */}
+                          <IonButton
+                            expand="block"
+                            fill="outline"
+                            size="small"
+                            onClick={handleTakePhoto}
+                            className="photo-select-button"
+                          >
+                            <IonIcon icon={cameraOutline} slot="start" />
+                            Fer Nova Foto
+                          </IonButton>
+                        </div>
+                      )}
+                    </div>
+                  </IonItem>
                 </div>
                 
                 <div className="form-actions">
@@ -239,7 +359,11 @@ const AddLocation: React.FC = () => {
                     disabled={isSubmitting || !formData.name.trim()}
                   >
                     <IonIcon icon={checkmarkOutline} slot="start" />
-                    {isSubmitting ? 'Guardant...' : 'Guardar Localització'}
+                    {isUploadingPhoto 
+                      ? 'Pujant foto...' 
+                      : isSubmitting 
+                        ? 'Guardant...' 
+                        : 'Guardar Localització'}
                   </IonButton>
                   
                   <IonButton

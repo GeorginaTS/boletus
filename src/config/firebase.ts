@@ -2,6 +2,7 @@ import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // Configuració de Firebase utilitzant variables d'entorn
 const firebaseConfig = {
@@ -21,4 +22,6 @@ export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 // Inicialitza Firestore i exporta per usar
 export const db = getFirestore(app);
+// Inicialitza Firebase Storage i exporta per usar
+export const storage = getStorage(app);
 export default app;

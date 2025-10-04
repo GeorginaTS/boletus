@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// Regles per Firebase Storage per l'aplicació Mushroom Finder
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Permet llegir i escriure a la carpeta locations
+    match /locations/{locationId} {
+      // Permet llegir fotos a qualsevol usuari
+      allow read: if true;
+      // Permet escriure fotos (pots canviar això per requerir autenticació)
+      allow write: if true;
+    }
+    
+    // Per defecte, denega accés a altres carpetes
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

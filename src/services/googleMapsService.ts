@@ -341,8 +341,8 @@ class GoogleMapsService {
       accuracyCircle,
     };
 
-    this.map.setCenter(position);
-    this.map.setZoom(15);
+    // Ajusta el zoom per incloure la nova posició de l'usuari i totes les localitzacions
+    this.fitBoundsToAllLocations();
 
     console.log("📍 Ubicació de l'usuari actualitzada:", location);
   }
@@ -378,6 +378,9 @@ class GoogleMapsService {
       locations.forEach((location) => {
         this.addLocationMarker(location);
       });
+
+      // Ajusta el zoom per incloure totes les localitzacions i la posició de l'usuari
+      this.fitBoundsToAllLocations();
     } catch (error) {
       console.error("❌ Error carregant localitzacions:", error);
     }
@@ -424,6 +427,8 @@ class GoogleMapsService {
 
   addLocation(location: Location): void {
     this.addLocationMarker(location);
+    // Ajusta el zoom per incloure la nova localització
+    this.fitBoundsToAllLocations();
   }
 
   removeLocation(locationId: string): void {
@@ -435,6 +440,9 @@ class GoogleMapsService {
       this.locationMarkers[index].marker.map = null;
       this.locationMarkers.splice(index, 1);
       console.log(`🗑️ Marker eliminat per localització: ${locationId}`);
+
+      // Ajusta el zoom després d'eliminar la localització
+      this.fitBoundsToAllLocations();
     }
   }
 
@@ -462,10 +470,83 @@ class GoogleMapsService {
 
     console.log(`🎯 Mapa centrat en: ${location.name}`);
   }
+
+  /**
+   * Ajusta el zoom del mapa per incloure totes les localitzacions i la posició de l'usuari
+   */
+  fitBoundsToAllLocations(): void {
+    if (!this.map) {
+      console.warn("⚠️ El mapa no està inicialitzat");
+      return;
+    }
+
+    const bounds = new google.maps.LatLngBounds();
+    let hasLocations = false;
+
+    // Afegeix la posició de l'usuari als bounds
+    if (this.userMarker) {
+      const userPosition = this.userMarker.marker.position;
+      if (userPosition) {
+        bounds.extend(userPosition);
+        hasLocations = true;
+        console.log("📍 Posició de l'usuari afegida als bounds");
+      }
+    }
+
+    // Afegeix totes les localitzacions als bounds
+    this.locationMarkers.forEach(({ marker }) => {
+      const position = marker.position;
+      if (position) {
+        bounds.extend(position);
+        hasLocations = true;
+      }
+    });
+
+    if (hasLocations) {
+      // Aplica els bounds amb padding
+      this.map.fitBounds(bounds, {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50,
+      });
+
+      // Limita el zoom màxim per evitar que sigui massa proper
+      const maxZoom = 16;
+      const listener = google.maps.event.addListener(
+        this.map,
+        "bounds_changed",
+        () => {
+          if (this.map && this.map.getZoom()! > maxZoom) {
+            this.map.setZoom(maxZoom);
+          }
+          google.maps.event.removeListener(listener);
+        }
+      );
+
+      console.log(
+        `🗺️ Mapa ajustat per incloure ${this.locationMarkers.length} localitzacions i la posició de l'usuari`
+      );
+    } else {
+      // Si no hi ha localitzacions, centra en Barcelona per defecte
+      this.map.setCenter(DEFAULT_MAP_CONFIG.center);
+      this.map.setZoom(DEFAULT_MAP_CONFIG.zoom);
+      console.log(
+        "🗺️ No hi ha localitzacions, utilitzant configuració per defecte"
+      );
+    }
+  }
   resize(): void {
     if (this.map) {
       google.maps.event.trigger(this.map, "resize");
     }
+  }
+
+  /**
+   * Mètode públic per ajustar manualment el zoom del mapa
+   */
+  fitBoundsToLocations(): void {
+    this.fitBoundsToAllLocations();
   }
 
   destroy(): void {

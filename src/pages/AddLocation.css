@@ -55,9 +55,46 @@
   animation: locationUpdate 0.3s ease-out;
 }
 
+/* Estils per la funcionalitat de foto */
+.photo-preview-container {
+  position: relative;
+  margin-top: var(--spacing-sm);
+}
+
+.photo-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--ion-color-medium);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.photo-remove-button {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  min-height: 32px;
+  min-width: 32px;
+}
+
+.photo-select-button {
+  margin-top: var(--spacing-sm);
+}
+
 /* Estil per theme fosc */
 @media (prefers-color-scheme: dark) {
   .coordinates-display {
     color: #7fb068;
+  }
+
+  .photo-preview {
+    border-color: var(--ion-color-medium-shade);
+  }
+
+  .photo-remove-button {
+    background: rgba(0, 0, 0, 0.8);
   }
 }

@@ -11,7 +11,8 @@ import {
   IonToast,
   IonToolbar
 } from '@ionic/react';
-import { locationOutline, refreshOutline } from 'ionicons/icons';
+import { googleMapsService } from '@services/googleMapsService';
+import { locationOutline, refreshOutline, resizeOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import './Map.css';
 
@@ -24,6 +25,11 @@ const Map: React.FC = () => {
     setShowToast(true);
   };
 
+  const handleFitBounds = () => {
+    googleMapsService.fitBoundsToLocations();
+    setShowToast(true);
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -32,8 +38,17 @@ const Map: React.FC = () => {
           <IonButton
             slot="end"
             fill="clear"
+            onClick={handleFitBounds}
+            title="Ajustar zoom a totes les localitzacions"
+          >
+            <IonIcon icon={resizeOutline} />
+          </IonButton>
+          <IonButton
+            slot="end"
+            fill="clear"
             onClick={handleRefreshLocation}
             disabled={loading}
+            title="Actualitzar ubicació"
           >
             {loading ? (
               <IonSpinner name="crescent" />
@@ -84,7 +99,7 @@ const Map: React.FC = () => {
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setShowToast(false)}
-          message="Ubicació actualitzada!"
+          message="Mapa actualitzat!"
           duration={2000}
           position="bottom"
           color="success"

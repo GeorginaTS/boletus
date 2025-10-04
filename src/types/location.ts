@@ -18,6 +18,9 @@ export interface Location {
   /** Longitud de la coordenada geogràfica */
   lng: number;
 
+  /** Indica si la localització té foto associada */
+  hasPhoto?: boolean;
+
   /** Data de creació del registre de localització */
   createdAt: Date;
 

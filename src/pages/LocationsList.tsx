@@ -1,37 +1,27 @@
+import LocationCard from '@/components/LocationCard';
 import { Location } from '@/types/location';
 import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonItemOption,
-  IonItemOptions,
-  IonItemSliding,
-  IonLabel,
-  IonList,
-  IonLoading,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonTitle,
-  IonToast,
-  IonToolbar
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonLoading,
+    IonPage,
+    IonRefresher,
+    IonRefresherContent,
+    IonTitle,
+    IonToast,
+    IonToolbar
 } from '@ionic/react';
 import { firestoreService } from '@services/firestoreService';
 import { googleMapsService } from '@services/googleMapsService';
 import {
-  calendarOutline,
-  locationOutline,
-  mapOutline,
-  navigateOutline,
-  refreshOutline,
-  timeOutline,
-  trashOutline
+    locationOutline,
+    refreshOutline
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -91,19 +81,7 @@ const LocationsList: React.FC = () => {
     }
   };
 
-  const formatDate = (date: Date): string => {
-    return new Intl.DateTimeFormat('ca-ES', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(date);
-  };
 
-  const formatCoordinates = (lat: number, lng: number): string => {
-    return `${lat.toFixed(6)}°, ${lng.toFixed(6)}°`;
-  };
 
   const handleViewOnMap = (location: Location) => {
     // Navega al mapa i centra en la localització
@@ -137,13 +115,10 @@ const LocationsList: React.FC = () => {
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
-        <div className="container">
-          {loading && (
-            <div className="text-center p-lg">
-              <IonLoading isOpen={loading} message="Carregant localitzacions..." />
-            </div>
-          )}
+        {/* Loading component fora del contenidor condicional */}
+        <IonLoading isOpen={loading} message="Carregant localitzacions..." />
 
+        <div className="container">
           {!loading && locations.length === 0 && (
             <IonCard className="nature-card">
               <IonCardContent className="text-center p-lg">
@@ -190,64 +165,18 @@ const LocationsList: React.FC = () => {
                 </IonCardContent>
               </IonCard>
 
-              <IonList>
+              <div>
                 {locations.map((location) => (
-                  <IonItemSliding key={location.id}>
-                    <IonItem className="location-item">
-                      <IonIcon 
-                        icon={locationOutline} 
-                        slot="start" 
-                        color="primary"
-                        style={{ fontSize: '24px' }}
-                      />
-                      
-                      <IonLabel>
-                        <h2 className="location-name">🍄 {location.name}</h2>
-                        
-                        {location.description && (
-                          <p className="location-description">{location.description}</p>
-                        )}
-                        
-                        <div className="location-details">
-                          <div className="detail-item">
-                            <IonIcon icon={navigateOutline} />
-                            <span>{formatCoordinates(location.lat, location.lng)}</span>
-                          </div>
-                          
-                          <div className="detail-item">
-                            <IonIcon icon={calendarOutline} />
-                            <span>{formatDate(location.createdAt)}</span>
-                          </div>
-                          
-                          {location.updatedAt && location.updatedAt !== location.createdAt && (
-                            <div className="detail-item">
-                              <IonIcon icon={timeOutline} />
-                              <span>Actualitzat: {formatDate(location.updatedAt)}</span>
-                            </div>
-                          )}
-                        </div>
-                      </IonLabel>
-                    </IonItem>
-                    
-                    <IonItemOptions side="end">
-                      <IonItemOption 
-                        color="primary" 
-                        onClick={() => handleViewOnMap(location)}
-                      >
-                        <IonIcon icon={mapOutline} />
-                        Veure al mapa
-                      </IonItemOption>
-                      <IonItemOption 
-                        color="danger" 
-                        onClick={() => handleDeleteLocation(location)}
-                      >
-                        <IonIcon icon={trashOutline} />
-                        Eliminar
-                      </IonItemOption>
-                    </IonItemOptions>
-                  </IonItemSliding>
+                  <LocationCard
+                    key={location.id}
+                    data={{
+                      location,
+                      onViewOnMap: handleViewOnMap,
+                      onDelete: handleDeleteLocation
+                    }}
+                  />
                 ))}
-              </IonList>
+              </div>
             </>
           )}
         </div>
