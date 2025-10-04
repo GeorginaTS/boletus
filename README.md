@@ -1,4 +1,18 @@
-# 🍄 Mushroom Finder
+# 🍄## 🌟 Features
+
+- **🗺️ Google Maps Integration**: Advanced mapping with Google Maps JavaScript API and custom mushroom markers
+- **🍄 Mushroom Location Management**: Complete CRUD system for tracking mushroom spots with detailed information
+- **📍 Interactive Markers**: Click-to-add locations with emoji mushroom markers (🍄) on the map
+- **📱 Location List Management**: Comprehensive list view with swipe actions and map navigation
+- **🎨 Theme System**: Dynamic light/dark mode with persistent user preferences and earth-toned color palette
+- **🌓 Theme Toggle**: Seamless switching between light and dark modes with system preference detection
+- **🔐 Firebase Authentication**: Secure user authentication and session management
+- **💾 Firestore Database**: Real-time cloud storage for locations and user data
+- **🚀 Production Ready**: Deployed to Firebase Hosting with optimized build performance
+- **⚡ Code Splitting**: Lazy loading and manual chunking for optimal performance
+- **📱 Cross-Platform**: Native mobile experience with web compatibility
+- **🎨 Modern UI**: Clean Ionic design with intuitive navigation and responsive layout
+- **🌍 Earth Theme**: Custom color palette inspired by nature with mushroom-themed browns, golds, and peach tonesnder
 
 A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated Google Maps system and comprehensive location management.
 
@@ -22,7 +36,8 @@ A modern hybrid mobile application built with Ionic React and TypeScript for mus
 - **Framework**: [Ionic React](https://ionicframework.com/) v8.5.0
 - **Language**: TypeScript v5.1.6
 - **Build Tool**: Vite v5.4.20 with optimized chunking
-- **Styling**: Ionic CSS with custom theming
+- **Styling**: Ionic CSS with custom theming and earth-toned color palette
+- **Theme System**: Context-based theme management with light/dark mode support
 - **Maps**: Google Maps JavaScript API with AdvancedMarkerElement
 - **UI Icons**: Ionicons v7.4.0
 - **Performance**: Code splitting with React.lazy and Suspense
@@ -66,9 +81,12 @@ mushroom-finder/
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── AuthGuard.tsx   # Route protection component
+│   │   ├── ThemeToggle.tsx # Theme switcher component
 │   │   └── ExploreContainer.tsx # Template component
 │   ├── contexts/           # React Context providers
-│   │   └── AuthContext.tsx # Authentication state management
+│   │   ├── AuthContext.tsx # Authentication state management
+│   │   ├── ThemeContext.tsx # Theme management provider
+│   │   └── theme.ts        # Theme types and interfaces
 │   ├── pages/              # Main application screens (lazy loaded)
 │   │   ├── Map.tsx         # Google Maps with mushroom markers
 │   │   ├── AddLocation.tsx # Location creation form
@@ -204,37 +222,55 @@ npm run lint
 
 ## 🎨 Theming & Styling
 
-The application uses a hybrid theming system combining Tailwind CSS with Ionic's design system:
+The application features a comprehensive theme system with earth-toned colors inspired by nature and mushrooms:
 
-- **Tailwind CSS**: Primary styling framework with custom nature-themed configuration
+### Theme System
+
+- **Dynamic Theme Switching**: Seamless light/dark mode toggle with persistent user preferences
+- **System Preference Detection**: Automatically detects and applies user's OS theme preference
+- **Context-Based Management**: React Context API for global theme state
+- **LocalStorage Persistence**: Theme preferences saved across sessions
+- **Ionic Integration**: Synchronized with Ionic's native dark mode classes
+
+### Color Palette
+
+The app uses a nature-inspired color system with custom CSS variables:
+
+#### Light Mode Colors
+
+- **Primary (Brown)**: `#99582a` - Main brand color, mushroom caps
+- **Secondary (Lion)**: `#bb9457` - Golden tones, highlights
+- **Tertiary (Peach)**: `#ffe6a7` - Soft accents, backgrounds
+- **Bistre**: `#432818` - Dark brown text and accents
+- **Background**: `#fffbf3` - Warm peach tone
+
+#### Dark Mode Colors
+
+- **Background**: Dark gray gradients with subtle transparency
+- **Text**: Golden lion tones for readability
+- **Accents**: Muted earth tones for contrast
+
+### Theme Implementation
+
+```typescript
+// Using the theme hook
+import { useTheme } from '@/hooks/useTheme';
+
+const { theme, toggleTheme, setTheme } = useTheme();
+
+// Toggle between light/dark
+<IonButton onClick={toggleTheme}>
+  <IonIcon icon={theme === 'dark' ? sunny : moon} />
+</IonButton>
+```
+
+### CSS Architecture
+
 - **CSS Custom Properties**: Centralized design tokens in `src/theme/variables.css`
-- **Custom Components**: Tailwind-based components in `src/styles/globals.css`
-- **Nature-Inspired Palette**: Forest greens, earth browns, and mushroom tones
-- **Responsive Design**: Mobile-first approach using Tailwind's responsive utilities
-- **Dark Mode**: Automatic theme switching with both Tailwind and Ionic support
-
-### Key Style Classes
-
-#### Tailwind Custom Components
-
-- `.btn-forest`, `.btn-earth`, `.btn-mushroom` - Nature-themed buttons
-- `.card-nature`, `.data-card` - Custom card components
-- `.input-nature` - Form inputs with nature theme
-- `.data-value-highlight`, `.location-marker` - Data display utilities
-
-#### Tailwind Utilities (Primary)
-
-- `bg-primary-500`, `text-primary-600` - Custom color palette
-- `bg-forest`, `text-earth`, `bg-mushroom` - Theme-specific colors
-- `flex`, `grid`, `p-4`, `rounded-lg` - Layout and spacing
-- `sm:`, `md:`, `lg:` - Responsive design utilities
-
-#### Ionic Classes (Secondary)
-
-- `.container`, `.container-sm`, `.container-lg` - Layout containers
-- `.btn-primary`, `.btn-secondary`, `.btn-danger` - Ionic button variants
-- `.data-display`, `.data-value`, `.data-timestamp` - Data presentation
-- `.location-card`, `.nature-card` - Specialized card components
+- **Earth Theme**: Nature-inspired globals in `src/styles/earth-theme.css`
+- **Component Styles**: Modular CSS files for each component
+- **Responsive Design**: Mobile-first approach with Ionic utilities
+- **Gradient Backgrounds**: Custom linear gradients for TabBar and headers
 
 ## 🗺️ Geolocation Features
 
