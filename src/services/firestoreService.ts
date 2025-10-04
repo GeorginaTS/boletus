@@ -66,6 +66,9 @@ export interface FirestoreService {
   // Obtenir totes les localitzacions
   getAllLocations: () => Promise<Location[]>;
 
+  // Obtenir localitzacions d'un usuari específic
+  getUserLocations: (userId: string) => Promise<Location[]>;
+
   // Actualitzar localització
   updateLocation: (id: string, locationData: UpdateLocation) => Promise<void>;
 
@@ -404,6 +407,44 @@ class FirestoreUserService implements FirestoreService {
       console.error("Error obtenint localitzacions:", error);
       throw new Error(
         `Error obtenint localitzacions: ${
+          firestoreError?.message || "Error desconegut"
+        }`
+      );
+    }
+  }
+
+  async getUserLocations(userId: string): Promise<Location[]> {
+    try {
+      const locationsRef = collection(db, LOCATIONS_COLLECTION);
+      const q = query(locationsRef, where("userId", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      const locations: Location[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        locations.push({
+          id: doc.id,
+          ...data,
+          createdAt:
+            data.createdAt instanceof Timestamp
+              ? data.createdAt.toDate()
+              : data.createdAt,
+          updatedAt:
+            data.updatedAt instanceof Timestamp
+              ? data.updatedAt.toDate()
+              : data.updatedAt,
+        } as Location);
+      });
+
+      console.log(
+        `Obtingudes ${locations.length} localitzacions per l'usuari ${userId}`
+      );
+      return locations;
+    } catch (error: unknown) {
+      const firestoreError = error as { code?: string; message?: string };
+      console.error("Error obtenint localitzacions de l'usuari:", error);
+      throw new Error(
+        `Error obtenint localitzacions de l'usuari: ${
           firestoreError?.message || "Error desconegut"
         }`
       );

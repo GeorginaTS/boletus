@@ -1,4 +1,5 @@
 import LocationCard from '@/components/LocationCard';
+import { useAuth } from '@/contexts/AuthContext';
 import { Location } from '@/types/location';
 import {
     IonButton,
@@ -23,34 +24,41 @@ import {
     locationOutline,
     refreshOutline
 } from 'ionicons/icons';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LocationsList.css';
 
 const LocationsList: React.FC = () => {
+  const { user } = useAuth();
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const history = useHistory();
 
-  const loadLocations = async () => {
+  const loadLocations = useCallback(async () => {
+    if (!user) {
+      console.log('⚠️ Usuari no autenticat');
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
-      console.log('📍 Carregant localitzacions...');
+      console.log('📍 Carregant localitzacions de l\'usuari:', user.uid);
       
-      const allLocations = await firestoreService.getAllLocations();
-      setLocations(allLocations);
+      const userLocations = await firestoreService.getUserLocations(user.uid);
+      setLocations(userLocations);
       
-      console.log(`✅ Carregades ${allLocations.length} localitzacions`);
+      console.log(`✅ Carregades ${userLocations.length} localitzacions de l'usuari`);
     } catch (error) {
       console.error('❌ Error carregant localitzacions:', error);
-      setToastMessage('Error carregant les localitzacions');
+      setToastMessage('Error carregant les teves localitzacions');
       setShowToast(true);
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   const handleRefresh = async (event: CustomEvent) => {
     await loadLocations();
@@ -94,7 +102,7 @@ const LocationsList: React.FC = () => {
 
   useEffect(() => {
     loadLocations();
-  }, []);
+  }, [loadLocations]);
 
   return (
     <IonPage>

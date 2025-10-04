@@ -21,6 +21,9 @@ export interface Location {
   /** Indica si la localització té foto associada */
   hasPhoto?: boolean;
 
+  /** ID de l'usuari que ha creat la localització */
+  userId: string;
+
   /** Data de creació del registre de localització */
   createdAt: Date;
 
@@ -31,7 +34,7 @@ export interface Location {
 /**
  * Type per crear una nova localització (sense les dates que s'assignen automàticament)
  */
-export type CreateLocation = Omit<Location, "createdAt" | "updatedAt">;
+export type CreateLocation = Omit<Location, "id" | "createdAt" | "updatedAt">;
 
 /**
  * Type per actualitzar una localització (tots els camps opcionals excepte les dates)

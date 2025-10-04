@@ -1,6 +1,7 @@
 import { CreateUserProfileData, UpdateUserProfileData, UserProfile } from '@/types/user';
 import authService from '@services/authService';
 import firestoreService from '@services/firestoreService';
+import { notificationService } from '@services/notificationService';
 import { User } from 'firebase/auth';
 import React, { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 
@@ -82,6 +83,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await authService.logout();
       setUserProfile(null); // Netejar perfil d'usuari
+      
+      // Netejar service de notificacions
+      notificationService.cleanup();
+      console.log('✨ Notifications cleaned up on logout');
     } catch (error) {
       setLoading(false);
       throw error;
@@ -137,6 +142,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUserProfile(null);
     }
   }, [user, userProfile, refreshUserProfile]);
+
+  // Inicialitzar notificacions quan l'usuari està autenticat
+  useEffect(() => {
+    if (user && userProfile) {
+      // Inicialitzar service de notificacions
+      notificationService.initialize(user.uid)
+        .then(() => {
+          console.log('✨ Notifications initialized for user:', user.uid);
+        })
+        .catch((error) => {
+          console.error('❌ Error initializing notifications:', error);
+        });
+    }
+  }, [user, userProfile]);
 
   const value: AuthContextType = {
     user,

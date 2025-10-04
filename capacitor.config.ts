@@ -6,10 +6,16 @@ const config: CapacitorConfig = {
   webDir: "dist",
   plugins: {
     Geolocation: {
-      // Configuració per millor precisió
+      // Configuració per màxima precisió GPS
       enableHighAccuracy: true,
-      timeout: 10000,
-      maximumAge: 300000,
+      timeout: 30000, // 30 segons per donar temps al GPS
+      maximumAge: 10000, // Només 10 segons per forçar dades fresques
+      // Configuracions addicionals per Android/iOS
+      androidGpsTimeout: 30000,
+      iosLocationTimeout: 30000,
+    },
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
     },
   },
 };

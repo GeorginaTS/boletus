@@ -1,3 +1,4 @@
+import { useAuth } from '@/contexts/AuthContext';
 import useGeolocation from '@/hooks/useGeolocation';
 import { CreateLocation } from '@/types/location';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -33,7 +34,8 @@ import { useHistory } from 'react-router-dom';
 import './AddLocation.css';
 
 const AddLocation: React.FC = () => {
-  const { location, loading, error, getCurrentLocation } = useGeolocation(true);
+  const { user } = useAuth();
+  const { location, loading, error, accuracy, isHighAccuracy, getCurrentLocation, getHighAccuracyLocation } = useGeolocation(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const history = useHistory();
@@ -58,6 +60,12 @@ const AddLocation: React.FC = () => {
   const handleLocationUpdate = async () => {
     await getCurrentLocation();
     setToastMessage(location ? 'Ubicació actualitzada!' : 'Ubicació obtinguda!');
+    setShowToast(true);
+  };
+
+  const handleHighAccuracyLocation = async () => {
+    await getHighAccuracyLocation();
+    setToastMessage(`Ubicació d'alta precisió obtinguda! (${accuracy}m)`);
     setShowToast(true);
   };
 
@@ -127,13 +135,21 @@ const AddLocation: React.FC = () => {
     try {
       setIsSubmitting(true);
       
+      // Verificar que l'usuari està autenticat
+      if (!user) {
+        setToastMessage('Has d\'estar autenticat per afegir localitzacions!');
+        setShowToast(true);
+        return;
+      }
+
       // Primer crea la localització sense foto
       const newLocation: CreateLocation = {
         name: formData.name.trim(),
         description: formData.description.trim(),
         lat: location.latitude,
         lng: location.longitude,
-        hasPhoto: !!selectedPhoto
+        hasPhoto: !!selectedPhoto,
+        userId: user.uid
       };
 
       const savedLocation = await firestoreService.createLocation(newLocation);
@@ -250,7 +266,25 @@ const AddLocation: React.FC = () => {
                       <h3>Coordenades</h3>
                       <p>{geolocationService.formatCoordinates(location)}</p>
                     </IonLabel>
-                  </IonItem>            
+                  </IonItem>
+                  {accuracy && (
+                    <IonItem>
+                      <IonIcon 
+                        icon={locationOutline} 
+                        slot="start" 
+                        color={isHighAccuracy ? "success" : accuracy > 50 ? "danger" : "warning"} 
+                      />
+                      <IonLabel>
+                        <h3>Precisió GPS</h3>
+                        <p>
+                          ±{accuracy.toFixed(0)} metres 
+                          {accuracy <= 20 && " (Excel·lent)"}
+                          {accuracy > 20 && accuracy <= 50 && " (Acceptable)"}
+                          {accuracy > 50 && " (Baixa - considera millorar)"}
+                        </p>
+                      </IonLabel>
+                    </IonItem>
+                  )}            
                 </IonList>
               )}
 
@@ -261,9 +295,23 @@ const AddLocation: React.FC = () => {
                   onClick={handleLocationUpdate}
                   disabled={loading}
                 >
-                  <IonIcon icon={locationOutline} slot="start" />
+                  <IonIcon icon={refreshOutline} slot="start" />
                   {location ? 'Actualitzar Ubicació' : 'Obtenir Ubicació'}
                 </IonButton>
+                
+                {location && accuracy && accuracy > 20 && (
+                  <IonButton
+                    expand="block"
+                    fill="outline"
+                    color="warning"
+                    onClick={handleHighAccuracyLocation}
+                    disabled={loading}
+                    className="mt-2"
+                  >
+                    <IonIcon icon={locationOutline} slot="start" />
+                    Millorar Precisió (Alta Qualitat)
+                  </IonButton>
+                )}
               </div>
             </IonCardContent>
           </IonCard>

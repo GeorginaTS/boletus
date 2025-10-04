@@ -9,15 +9,15 @@ type GoogleMapsCallbackFunction = () => void;
 const getWindowWithCallback = () =>
   window as unknown as Window & Record<string, GoogleMapsCallbackFunction>;
 
-// Configuració per defecte de Google Maps
+// Configuració per defecte de Google Maps (sense referències a google.maps que no està carregat encara)
 const DEFAULT_MAP_CONFIG = {
   center: { lat: 41.3851, lng: 2.1734 }, // Barcelona per defecte
   zoom: 13,
-  mapTypeId: "roadmap" as google.maps.MapTypeId,
+  mapTypeId: "terrain", // Mapa en relleu per defecte - mostra topografia i elevació
   mapId: "MUSHROOM_FINDER_MAP", // Necessari per AdvancedMarkerElement
   disableDefaultUI: false,
   zoomControl: true,
-  mapTypeControl: true,
+  mapTypeControl: true, // Controls per canviar tipus de mapa (roadmap, satellite, hybrid, terrain)
   scaleControl: true,
   streetViewControl: true,
   rotateControl: true,
@@ -37,7 +37,7 @@ if (!API_KEY) {
 interface GoogleMapsServiceConfig {
   center?: google.maps.LatLngLiteral;
   zoom?: number;
-  mapTypeId?: google.maps.MapTypeId;
+  mapTypeId?: string; // Canviat per acceptar strings abans que Google Maps es carregui
   mapId?: string;
   disableDefaultUI?: boolean;
   zoomControl?: boolean;
@@ -47,6 +47,11 @@ interface GoogleMapsServiceConfig {
   rotateControl?: boolean;
   gestureHandling?: string;
   clickableIcons?: boolean;
+  mapTypeControlOptions?: {
+    style?: google.maps.MapTypeControlStyle;
+    position?: google.maps.ControlPosition;
+    mapTypeIds?: string[];
+  };
 }
 
 interface MarkerInfo {
@@ -164,9 +169,25 @@ class GoogleMapsService {
     }
 
     const mapConfig = { ...DEFAULT_MAP_CONFIG, ...config };
+
+    // Afegeix configuració avançada dels controls de tipus de mapa
+    if (mapConfig.mapTypeControl) {
+      mapConfig.mapTypeControlOptions = {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT,
+        mapTypeIds: [
+          google.maps.MapTypeId.ROADMAP, // Mapa de carreteres tradicional
+          google.maps.MapTypeId.SATELLITE, // Vista de satèl·lit
+          google.maps.MapTypeId.HYBRID, // Satèl·lit amb etiquetes
+          google.maps.MapTypeId.TERRAIN, // Mapa topogràfic amb relleu
+        ],
+        ...config.mapTypeControlOptions,
+      };
+    }
+
     this.map = new google.maps.Map(container, mapConfig);
 
-    console.log("🗺️ Mapa de Google Maps creat");
+    console.log("🗺️ Mapa de Google Maps creat amb mode terrain (relleu)");
     return this.map;
   }
 
@@ -357,7 +378,7 @@ class GoogleMapsService {
     }
   }
 
-  async loadAndDisplayLocations(): Promise<void> {
+  async loadAndDisplayLocations(userId?: string): Promise<void> {
     if (!this.map) {
       console.warn("⚠️ El mapa no està inicialitzat");
       return;
@@ -369,10 +390,16 @@ class GoogleMapsService {
       // Neteja markers existents
       this.clearLocationMarkers();
 
-      // Carrega localitzacions de Firestore
-      const locations = await firestoreService.getAllLocations();
+      // Carrega localitzacions de Firestore (de l'usuari o totes)
+      const locations = userId
+        ? await firestoreService.getUserLocations(userId)
+        : await firestoreService.getAllLocations();
 
-      console.log(`✅ Carregades ${locations.length} localitzacions`);
+      console.log(
+        `✅ Carregades ${locations.length} localitzacions${
+          userId ? " de l'usuari" : ""
+        }`
+      );
 
       // Crea markers per cada localització
       locations.forEach((location) => {
@@ -539,6 +566,56 @@ class GoogleMapsService {
   resize(): void {
     if (this.map) {
       google.maps.event.trigger(this.map, "resize");
+    }
+  }
+
+  /**
+   * Canvia el tipus de mapa dinàmicament
+   */
+  setMapType(mapType: google.maps.MapTypeId): void {
+    if (!this.map) {
+      console.warn("⚠️ El mapa no està inicialitzat");
+      return;
+    }
+
+    this.map.setMapTypeId(mapType);
+
+    const mapTypeNames = {
+      [google.maps.MapTypeId.ROADMAP]: "Mapa de carreteres",
+      [google.maps.MapTypeId.SATELLITE]: "Vista de satèl·lit",
+      [google.maps.MapTypeId.HYBRID]: "Híbrid (satèl·lit + etiquetes)",
+      [google.maps.MapTypeId.TERRAIN]: "Mapa topogràfic (relleu)",
+    };
+
+    console.log(
+      `🗺️ Tipus de mapa canviat a: ${mapTypeNames[mapType] || mapType}`
+    );
+  }
+
+  /**
+   * Obté el tipus de mapa actual
+   */
+  getCurrentMapType(): string | null {
+    if (!this.map) {
+      return null;
+    }
+    return this.map.getMapTypeId() || null;
+  }
+
+  /**
+   * Activa/desactiva el mode relleu (terrain)
+   */
+  toggleTerrainMode(): void {
+    if (!this.map) {
+      console.warn("⚠️ El mapa no està inicialitzat");
+      return;
+    }
+
+    const currentType = this.map.getMapTypeId();
+    if (currentType === google.maps.MapTypeId.TERRAIN) {
+      this.setMapType(google.maps.MapTypeId.ROADMAP);
+    } else {
+      this.setMapType(google.maps.MapTypeId.TERRAIN);
     }
   }
 

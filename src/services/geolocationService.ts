@@ -91,12 +91,12 @@ class GeolocationService {
         }
       }
 
-      console.log("✅ Proceeding to get position...");
-      // Obté la posició actual amb configuració més permissiva
+      console.log("✅ Proceeding to get position with high accuracy...");
+      // Obté la posició actual amb configuració d'alta precisió
       const position: Position = await Geolocation.getCurrentPosition({
-        enableHighAccuracy: false, // Canviat a false per ser més ràpid
-        timeout: 15000, // Augmentat a 15 segons
-        maximumAge: 60000, // Reduït a 1 minut per tenir dades més fresques
+        enableHighAccuracy: true, // Activat per màxima precisió GPS
+        timeout: 30000, // 30 segons per donar temps al GPS a fixar-se
+        maximumAge: 10000, // Només 10 segons per forçar dades fresques
       });
       console.log("📍 Position obtained:", position);
 
@@ -289,6 +289,93 @@ class GeolocationService {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return R * c; // Distància en metres
+  }
+
+  /**
+   * Obté la posició actual amb configuració d'alta precisió i múltiples intents
+   */
+  async getHighAccuracyPosition(): Promise<LocationData> {
+    console.log(
+      "🎯 Starting getHighAccuracyPosition with multiple attempts..."
+    );
+
+    let bestLocation: LocationData | null = null;
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    while (attempts < maxAttempts) {
+      attempts++;
+      console.log(
+        `🔄 Intent ${attempts}/${maxAttempts} per obtenir alta precisió...`
+      );
+
+      try {
+        const position: Position = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: true,
+          timeout: 45000, // 45 segons per intent
+          maximumAge: 0, // Sempre fresh data
+        });
+
+        const locationData: LocationData = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          timestamp: position.timestamp,
+        };
+
+        console.log(
+          `📍 Intent ${attempts}: Precisió ${locationData.accuracy}m`
+        );
+
+        // Si és la primera lectura o és més precisa que l'anterior
+        if (!bestLocation || locationData.accuracy < bestLocation.accuracy) {
+          bestLocation = locationData;
+          console.log(`✅ Nova millor precisió: ${locationData.accuracy}m`);
+        }
+
+        // Si hem aconseguit precisió acceptable (<=15m), aturem
+        if (locationData.accuracy <= 15) {
+          console.log(
+            `🎯 Precisió excel·lent aconseguida: ${locationData.accuracy}m`
+          );
+          break;
+        }
+
+        // Si és acceptable (<=30m) i no és el primer intent, aturem
+        if (locationData.accuracy <= 30 && attempts > 1) {
+          console.log(
+            `✅ Precisió acceptable aconseguida: ${locationData.accuracy}m`
+          );
+          break;
+        }
+      } catch (error) {
+        console.warn(`⚠️ Intent ${attempts} fallit:`, error);
+
+        // Si és l'últim intent i no tenim cap ubicació, llancem l'error
+        if (attempts === maxAttempts && !bestLocation) {
+          throw error;
+        }
+      }
+
+      // Espera 2 segons entre intents (excepte l'últim)
+      if (attempts < maxAttempts) {
+        console.log("⏱️ Esperant 2 segons abans del següent intent...");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    }
+
+    if (!bestLocation) {
+      throw {
+        code: "LOCATION_UNAVAILABLE",
+        message:
+          "No s'ha pogut obtenir cap ubicació després de múltiples intents",
+      } as LocationError;
+    }
+
+    console.log(
+      `🏆 Millor precisió obtinguda: ${bestLocation.accuracy}m després de ${attempts} intents`
+    );
+    return bestLocation;
   }
 }
 

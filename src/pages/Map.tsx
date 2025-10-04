@@ -12,21 +12,32 @@ import {
   IonToolbar
 } from '@ionic/react';
 import { googleMapsService } from '@services/googleMapsService';
-import { locationOutline, refreshOutline, resizeOutline } from 'ionicons/icons';
+import { layersOutline, locationOutline, refreshOutline, resizeOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import './Map.css';
 
 const Map: React.FC = () => {
   const { location, loading, error, getCurrentLocation } = useGeolocation(true);
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('Mapa actualitzat!');
 
   const handleRefreshLocation = async () => {
     await getCurrentLocation();
+    setToastMessage('Ubicació actualitzada! 📍');
     setShowToast(true);
   };
 
   const handleFitBounds = () => {
     googleMapsService.fitBoundsToLocations();
+    setToastMessage('Mapa ajustat a totes les localitzacions');
+    setShowToast(true);
+  };
+
+  const handleToggleTerrainMode = () => {
+    googleMapsService.toggleTerrainMode();
+    const currentType = googleMapsService.getCurrentMapType();
+    const isTerrainMode = currentType === 'terrain';
+    setToastMessage(isTerrainMode ? 'Mode relleu activat 🏔️' : 'Mode normal activat 🗺️');
     setShowToast(true);
   };
 
@@ -35,6 +46,14 @@ const Map: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Mapa</IonTitle>
+          <IonButton
+            slot="end"
+            fill="clear"
+            onClick={handleToggleTerrainMode}
+            title="Canviar entre mode normal i relleu"
+          >
+            <IonIcon icon={layersOutline} />
+          </IonButton>
           <IonButton
             slot="end"
             fill="clear"
@@ -99,7 +118,7 @@ const Map: React.FC = () => {
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setShowToast(false)}
-          message="Mapa actualitzat!"
+          message={toastMessage}
           duration={2000}
           position="bottom"
           color="success"
