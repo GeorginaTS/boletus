@@ -1,3 +1,5 @@
+import { useAuth } from '@/contexts/AuthContext';
+import UserProfileForm from '@components/UserProfileForm';
 import {
   IonAvatar,
   IonButton,
@@ -20,8 +22,6 @@ import {
 } from '@ionic/react';
 import { create, globeOutline, locationOutline, logOut, mail, navigateOutline, person } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
-import UserProfileForm from '../components/UserProfileForm';
-import { useAuth } from '../contexts/AuthContext';
 import './Profile.css';
 
 const Profile: React.FC = () => {

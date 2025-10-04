@@ -1,9 +1,9 @@
 import { IonIcon, IonLabel, IonTabBar, IonTabButton } from '@ionic/react';
+import AddLocation from '@pages/AddLocation';
+import Map from '@pages/Map';
+import Profile from '@pages/Profile';
 import { addCircle, map, person } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router-dom';
-import AddLocation from '../pages/AddLocation';
-import Map from '../pages/Map';
-import Profile from '../pages/Profile';
 
 // Configuració de routes
 const routesConfig = [

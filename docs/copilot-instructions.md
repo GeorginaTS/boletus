@@ -7,12 +7,12 @@
 **SEMPRE** prioritzar les classes d'utilitat de Tailwind abans que qualsevol altre enfocament:
 
 1. **Classes d'utilitat de Tailwind** (`bg-primary-500`, `text-white`, `p-4`, `rounded-lg`, etc.)
-2. **Components personalitzats de Tailwind** (definits a `src/styles/tailwind.css`)
+2. **Components personalitzats de Tailwind** (definits a `src/styles/globals.css`)
 3. **Classes globals del theme** (`src/theme/variables.css` per a estils específics d'Ionic)
 
 ### PRIORITAT 2: Components Personalitzats de Tailwind
 
-Si cal crear un patró reutilitzable, usar `@layer components` a `src/styles/tailwind.css`:
+Si cal crear un patró reutilitzable, usar `@layer components` a `src/styles/globals.css`:
 
 - **Botons personalitzats**: `.btn-forest`, `.btn-earth`, `.btn-mushroom`
 - **Cards temàtiques**: `.card-nature`, `.data-card`
@@ -152,7 +152,7 @@ Només crear estils específics al fitxer CSS del component quan:
 2. **Intentar primer amb Tailwind utilities** (`bg-primary-500`, `p-4`, etc.)
 3. **Combinar amb components personalitzats de Tailwind** (`.btn-forest`, `.data-card`)
 4. **Si cal modificar Ionic**: Usar variables CSS a `variables.css`
-5. **Si no existeix**: Crear component personalitzat a `tailwind.css`
+5. **Si no existeix**: Crear component personalitzat a `globals.css`
 6. **Última opció**: Estils específics al component
 
 ## Exemple d'Implementació Correcta

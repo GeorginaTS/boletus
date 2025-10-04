@@ -1,8 +1,8 @@
+import { CreateUserProfileData, UpdateUserProfileData, UserProfile } from '@/types/user';
+import authService from '@services/authService';
+import firestoreService from '@services/firestoreService';
 import { User } from 'firebase/auth';
 import React, { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
-import authService from '../services/authService';
-import firestoreService from '../services/firestoreService';
-import { CreateUserProfileData, UpdateUserProfileData, UserProfile } from '../types/user';
 
 interface AuthContextType {
   user: User | null;

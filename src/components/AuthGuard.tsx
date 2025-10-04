@@ -1,7 +1,7 @@
+import { useAuth } from '@/contexts/AuthContext';
+import { IonContent, IonPage, IonSpinner } from '@ionic/react';
+import Login from '@pages/Login';
 import React from 'react';
-import { IonSpinner, IonContent, IonPage } from '@ionic/react';
-import { useAuth } from '../contexts/AuthContext';
-import Login from '../pages/Login';
 
 interface AuthGuardProps {
   children: React.ReactNode;

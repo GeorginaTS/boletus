@@ -1,3 +1,4 @@
+import { useAuth } from '@/contexts/AuthContext';
 import {
     IonButton,
     IonCard,
@@ -17,7 +18,6 @@ import {
 } from '@ionic/react';
 import { logoGoogle } from 'ionicons/icons';
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 
 const Login: React.FC = () => {

@@ -1,3 +1,5 @@
+import useGeolocation from '@/hooks/useGeolocation';
+import MapView from '@components/MapView';
 import {
   IonButton,
   IonContent,
@@ -11,8 +13,6 @@ import {
 } from '@ionic/react';
 import { locationOutline, refreshOutline } from 'ionicons/icons';
 import { useState } from 'react';
-import MapView from '../components/MapView';
-import useGeolocation from '../hooks/useGeolocation';
 import './Map.css';
 
 const Map: React.FC = () => {

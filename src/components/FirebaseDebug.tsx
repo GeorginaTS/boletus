@@ -1,6 +1,6 @@
+import { auth, db } from '@/config/firebase';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonList } from '@ionic/react';
 import React from 'react';
-import { auth, db } from '../config/firebase';
 
 const FirebaseDebug: React.FC = () => {
   const checkFirebaseConfig = () => {

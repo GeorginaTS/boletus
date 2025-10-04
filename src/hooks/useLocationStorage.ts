@@ -1,7 +1,7 @@
+import { useAuth } from "@/contexts/AuthContext";
+import { firestoreService } from "@services/firestoreService";
+import { LocationData } from "@services/geolocationService";
 import { useCallback } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { firestoreService } from "../services/firestoreService";
-import { LocationData } from "../services/geolocationService";
 
 interface UseLocationStorageResult {
   saveUserLocation: (location: LocationData) => Promise<void>;

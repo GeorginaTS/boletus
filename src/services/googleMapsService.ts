@@ -1,4 +1,11 @@
-import { LocationData } from "./geolocationService";
+import { LocationData } from "@services/geolocationService";
+
+// Tipus per a callback functions dinàmiques de Google Maps
+type GoogleMapsCallbackFunction = () => void;
+
+// Helper function per accedir a window amb callbacks dinàmics de forma segura
+const getWindowWithCallback = () =>
+  window as unknown as Window & Record<string, GoogleMapsCallbackFunction>;
 
 // Configuració per defecte de Google Maps
 const DEFAULT_MAP_CONFIG = {
@@ -91,9 +98,10 @@ class GoogleMapsService {
       }
 
       const callbackName = "initGoogleMaps" + Date.now();
-      (window as any)[callbackName] = () => {
+      const windowWithCallback = getWindowWithCallback();
+      windowWithCallback[callbackName] = () => {
         console.log("🔄 Callback de Google Maps executat");
-        delete (window as any)[callbackName];
+        delete windowWithCallback[callbackName];
         this.waitForGoogleMaps(resolve, reject);
       };
 
@@ -103,7 +111,7 @@ class GoogleMapsService {
       script.async = true;
 
       script.onerror = (error) => {
-        delete (window as any)[callbackName];
+        delete getWindowWithCallback()[callbackName];
         reject(new Error("Failed to load Google Maps script: " + error));
       };
 

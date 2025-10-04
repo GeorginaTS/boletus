@@ -1,3 +1,4 @@
+import useGeolocation from '@/hooks/useGeolocation';
 import {
   IonButton,
   IonCard,
@@ -18,11 +19,10 @@ import {
   IonToast,
   IonToolbar
 } from '@ionic/react';
+import { geolocationService } from '@services/geolocationService';
 import { locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
 import React, { useState } from 'react';
-import useGeolocation from '../hooks/useGeolocation';
 import './AddLocation.css';
-import { geolocationService } from '../services/geolocationService';
 
 const AddLocation: React.FC = () => {
   const { location, loading, error, getCurrentLocation } = useGeolocation(true);

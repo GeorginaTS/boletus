@@ -1,6 +1,6 @@
+import { LocationData } from '@services/geolocationService';
+import { googleMapsService } from '@services/googleMapsService';
 import React, { useEffect, useRef } from 'react';
-import { LocationData } from '../services/geolocationService';
-import { googleMapsService } from '../services/googleMapsService';
 
 interface MapViewProps {
   userLocation?: LocationData | null;

@@ -1,0 +1,535 @@
+/* Global styles for Mushroom Finder App */
+
+/* Tailwind CSS base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Components personalitzats que combinen Tailwind amb el theme de Mushroom Finder */
+@layer components {
+  /* Botons amb estil de bosc */
+  .btn-forest {
+    @apply bg-forest text-white px-4 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors;
+  }
+
+  .btn-earth {
+    @apply bg-earth text-white px-4 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors;
+  }
+
+  .btn-mushroom {
+    @apply bg-mushroom text-white px-4 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors;
+  }
+
+  /* Botons estàndard */
+  .btn-primary {
+    @apply bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  /* Cards amb tema natura */
+  .card-nature {
+    @apply bg-white rounded-lg shadow-lg border border-primary-100 p-6;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+
+  /* Text utilities amb colors del theme */
+  .text-forest {
+    @apply text-forest;
+  }
+
+  .text-earth {
+    @apply text-earth;
+  }
+
+  .text-mushroom {
+    @apply text-mushroom;
+  }
+
+  .text-primary {
+    @apply text-green-700;
+  }
+
+  .text-secondary {
+    @apply text-gray-600;
+  }
+
+  /* Backgrounds amb tema natura */
+  .bg-nature-gradient {
+    @apply bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500;
+  }
+
+  .bg-forest-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-forest;
+  }
+
+  .bg-primary {
+    @apply bg-green-50;
+  }
+
+  /* Container responsive */
+  .container-responsive {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-app {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Form inputs amb tema natura */
+  .input-nature {
+    @apply border border-primary-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent;
+  }
+
+  /* Data display components */
+  .data-card {
+    @apply bg-white rounded-lg shadow-md border border-primary-100 p-4;
+  }
+
+  .data-value-highlight {
+    @apply font-mono text-lg font-bold text-primary-600 bg-primary-50 rounded px-3 py-2 text-center;
+  }
+
+  .data-timestamp {
+    @apply text-sm text-gray-500 uppercase tracking-wide;
+  }
+
+  /* Location specific styles */
+  .location-marker {
+    @apply w-6 h-6 bg-primary-500 rounded-full border-2 border-white shadow-lg;
+  }
+
+  /* Map specific classes */
+  .map-container {
+    @apply w-full h-full relative;
+  }
+
+  .map-marker {
+    @apply bg-white border-2 border-green-600 rounded-full shadow-lg;
+  }
+}
+
+  /* Spacing utilities personalitzats */
+  .space-xs {
+    @apply space-y-1;
+  }
+
+  .space-sm {
+    @apply space-y-2;
+  }
+
+  .space-md {
+    @apply space-y-4;
+  }
+
+  .space-lg {
+    @apply space-y-6;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-green-600;
+  }
+
+  /* Responsive utilities */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  /* Animation classes */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+
+  .slide-up {
+    @apply animate-slide-up;
+  }
+
+/* Utilities personalitzades */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Custom animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full hover:bg-gray-500;
+}
+
+/* === CLASSES GLOBALS DELS COMPONENTS (moved from variables.css) === */
+
+/* Backgrounds with gradients */
+.nature-gradient-bg {
+  background: var(--nature-gradient);
+}
+
+.forest-gradient-bg {
+  background: var(--forest-gradient);
+}
+
+.earth-gradient-bg {
+  background: var(--earth-gradient);
+}
+
+/* Nature themed headers */
+.nature-header {
+  --background: var(--forest-gradient);
+  --color: white;
+}
+
+/* Nature themed buttons */
+.mushroom-button {
+  --background: var(--mushroom-brown);
+  --background-hover: var(--bark-brown);
+  --color: white;
+}
+
+.forest-button {
+  --background: var(--forest-green);
+  --background-hover: var(--ion-color-primary-shade);
+  --color: white;
+}
+
+/* Nature cards */
+.nature-card {
+  --background: linear-gradient(145deg, #ffffff 0%, #f8f9f4 100%);
+  border: 1px solid var(--moss-green);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(74, 124, 60, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .nature-card {
+    --background: linear-gradient(145deg, #1e2d24 0%, #253328 100%);
+    border: 1px solid #4a5d4a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --color: #f0f5f0;
+  }
+}
+
+.nature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 124, 60, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* === CONTENIDORS === */
+.container {
+  padding: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.container-sm {
+  padding: var(--spacing-sm);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.container-lg {
+  padding: var(--spacing-lg);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* === TÍTOLS GLOBALS === */
+.title-primary {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.title-secondary {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--ion-text-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.title-section {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* === FORMULARIS GLOBALS === */
+.form-container {
+  margin: 0;
+}
+
+.form-container ion-item {
+  --border-radius: var(--border-radius-base);
+  --background: transparent;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+.form-container ion-input {
+  --padding-start: var(--spacing-md);
+  --padding-end: var(--spacing-md);
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-color: var(--ion-border-color);
+  --border-width: 1px;
+  --border-style: solid;
+  border-radius: var(--border-radius-base);
+}
+
+.form-container ion-item.item-has-focus ion-input {
+  --border-color: var(--ion-color-primary);
+}
+
+.form-actions {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+}
+
+/* === BOTONS GLOBALS === */
+.btn-primary {
+  --background: var(--ion-color-primary);
+  --background-hover: var(--ion-color-primary-shade);
+  --color: var(--ion-color-primary-contrast);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition-base);
+}
+
+.btn-secondary {
+  --background: var(--ion-color-secondary);
+  --background-hover: var(--ion-color-secondary-shade);
+  --color: var(--ion-color-secondary-contrast);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition-base);
+}
+
+.btn-danger {
+  --background: var(--ion-color-danger);
+  --background-hover: var(--ion-color-danger-shade);
+  --color: var(--ion-color-danger-contrast);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+}
+
+.btn-outline {
+  --border-color: var(--ion-color-primary);
+  --border-width: 2px;
+  --color: var(--ion-color-primary);
+  --border-radius: var(--border-radius-lg);
+  height: var(--height-button);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* === AVATARS GLOBALS === */
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.avatar-md {
+  width: 60px;
+  height: 60px;
+}
+
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-placeholder {
+  background: var(--ion-color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+  color: var(--ion-color-medium);
+}
+
+/* === SEGMENTS GLOBALS === */
+.segment-container {
+  margin-bottom: var(--spacing-md);
+  --background: var(--ion-color-light);
+}
+
+.segment-container ion-segment-button {
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-primary);
+  --background-checked: var(--ion-color-primary-tint);
+  --indicator-color: var(--ion-color-primary);
+}
+
+/* === LLISTES I CARDS === */
+.list-container {
+  margin-bottom: var(--spacing-md);
+}
+
+.card-header-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+/* === CLASSES GLOBALS PER UBICACIÓ I DADES === */
+.location-card {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.location-card ion-card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--ion-color-primary);
+}
+
+.location-card ion-card-title ion-icon {
+  font-size: 20px;
+}
+
+.data-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.data-group h3 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.data-value {
+  font-family: "Courier New", monospace;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  margin: 0;
+  padding: var(--spacing-sm);
+  background: var(--ion-color-light);
+  border-radius: var(--border-radius-base);
+  text-align: center;
+}
+
+.data-timestamp h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--ion-color-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.data-timestamp p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--ion-color-dark);
+}
+
+.small-text {
+  font-size: var(--font-size-xs);
+  color: var(--ion-color-medium);
+  margin-top: var(--spacing-xs);
+}
+
+/* === TEMA FOSC PER ESTILS GLOBALS === */
+@media (prefers-color-scheme: dark) {
+  .form-container ion-item ion-input {
+    --border-color: #4a5d4a;
+    --background: var(--ion-item-background);
+    --color: #f0f5f0;
+  }
+
+  .form-container ion-item.item-has-focus ion-input {
+    --border-color: #7fb068;
+  }
+
+  .form-container ion-label {
+    --color: #a5c4a5;
+  }
+
+  .segment-container {
+    --background: var(--ion-color-dark);
+  }
+
+  .avatar-placeholder {
+    background: var(--ion-color-dark);
+    color: #a5c4a5;
+  }
+
+  .data-group h3 {
+    color: var(--ion-color-light);
+  }
+
+  .data-value {
+    background: var(--ion-color-dark-tint);
+    color: var(--ion-color-primary-tint);
+  }
+
+  .data-timestamp p {
+    color: var(--ion-color-light);
+  }
+}

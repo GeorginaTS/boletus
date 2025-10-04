@@ -1,3 +1,4 @@
+import { db } from "@/config/firebase";
 import {
   collection,
   doc,
@@ -10,7 +11,6 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
 import {
   CreateUserProfileData,
   UpdateUserProfileData,

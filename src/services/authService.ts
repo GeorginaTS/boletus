@@ -1,3 +1,4 @@
+import { auth } from "@/config/firebase";
 import {
   AuthError,
   createUserWithEmailAndPassword,
@@ -8,7 +9,6 @@ import {
   signOut,
   User,
 } from "firebase/auth";
-import { auth } from "../config/firebase";
 
 export interface AuthService {
   // Mètodes d'autenticació

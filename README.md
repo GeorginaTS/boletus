@@ -182,7 +182,7 @@ The application uses a hybrid theming system combining Tailwind CSS with Ionic's
 
 - **Tailwind CSS**: Primary styling framework with custom nature-themed configuration
 - **CSS Custom Properties**: Centralized design tokens in `src/theme/variables.css`
-- **Custom Components**: Tailwind-based components in `src/styles/tailwind.css`
+- **Custom Components**: Tailwind-based components in `src/styles/globals.css`
 - **Nature-Inspired Palette**: Forest greens, earth browns, and mushroom tones
 - **Responsive Design**: Mobile-first approach using Tailwind's responsive utilities
 - **Dark Mode**: Automatic theme switching with both Tailwind and Ionic support

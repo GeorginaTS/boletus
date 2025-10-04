@@ -1,3 +1,5 @@
+import { useAuth } from '@/contexts/AuthContext';
+import { CreateUserProfileData, UpdateUserProfileData } from '@/types/user';
 import {
     IonButton,
     IonCard,
@@ -14,8 +16,6 @@ import {
 } from '@ionic/react';
 import { person, save } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { CreateUserProfileData, UpdateUserProfileData } from '../types/user';
 
 interface UserProfileFormProps {
   isNew?: boolean;

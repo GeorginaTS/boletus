@@ -1,10 +1,10 @@
+import { useLocationStorage } from "@/hooks/useLocationStorage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   geolocationService,
   LocationData,
   LocationError,
 } from "../services/geolocationService";
-import { useLocationStorage } from "./useLocationStorage";
 
 interface UseGeolocationResult {
   location: LocationData | null;

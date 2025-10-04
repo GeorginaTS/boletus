@@ -1,7 +1,7 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { IonAlert, IonButton, IonIcon } from '@ionic/react';
 import { logOut } from 'ionicons/icons';
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
 
 interface LogoutButtonProps {
   className?: string;
