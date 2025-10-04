@@ -89,26 +89,26 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
             </h2>
             
             {location.description && (
-              <p className="location-description m-0 mb-3 text-gray-500 text-sm">
+              <p>
                 {location.description}
               </p>
             )}
             
-            <div className="location-details mb-4">
-              <div className="detail-item flex items-center gap-1-5 mb-1 text-xs text-gray-500">
+            <div className="location-details mb-4 gap-2">
+              <div>
                 <IonIcon icon={navigateOutline} />
-                <span>{formatCoordinates(location.lat, location.lng)}</span>
+                <span className='ml-4'>{formatCoordinates(location.lat, location.lng)}</span>
               </div>
               
-              <div className="detail-item flex items-center gap-1-5 mb-1 text-xs text-gray-500">
+              <div>
                 <IonIcon icon={calendarOutline} />
-                <span>{formatDate(location.createdAt)}</span>
+                <span className='ml-4'>{formatDate(location.createdAt)}</span>
               </div>
               
               {location.updatedAt && location.updatedAt !== location.createdAt && (
-                <div className="detail-item flex items-center gap-1-5 text-xs text-gray-500">
+                <div>
                   <IonIcon icon={timeOutline} />
-                  <span>Actualitzat: {formatDate(location.updatedAt)}</span>
+                  <span className='ml-4'>Updated: {formatDate(location.updatedAt)}</span>
                 </div>
               )}
             </div>

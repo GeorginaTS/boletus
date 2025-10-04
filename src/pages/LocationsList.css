@@ -17,4 +17,28 @@
 /* Contenidor de detalls específic per LocationsList */
 .location-details {
   margin-top: var(--spacing-sm);
+  color: black;
+  --color: black;
+}
+.location-details ion-icon {
+  font-size: var(--font-size-lg);
+  vertical-align: middle;
+  margin-right: var(--spacing-sm);
+}
+.location-details span {
+  vertical-align: middle;
+  margin-left: auto;
+  --color: black;
+  color: black;
+}
+
+/* Mode fosc */
+@media (prefers-color-scheme: dark) {
+  .location-details {
+    --color: white;
+    color: white;
+  }
+  .location-details span {
+    --color: white;
+  }
 }
