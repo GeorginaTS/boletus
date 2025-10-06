@@ -151,7 +151,7 @@ const LocationsList: React.FC = () => {
                 <IonCardHeader>
                   <IonCardTitle className="card-title">
                     <IonIcon icon={locationOutline} />
-                    {locations.length} Localització{locations.length !== 1 ? 's' : ''} Guardada{locations.length !== 1 ? 's' : ''}
+                    {locations.length} Localitzaci{locations.length !== 1 ? 'ons' : 'ó'} Guardad{locations.length !== 1 ? 'es' : 'a'}
                   </IonCardTitle>
                 </IonCardHeader>
                 
@@ -190,7 +190,7 @@ const LocationsList: React.FC = () => {
           onDidDismiss={() => setShowToast(false)}
           message={toastMessage}
           duration={3000}
-          position="top"
+          position="bottom"
           color={toastMessage.includes('Error') ? 'danger' : 'success'}
         />
       </IonContent>

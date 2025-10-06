@@ -22,6 +22,29 @@
   width: 100% !important;
   height: calc(100% - var(--ion-tab-bar-height, 50px)) !important;
 }
+/* Location specific styles */
+.location-marker {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--brown);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Map specific classes */
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-marker {
+  background: white;
+  border: 2px solid var(--brown);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
 /* Contenidor d'error */
 .error-container {

@@ -192,3 +192,8 @@ ion-card {
     --color: var(--peach);
   }
 }
+.nature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 124, 60, 0.2);
+  transition: all 0.3s ease;
+}

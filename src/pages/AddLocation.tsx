@@ -28,7 +28,7 @@ import { firestoreService } from '@services/firestoreService';
 import { geolocationService } from '@services/geolocationService';
 import { googleMapsService } from '@services/googleMapsService';
 import { photoService } from '@services/photoService';
-import { addOutline, cameraOutline, checkmarkOutline, closeOutline, listOutline, locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
+import { addOutline, cameraOutline, checkmarkOutline, closeOutline,  locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
 import React, { useState } from 'react';
 import './AddLocation.css';
 
@@ -37,6 +37,8 @@ const AddLocation: React.FC = () => {
   const { location, loading, error, accuracy, isHighAccuracy, getCurrentLocation, getHighAccuracyLocation } = useGeolocation(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [toastColor, setToastColor] = useState<'success' | 'warning' | 'danger'>('success');
+
   
   // Estat del formulari
   const [formData, setFormData] = useState({
@@ -63,7 +65,18 @@ const AddLocation: React.FC = () => {
 
   const handleHighAccuracyLocation = async () => {
     await getHighAccuracyLocation();
-    setToastMessage(`Ubicació d'alta precisió obtinguda! (${accuracy}m)`);
+        // Determinar el color del toast segons la precisió
+    let color: 'success' | 'warning' | 'danger' = 'success';
+    let accuracyMsg : 'alta' | "mitjana" |'baixa' = 'alta';
+    if (accuracy && accuracy > 50) {
+      color = 'danger';
+      accuracyMsg = 'baixa';
+    } else if (accuracy && accuracy >= 25) {
+      color = 'warning';
+      accuracyMsg = 'mitjana';
+    }
+    setToastColor(color);
+    setToastMessage(`Ubicació obtinguda amb ${accuracyMsg} precisió! (${accuracy}m)`);
     setShowToast(true);
   };
 
@@ -270,7 +283,6 @@ const AddLocation: React.FC = () => {
                   )}            
                 </IonList>
               )}
-
               <div className="form-actions">
                 <IonButton
                   onClick={handleLocationUpdate}
@@ -371,8 +383,7 @@ const AddLocation: React.FC = () => {
                     </div>
                   </IonItem>
                 </div>
-                
-                <div className="form-actions">
+                <div className='form-actions'>
                   <IonButton
                     expand="block"
                     onClick={handleSubmitLocation}
@@ -385,17 +396,6 @@ const AddLocation: React.FC = () => {
                         ? 'Guardant...' 
                         : 'Guardar Localització'}
                   </IonButton>
-                  
-                  <IonButton
-                    expand="block"
-                    fill="outline"
-                    color="primary"
-                    className="mt-3"
-                    routerLink="/locations"
-                  >
-                    <IonIcon icon={listOutline} slot="start" />
-                    Veure totes les localitzacions
-                  </IonButton>
                 </div>
               </IonCardContent>
             </IonCard>
@@ -407,8 +407,8 @@ const AddLocation: React.FC = () => {
           onDidDismiss={() => setShowToast(false)}
           message={toastMessage || (error ? error.message : '')}
           duration={3000}
-          position="top"
-          color={error ? 'danger' : 'success'}
+          position="bottom"
+          color={toastColor}
         />
       </IonContent>
     </IonPage>

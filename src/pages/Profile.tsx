@@ -216,7 +216,7 @@ const Profile: React.FC = () => {
           onDidDismiss={() => setShowToast(false)}
           message={toastMessage}
           duration={3000}
-          position="top"
+          position="bottom"
           color="success"
         />
       </IonContent>

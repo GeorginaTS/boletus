@@ -48,12 +48,12 @@
 
 .theme-toggle-header ion-icon {
   font-size: 20px;
-  color: var(--ion-color-primary) !important;
+  color: var(--ion-color-tertiary-contrast) !important;
   transition: var(--transition-fast);
 }
 
 .theme-toggle-header:hover {
-  --background: rgba(var(--ion-color-primary-rgb), 0.2);
+  --background: rgba(var(--ion-color-tertiary-rgb), 0.2);
 }
 
 .theme-toggle-header:hover ion-icon {

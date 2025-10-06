@@ -1,31 +1,29 @@
-/* === ESTILS ESPECÍFICS PER ADDLOCATION === */
-/* Classes globals: .loading-state, .error-state, .coordinates-display */
-/* Els estils d'inputs i textarea ara són globals a globals.css */
 
-/* Estils per centrar botons en les cards */
+.location-card-compact {
+  margin-bottom: 1rem;
+}
+.location-card-compact ion-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.location-card-compact ion-label h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.location-card-compact ion-label p {
+  font-size: 0.85rem;
+}
+
+
 .form-actions {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-md);
-  margin-bottom: var(--spacing-sm);
-}
-
-.form-actions ion-button {
-  min-width: 180px;
-}
-
-/* Botons de ubicació en la mateixa línia */
-.location-card-compact .form-actions {
-  flex-direction: row;
   justify-content: center;
-  flex-wrap: wrap;
-}
-
-.location-card-compact .form-actions ion-button {
-  min-width: 120px;
-  flex: 0 1 auto;
+  align-items: center;
+  padding: var(--spacing-sm);
+  gap: var(--spacing-sm);
 }
 
 /* Centrar botons dins de seccions amb text d'error */
