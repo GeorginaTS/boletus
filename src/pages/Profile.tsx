@@ -82,7 +82,7 @@ const Profile: React.FC = () => {
           </IonSegment>
 
           {currentView === 'view' && (
-            <IonCard className="profile-card nature-card">
+            <IonCard>
             <IonCardHeader>
               <div className="card-header-centered">
                 <IonAvatar className="avatar-lg">

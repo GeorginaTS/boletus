@@ -1,4 +1,12 @@
-/* Global styles for Mushroom Finder App */
+/* ============================================================================
+   MUSHROOM FINDER - GLOBAL STYLES (MODE CLAR)
+   ============================================================================ */
+
+/* ============================================================================
+   1. IONIC COMPONENTS - MODE CLAR
+   ============================================================================ */
+
+/* --- ion-list --- */
 ion-list {
   margin: 0;
   --padding-top: 0;
@@ -9,13 +17,20 @@ ion-list {
   flex-direction: column;
   gap: var(--spacing-sm);
 }
+
+/* --- ion-item --- */
 ion-item {
   margin: 0;
   --padding-top: 0;
   --padding-bottom: 0;
   --padding-start: 0;
   --padding-end: 0;
+  --border-radius: 0.5rem;
+  --padding-start: 1rem;
+  --inner-padding-end: 1rem;
 }
+
+/* --- ion-label --- */
 ion-label {
   margin: 0;
   --padding-top: 0;
@@ -23,13 +38,24 @@ ion-label {
   --padding-start: 0;
   --padding-end: 0;
 }
+
+/* Excloure labels del TabBar */
+ion-label:not(ion-tab-button ion-label) {
+  position: relative !important;
+  z-index: 10 !important;
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-weight: bold !important;
+  color: #2d1b10;
+}
+
+/* --- ion-icon --- */
 ion-icon {
   color: var(--ion-color-medium);
 }
 
-/* Estils específics per colors d'icones */
 ion-icon.icon-danger {
-  color: var(--ion-color-danger); /* equivalent a text-red-500 */
+  color: var(--ion-color-danger);
 }
 
 ion-icon.icon-warning {
@@ -40,6 +66,7 @@ ion-icon.icon-success {
   color: var(--ion-color-success);
 }
 
+/* --- ion-button --- */
 /* Estils globals per ion-button (exclou tab buttons) */
 ion-button:not(ion-tab-button) {
   display: flex;
@@ -56,174 +83,10 @@ ion-button:not(ion-tab-button) {
   --padding-end: 1rem;
 }
 
-/* Estils específics per ion-tab-button */
-ion-tab-button {
-  --padding-top: 0;
-  --padding-bottom: 0;
-  --padding-start: 0;
-  --padding-end: 0;
-  max-width: none;
-}
-
 /* Icones dins de botons hereten el color del text */
 ion-button ion-icon {
   color: inherit;
 }
-
-/* Estils globals per ion-card */
-ion-card {
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(153, 88, 42, 0.15);
-  border: 1px solid var(--lion);
-}
-
-/* Estils globals per ion-item */
-ion-item {
-  --border-radius: 0.5rem;
-  --padding-start: 1rem;
-  --inner-padding-end: 1rem;
-}
-
-/* Estils globals per ion-input */
-ion-input {
-  --border-radius: 0.5rem;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
-  --border-color: var(--ion-border-color);
-  --border-width: 1px;
-  --border-style: solid;
-}
-
-ion-input.ion-focused {
-  --border-color: var(--ion-color-primary);
-}
-
-/* Estils globals per ion-textarea */
-ion-textarea {
-  --border-radius: 0.5rem;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
-  --border-color: var(--ion-border-color);
-  --border-width: 1px;
-  --border-style: solid;
-}
-
-ion-textarea.ion-focused {
-  --border-color: var(--ion-color-primary);
-}
-
-/* Estils per tema fosc */
-@media (prefers-color-scheme: dark) {
-  ion-button {
-    --background: var(--ion-color-primary);
-    --color: var(--ion-color-primary-contrast);
-  }
-}
-/* === CLASSES ESSENCIALS UTILITZADES === */
-
-/* Cards amb tema terra */
-.card-nature {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--ion-border-color);
-  padding: 1.5rem;
-}
-
-
-
-
-/* Responsive utilities */
-.responsive-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .responsive-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .responsive-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Animation classes */
-.fade-in {
-  animation: fade-in 0.3s ease-in-out;
-}
-
-.slide-up {
-  animation: slide-up 0.3s ease-out;
-}
-
-/* Nature themed headers */
-.nature-header {
-  --background: var(--autumn-gradient);
-  --color: white;
-}
-
-/* Nature cards */
-.nature-card {
-  --background: #ffffff;
-  background-color: #ffffff;
-  border: 1px solid var(--lion);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(153, 88, 42, 0.15);
-}
-
-@media (prefers-color-scheme: dark) {
-  .nature-card {
-    --background: linear-gradient(
-      145deg,
-      var(--bistre) 0%,
-      var(--bistre-light) 100%
-    );
-    border: 1px solid var(--brown);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --color: var(--peach);
-  }
-}
-
-/* === CONTENIDORS === */
-.container {
-  padding: var(--spacing-md);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* === TÍTOLS GLOBALS === */
-.title-primary {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--ion-color-primary);
-  margin-bottom: var(--spacing-md);
-  text-align: center;
-}
-
-/* Estil consistent per títols de cards */
-.card-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ion-color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.card-title ion-icon {
-  font-size: 1.2rem;
-  color: var(--ion-color-primary);
-}
-
-/* === BOTONS GLOBALS (duplicats eliminats) === */
 
 .btn-danger {
   --background: var(--ion-color-danger);
@@ -234,23 +97,113 @@ ion-textarea.ion-focused {
   font-weight: var(--font-weight-semibold);
 }
 
-/* === AVATARS GLOBALS === */
-.avatar-lg {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto;
+/* --- ion-tab-button --- */
+ion-tab-button {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  max-width: none;
 }
 
-.avatar-placeholder {
-  background: var(--ion-color-light);
+/* --- ion-card --- */
+ion-card {
+  --background: white;
+  background-color: white;
+  --color: var(--bistre) !important;
+  color: var(--bistre) !important;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(153, 88, 42, 0.15);
+  border: 1px solid var(--lion);
+}
+ion-card-title {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: var(--border-radius-full);
-  color: var(--ion-color-medium);
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* === SEGMENTS GLOBALS AMB TEMA TERRA === */
+ion-card-title ion-icon {
+  font-size: 1.2rem;
+  color: var(--ion-color-primary);
+}
+ion-card-content {
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+ion-card-content img {
+  width:25vw;
+  max-width:320px;
+  max-height:25vw;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(153, 88, 42, 0.15);
+}
+
+/* --- ion-input --- */
+ion-input {
+  --background: #fafaf9 !important;
+  --color: #2d1b10 !important;
+  --border-color: var(--ion-border-color);
+  --placeholder-color: #8b7355 !important;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+ion-input.ion-focused {
+  --border-color: var(--ion-color-primary);
+  --background: #f7f7f6 !important;
+  --color: #2d1b10 !important;
+}
+
+/* --- ion-textarea --- */
+ion-textarea {
+  --background: #fafaf9 !important;
+  --color: #2d1b10 !important;
+  --border-color: var(--ion-border-color);
+  --placeholder-color: #8b7355 !important;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+ion-textarea.ion-focused {
+  --border-color: var(--ion-color-primary);
+  --background: #f7f7f6 !important;
+  --color: #2d1b10 !important;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  color: var(--ion-color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-sm);
+  gap: var(--spacing-sm);
+}
+
+/* --- ion-segment --- */
 .segment-container {
   margin-bottom: var(--spacing-md);
   --background: var(--ion-segment-background);
@@ -277,33 +230,67 @@ ion-textarea.ion-focused {
   transition: all 0.2s ease;
 }
 
-/* === LLISTES I CARDS === */
+/* --- ion-header --- */
+.nature-header {
+  --background: var(--autumn-gradient);
+  --color: white;
+}
 
-.card-header-centered {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* ============================================================================
+   2. ETIQUETES HTML - MODE CLAR
+   ============================================================================ */
+
+/* --- Contenidors --- */
+.container {
+  padding: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- Títols --- */
+.title-primary {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--ion-color-primary);
+  margin-bottom: var(--spacing-md);
   text-align: center;
-  gap: var(--spacing-md);
 }
 
-/* === CLASSES GLOBALS PER UBICACIÓ I DADES === */
-.location-card {
-  margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-}
-
-.location-card ion-card-title {
+.detail-item {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--ion-text-color);
+  opacity: 0.8;
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-item ion-icon {
+  font-size: 16px;
+  color: var(--ion-color-secondary);
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+}
+
+.coordinates-display {
+  font-family: "Courier New", monospace;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
   color: var(--ion-color-primary);
 }
 
-.location-card ion-card-title ion-icon {
-  font-size: 20px;
-}
-
+/* --- Pàgina: Dades i Visualització --- */
 .data-display {
   display: flex;
   flex-direction: column;
@@ -347,53 +334,7 @@ ion-textarea.ion-focused {
   font-weight: 500;
 }
 
-.small-text {
-  font-size: var(--font-size-xs);
-  color: var(--ion-color-medium);
-  margin-top: var(--spacing-xs);
-}
-
-/* === CLASSES GLOBALS UNIFICADES === */
-
-/* Estils per elements de detall (coordenades, dates, etc.) */
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-size: var(--font-size-sm);
-  color: var(--ion-text-color);
-  opacity: 0.8;
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--spacing-xs);
-}
-
-.detail-item ion-icon {
-  font-size: 16px;
-  color: var(--ion-color-secondary);
-}
-
-.detail-item:last-child {
-  margin-bottom: 0;
-}
-
-/* Títols de localització uniforms */
-.location-name {
-  font-weight: var(--font-weight-semibold);
-  color: var(--ion-color-primary);
-  margin: 0 0 var(--spacing-xs) 0;
-  font-size: var(--font-size-lg);
-}
-
-/* Descripcions uniforms */
-.location-description {
-  color: var(--ion-text-color);
-  opacity: 0.8;
-  margin: 0 0 var(--spacing-sm) 0;
-  font-size: var(--font-size-sm);
-  line-height: 1.5;
-}
-
-/* Estats de càrrega uniformes */
+/* --- Pàgina: Estats (loading, error, info) --- */
 .loading-state {
   display: flex;
   flex-direction: column;
@@ -409,7 +350,6 @@ ion-textarea.ion-focused {
   margin-bottom: var(--spacing-md);
 }
 
-/* Estats d'error uniformes */
 .error-state {
   display: flex;
   flex-direction: column;
@@ -424,23 +364,6 @@ ion-textarea.ion-focused {
   margin-bottom: var(--spacing-md);
 }
 
-/* Coordenades amb font monospace */
-.coordinates-display {
-  font-family: "Courier New", monospace;
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-lg);
-  color: var(--ion-color-primary);
-}
-
-/* Contenidors de detalls */
-.details-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  margin-top: var(--spacing-sm);
-}
-
-/* Missatges informatius */
 .info-message {
   text-align: center;
   padding: var(--spacing-lg) var(--spacing-md);
@@ -472,231 +395,43 @@ ion-textarea.ion-focused {
   font-size: var(--font-size-base);
 }
 
-/* === ESTILS GLOBALS PER INPUTS I TEXTAREA === */
-/* Millor contrast per inputs i textarea en mode clar */
-ion-input {
-  --background: #fafaf9 !important;
-  --color: #2d1b10 !important;
-  --border-color: var(--ion-border-color);
-  --placeholder-color: #8b7355 !important;
-  --border-width: 1px;
-  --border-style: solid;
-  --border-radius: 8px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+/* --- Pàgina: Avatars i Perfils --- */
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
 }
 
-ion-textarea {
-  --background: #fafaf9 !important;
-  --color: #2d1b10 !important;
-  --border-color: var(--ion-border-color);
-  --placeholder-color: #8b7355 !important;
-  --border-width: 1px;
-  --border-style: solid;
-  --border-radius: 8px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+.avatar-placeholder {
+  background: var(--ion-color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+  color: var(--ion-color-medium);
 }
 
-ion-input.ion-focused,
-ion-textarea.ion-focused {
-  --border-color: var(--ion-color-primary);
-  --background: #f7f7f6 !important;
-  --color: #2d1b10 !important;
+/* --- Pàgina: Cards genèriques --- */
+.card-nature {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--ion-border-color);
+  padding: 1.5rem;
 }
 
-/* === ESTILS GLOBALS PER LABELS === */
-/* Excloure labels del TabBar */
-ion-label:not(ion-tab-button ion-label) {
-  position: relative !important;
-  z-index: 10 !important;
-  display: block !important;
-  margin-bottom: 8px !important;
-  font-weight: bold !important;
-  color: #2d1b10; /* Sin !important para permitir override en tema oscuro */
+.card-header-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
 }
 
-/* === TEMA FOSC PER ESTILS GLOBALS === */
-@media (prefers-color-scheme: dark) {
-  .segment-container {
-    --background: var(--ion-item-background);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
-
-  .segment-container ion-segment-button {
-    --color: var(--ion-text-color);
-    --color-checked: var(--ion-color-primary-contrast);
-    --background-checked: var(--ion-color-primary);
-    --indicator-box-shadow: 0 2px 8px rgba(210, 180, 140, 0.4);
-  }
-
-  .avatar-placeholder {
-    background: var(--bistre);
-    color: var(--lion);
-  }
-
-  .data-group h3 {
-    color: var(--peach);
-  }
-
-  .data-value {
-    background: var(--bistre);
-    color: var(--peach);
-    border-color: var(--brown);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .data-timestamp p {
-    color: var(--peach);
-  }
-
-  .data-timestamp h4 {
-    color: var(--lion);
-  }
-
-  /* Restaurar estils per defecte d'inputs en mode fosc */
-  ion-input,
-  ion-textarea {
-    --background: var(--ion-item-background) !important;
-    --color: #e8dcc6 !important; /* Color clar específic */
-    --border-color: var(--ion-border-color) !important;
-    --placeholder-color: #a6a273 !important; /* Placeholder més clar */
-  }
-
-  ion-input.ion-focused,
-  ion-textarea.ion-focused {
-    --border-color: var(--ion-color-primary) !important;
-    --background: var(--ion-item-background) !important;
-    --color: #e8dcc6 !important; /* Color clar específic */
-  }
-}
-
-/* === ESTILS ESPECÍFICS PER TEMA FOSC === */
-.dark-theme,
-body.ion-palette-dark {
-  /* Forçar canvi de background per totes les ion-card */
-  ion-card {
-    --background: var(--ion-card-background) !important;
-    --color: var(--ion-text-color) !important;
-    background-color: var(--ion-card-background) !important;
-    color: var(--ion-text-color) !important;
-  }
-
-  /* Cards i components personalitzats en tema fosc */
-  .nature-card {
-    --background: var(--ion-color-step-100) !important;
-    --color: var(--ion-text-color) !important;
-    border-color: var(--ion-color-step-200) !important;
-  }
-
-  .detail-item {
-    background-color: var(--ion-color-step-100) !important;
-    color: var(--ion-text-color) !important;
-    border-color: var(--ion-color-step-200) !important;
-  }
-
-  .location-name {
-    color: var(--ion-color-primary) !important;
-  }
-
-  .coordinates-display {
-    background-color: var(--ion-color-step-150) !important;
-    color: var(--ion-text-color) !important;
-    border-color: var(--ion-color-step-250) !important;
-  }
-
-  .info-message {
-    background-color: var(--ion-color-step-100) !important;
-    color: var(--ion-text-color) !important;
-    border-color: var(--ion-color-step-200) !important;
-  }
-
-  .loading-state,
-  .error-state {
-    color: var(--ion-text-color) !important;
-  }
-
-  .data-group h3 {
-    color: var(--ion-color-secondary) !important;
-  }
-
-  .data-value {
-    background-color: var(--ion-color-step-150) !important;
-    color: var(--ion-text-color) !important;
-    border-color: var(--ion-color-step-250) !important;
-  }
-
-  .data-timestamp p {
-    color: var(--ion-color-medium) !important;
-  }
-
-  .data-timestamp h4 {
-    color: var(--ion-color-primary) !important;
-  }
-
-  /* Inputs i textarea en tema fosc */
-  ion-input,
-  ion-textarea {
-    --background: var(--ion-item-background) !important;
-    --color: #e8dcc6 !important; /* Color clar específic */
-    --border-color: var(--ion-border-color) !important;
-    --placeholder-color: #a6a273 !important; /* Placeholder més clar */
-  }
-
-  ion-input.ion-focused,
-  ion-textarea.ion-focused {
-    --border-color: var(--ion-color-primary) !important;
-    --background: var(--ion-item-background) !important;
-    --color: #e8dcc6 !important; /* Color clar específic */
-  }
-
-  /* Labels clars en mode fosc - excloure TabBar */
-  ion-label:not(ion-tab-button ion-label) {
-    --color: #e8dcc6 !important; /* Color clar per labels */
-  }
-}
-
-/* Estils específics per ion-card en tema fosc */
-.ion-palette-dark ion-card,
-.dark-theme ion-card {
-  --background: var(--ion-card-background) !important;
-  --color: var(--ion-text-color) !important;
-  background: var(--ion-card-background) !important;
-  color: var(--ion-text-color) !important;
-}
-
-/* Estils més específics per components dins de ion-card */
-.ion-palette-dark ion-card ion-card-content,
-.dark-theme ion-card ion-card-content {
-  --background: transparent !important;
-  --color: var(--ion-text-color) !important;
-  background: transparent !important;
-  color: var(--ion-text-color) !important;
-}
-
-.ion-palette-dark ion-card ion-card-header,
-.dark-theme ion-card ion-card-header {
-  --background: transparent !important;
-  --color: var(--ion-text-color) !important;
-  background: transparent !important;
-  color: var(--ion-text-color) !important;
-}
-
-.ion-palette-dark ion-card ion-card-title,
-.dark-theme ion-card ion-card-title {
-  --color: var(--ion-color-primary) !important;
-  color: var(--ion-color-primary) !important;
-}
-
-.ion-palette-dark ion-card ion-card-subtitle,
-.dark-theme ion-card ion-card-subtitle {
-  --color: var(--ion-color-medium) !important;
-  color: var(--ion-color-medium) !important;
-}
+/* ============================================================================
+   4. ANIMACIONS
+   ============================================================================ */
 
 /* Forçar re-renderització de components quan canvia el tema */
 .ion-palette-dark ion-card,
@@ -716,28 +451,96 @@ body.ion-palette-dark {
   }
 }
 
-/* Estils específics per inputs i textarea en tema fosc */
-.ion-palette-dark ion-input,
-.dark-theme ion-input,
-.ion-palette-dark ion-textarea,
-.dark-theme ion-textarea {
-  --background: var(--ion-item-background) !important;
-  --color: #e8dcc6 !important; /* Color clar específic */
-  --border-color: var(--ion-border-color) !important;
-  --placeholder-color: #a6a273 !important; /* Placeholder més clar */
+/* ============================================================================
+   MUSHROOM FINDER - GLOBAL STYLES (MODE FOSC)
+   ============================================================================ */
+
+/* ============================================================================
+   1. IONIC COMPONENTS - MODE FOSC
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* --- ion-button --- */
+  ion-button {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+  }
+
+  /* --- ion-card --- */
+  .nature-card {
+    --background: linear-gradient(
+      145deg,
+      var(--bistre) 0%,
+      var(--bistre-light) 100%
+    );
+    border: 1px solid var(--brown);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --color: var(--peach);
+  }
+
+  /* --- ion-input --- */
+  ion-input,
+  ion-textarea {
+    --background: var(--ion-item-background) !important;
+    --color: #e8dcc6 !important;
+    --border-color: var(--ion-border-color) !important;
+    --placeholder-color: #a6a273 !important;
+  }
+
+  ion-input.ion-focused,
+  ion-textarea.ion-focused {
+    --border-color: var(--ion-color-primary) !important;
+    --background: var(--ion-item-background) !important;
+    --color: #e8dcc6 !important;
+  }
+
+  /* --- ion-label --- */
+  ion-label:not(ion-tab-button ion-label) {
+    --color: #e8dcc6 !important;
+  }
+
+  /* --- ion-segment --- */
+  .segment-container {
+    --background: var(--ion-item-background);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .segment-container ion-segment-button {
+    --color: var(--ion-text-color);
+    --color-checked: var(--ion-color-primary-contrast);
+    --background-checked: var(--ion-color-primary);
+    --indicator-box-shadow: 0 2px 8px rgba(210, 180, 140, 0.4);
+  }
 }
 
-.ion-palette-dark ion-input.ion-focused,
-.dark-theme ion-input.ion-focused,
-.ion-palette-dark ion-textarea.ion-focused,
-.dark-theme ion-textarea.ion-focused {
-  --border-color: var(--ion-color-primary) !important;
-  --background: var(--ion-item-background) !important;
-  --color: #e8dcc6 !important; /* Color clar específic */
-}
+/* ============================================================================
+   2. CLASSES PER PÀGINES - MODE FOSC
+   ============================================================================ */
 
-/* Labels clars en tema fosc - excloure TabBar */
-.ion-palette-dark ion-label:not(ion-tab-button ion-label),
-.dark-theme ion-label:not(ion-tab-button ion-label) {
-  --color: #e8dcc6 !important; /* Color clar per labels */
+@media (prefers-color-scheme: dark) {
+  /* --- Avatars --- */
+  .avatar-placeholder {
+    background: var(--bistre);
+    color: var(--lion);
+  }
+
+  /* --- Dades --- */
+  .data-group h3 {
+    color: var(--peach);
+  }
+
+  .data-value {
+    background: var(--bistre);
+    color: var(--peach);
+    border-color: var(--brown);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .data-timestamp p {
+    color: var(--peach);
+  }
+
+  .data-timestamp h4 {
+    color: var(--lion);
+  }
 }

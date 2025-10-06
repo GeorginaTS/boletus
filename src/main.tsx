@@ -1,7 +1,7 @@
 import App from '@/App';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
-import '@styles/earth-theme.css';
 import '@styles/globals.css';
+import '@styles/globals-dark.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 

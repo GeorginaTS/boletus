@@ -1,0 +1,234 @@
+/* ============================================================================
+   TEMA FOSC (Classe personalitzada .dark-theme)
+   ============================================================================ */
+
+.dark-theme {
+  /* Colors primaris ajustats per fosc */
+  --ion-color-primary: #bb9457;
+  --ion-color-primary-rgb: 187, 148, 87;
+  --ion-color-primary-contrast: #2c1810;
+  --ion-color-primary-contrast-rgb: 44, 24, 16;
+  --ion-color-primary-shade: #a4824d;
+  --ion-color-primary-tint: #c29f68;
+
+  /* Colors secundaris per fosc */
+  --ion-color-secondary: #ffe6a7;
+  --ion-color-secondary-rgb: 255, 230, 167;
+  --ion-color-secondary-contrast: #432818;
+  --ion-color-secondary-contrast-rgb: 67, 40, 24;
+  --ion-color-secondary-shade: #e0ca93;
+  --ion-color-secondary-tint: #ffe9b0;
+
+  /* Colors de fons fosc amb tons terra */
+  --ion-background-color: #1a1611;
+  --ion-background-color-rgb: 26, 22, 17;
+
+  --ion-text-color: #e8dcc6;
+  --ion-text-color-rgb: 232, 220, 198;
+
+  --ion-color-step-50: #242018;
+  --ion-color-step-100: #2e2a1f;
+  --ion-color-step-150: #383426;
+  --ion-color-step-200: #423e2d;
+  --ion-color-step-250: #4c4834;
+  --ion-color-step-300: #56523b;
+  --ion-color-step-350: #605c42;
+  --ion-color-step-400: #6a6649;
+  --ion-color-step-450: #747050;
+  --ion-color-step-500: #7e7a57;
+  --ion-color-step-550: #88845e;
+  --ion-color-step-600: #928e65;
+  --ion-color-step-650: #9c986c;
+  --ion-color-step-700: #a6a273;
+  --ion-color-step-750: #b0ac7a;
+  --ion-color-step-800: #bab681;
+  --ion-color-step-850: #c4c088;
+  --ion-color-step-900: #ceca8f;
+  --ion-color-step-950: #d8d496;
+
+  /* Colors de sistema per tema fosc */
+  --ion-color-success: #7cb342;
+  --ion-color-success-rgb: 124, 179, 66;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #6d9e3a;
+  --ion-color-success-tint: #89bb55;
+
+  --ion-color-warning: #ffb74d;
+  --ion-color-warning-rgb: 255, 183, 77;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0a144;
+  --ion-color-warning-tint: #ffbf5f;
+
+  --ion-color-danger: #f44336;
+  --ion-color-danger-rgb: 244, 67, 54;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d73930;
+  --ion-color-danger-tint: #f5574a;
+
+  --ion-color-light: #3a3530;
+  --ion-color-light-rgb: 58, 53, 48;
+  --ion-color-light-contrast: #ffffff;
+  --ion-color-light-contrast-rgb: 255, 255, 255;
+  --ion-color-light-shade: #33302b;
+  --ion-color-light-tint: #4e4945;
+
+  --ion-color-medium: #706b60;
+  --ion-color-medium-rgb: 112, 107, 96;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #635e55;
+  --ion-color-medium-tint: #7e7970;
+
+  --ion-color-dark: #e8dcc6;
+  --ion-color-dark-rgb: 232, 220, 198;
+  --ion-color-dark-contrast: #1a1611;
+  --ion-color-dark-contrast-rgb: 26, 22, 17;
+  --ion-color-dark-shade: #ccc2ae;
+  --ion-color-dark-tint: #eadfcc;
+
+  /* Backgrounds i superfícies */
+  --ion-item-background: var(--ion-color-step-100);
+  --ion-card-background: var(--ion-color-step-100);
+  --ion-toolbar-background: var(--ion-color-step-50);
+  --ion-tab-bar-background: var(--ion-color-step-50);
+  --ion-searchbar-background: var(--ion-color-step-100);
+
+  /* Bordes i separadors */
+  --ion-border-color: var(--ion-color-step-200);
+
+  /* --- ion-card --- */
+  ion-card {
+    --background: var(--ion-card-background) !important;
+    --color: var(--ion-text-color) !important;
+    background-color: var(--ion-card-background) !important;
+    color: var(--ion-text-color) !important;
+  }
+
+  .nature-card {
+    --background: var(--ion-color-step-100) !important;
+    --color: var(--ion-text-color) !important;
+    border-color: var(--ion-color-step-200) !important;
+  }
+
+  /* --- ion-input i ion-textarea --- */
+  ion-input,
+  ion-textarea {
+    --background: var(--ion-item-background) !important;
+    --color: #e8dcc6 !important;
+    --border-color: var(--ion-border-color) !important;
+    --placeholder-color: #a6a273 !important;
+  }
+
+  ion-input.ion-focused,
+  ion-textarea.ion-focused {
+    --border-color: var(--ion-color-primary) !important;
+    --background: var(--ion-item-background) !important;
+    --color: #e8dcc6 !important;
+  }
+
+  /* --- ion-label --- */
+  ion-label:not(ion-tab-button ion-label) {
+    --color: #e8dcc6 !important;
+  }
+
+  /* --- Classes de pàgines --- */
+  .detail-item {
+    background-color: var(--ion-color-step-100) !important;
+    color: var(--ion-text-color) !important;
+    border-color: var(--ion-color-step-200) !important;
+  }
+
+  .location-name {
+    color: var(--ion-color-primary) !important;
+  }
+
+  .coordinates-display {
+    background-color: var(--ion-color-step-150) !important;
+    color: var(--ion-text-color) !important;
+    border-color: var(--ion-color-step-250) !important;
+  }
+
+  .info-message {
+    background-color: var(--ion-color-step-100) !important;
+    color: var(--ion-text-color) !important;
+    border-color: var(--ion-color-step-200) !important;
+  }
+
+  .loading-state,
+  .error-state {
+    color: var(--ion-text-color) !important;
+  }
+
+  .data-group h3 {
+    color: var(--ion-color-secondary) !important;
+  }
+
+  .data-value {
+    background-color: var(--ion-color-step-150) !important;
+    color: var(--ion-text-color) !important;
+    border-color: var(--ion-color-step-250) !important;
+  }
+
+  .data-timestamp p {
+    color: var(--ion-color-medium) !important;
+  }
+
+  .data-timestamp h4 {
+    color: var(--ion-color-primary) !important;
+  }
+}
+
+/* Estils més específics per components dins de ion-card en tema fosc */
+.dark-theme ion-card {
+  --background: var(--ion-card-background) !important;
+  --color: var(--ion-text-color) !important;
+  background: var(--ion-card-background) !important;
+  color: var(--ion-text-color) !important;
+}
+
+.dark-theme ion-card ion-card-content {
+  --background: transparent !important;
+  --color: var(--ion-text-color) !important;
+  background: transparent !important;
+  color: var(--ion-text-color) !important;
+}
+
+.dark-theme ion-card ion-card-header {
+  --background: transparent !important;
+  --color: var(--ion-text-color) !important;
+  background: transparent !important;
+  color: var(--ion-text-color) !important;
+}
+
+.dark-theme ion-card ion-card-title {
+  --color: var(--ion-color-primary) !important;
+  color: var(--ion-color-primary) !important;
+}
+
+.dark-theme ion-card ion-card-subtitle {
+  --color: var(--ion-color-medium) !important;
+  color: var(--ion-color-medium) !important;
+}
+
+/* Estils específics per inputs i labels en tema fosc */
+.dark-theme ion-input,
+.dark-theme ion-textarea {
+  --background: var(--ion-item-background) !important;
+  --color: #e8dcc6 !important;
+  --border-color: var(--ion-border-color) !important;
+  --placeholder-color: #a6a273 !important;
+}
+
+.dark-theme ion-input.ion-focused,
+.dark-theme ion-textarea.ion-focused {
+  --border-color: var(--ion-color-primary) !important;
+  --background: var(--ion-item-background) !important;
+  --color: #e8dcc6 !important;
+}
+
+.dark-theme ion-label:not(ion-tab-button ion-label) {
+  --color: #e8dcc6 !important;
+}

@@ -23,11 +23,10 @@ import './Login.css';
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   
-  const { login, register, loginWithGoogle, loading } = useAuth();
+  const {  loginWithGoogle, loading } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,13 +38,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      if (isRegisterMode) {
-        await register(email, password);
-        setToastMessage('Compte creat correctament!');
-      } else {
-        await login(email, password);
-        setToastMessage('Login correcte!');
-      }
+
       setShowToast(true);
     } catch (error) {
       setToastMessage((error as Error).message);
@@ -77,7 +70,7 @@ const Login: React.FC = () => {
           <IonCard className="form-container">
             <IonCardContent>
               <div className="login-header">
-                <h1 className="title-primary">{isRegisterMode ? 'Crear Compte' : 'Iniciar Sessió'}</h1>
+                <h1 className="title-primary">Iniciar Sessió</h1>
                 <p>Troba els millors llocs per bolets!</p>
               </div>
 
@@ -114,11 +107,11 @@ const Login: React.FC = () => {
                   className="mt-lg"
                   disabled={loading}
                 >
-                  {isRegisterMode ? 'Crear Compte' : 'Iniciar Sessió'}
+                 Iniciar sessió
                 </IonButton>
               </form>
 
-              {!isRegisterMode && (
+              
                 <>
                   <div className="login-divider">
                     <IonText color="medium">o</IonText>
@@ -135,19 +128,7 @@ const Login: React.FC = () => {
                     Continuar amb Google
                   </IonButton>
                 </>
-              )}
-
-              <div className="login-switch">
-                <IonText>
-                  {isRegisterMode ? 'Ja tens compte?' : 'No tens compte?'}
-                </IonText>
-                <IonButton
-                  fill="clear"
-                  onClick={() => setIsRegisterMode(!isRegisterMode)}
-                >
-                  {isRegisterMode ? 'Iniciar Sessió' : 'Crear Compte'}
-                </IonButton>
-              </div>
+              
             </IonCardContent>
           </IonCard>
         </div>

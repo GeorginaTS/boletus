@@ -1,20 +1,22 @@
 import { Location } from '@/types/location';
 import {
-    IonButton,
-    IonCard,
-    IonCardContent,
-    IonIcon
+  IonAlert,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardTitle,
+  IonIcon
 } from '@ionic/react';
 import { photoService } from '@services/photoService';
 import {
-    calendarOutline,
-    locationOutline,
-    mapOutline,
-    navigateOutline,
-    trashOutline
+  calendarOutline,
+  locationOutline,
+  mapOutline,
+  navigateOutline,
+  trashOutline
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
-
+import './LocationCard.css';
 export interface LocationCardData {
   location: Location;
   onViewOnMap: (location: Location) => void;
@@ -28,6 +30,7 @@ interface LocationCardProps {
 const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
   const { location, onViewOnMap, onDelete } = data;
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   // Carrega la foto si la localització en té una
   useEffect(() => {
@@ -61,52 +64,49 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
   };
 
   return (
-    <IonCard className="nature-card mb-4">
+    <IonCard>
       <IonCardContent>
-        <div className="flex items-start gap-3">
+      
           {/* Foto de la localització si existeix */}
           {photoUrl ? (
             <img
               src={photoUrl}
               alt={location.name}
-              className="w-20 h-20 rounded-lg object-cover border-2 border-primary-500 flex-shrink-0"
             />
           ) : (
-            <div className="w-20 h-20 rounded-lg bg-primary-500 flex items-center justify-center flex-shrink-0">
+            <div>
               <IonIcon 
                 icon={locationOutline} 
                 color="primary"
-                className="text-3xl"
+                size='large'
               />
             </div>
           )}
           
           {/* Contingut principal */}
-          <div className="flex-1 min-w-0">
-            <h2 className="location-name m-0 mb-2 text-lg font-bold">
+          <div>
+            <IonCardTitle>
               🍄 {location.name}
-            </h2>
-            
-            {location.description && (
+            </IonCardTitle>
               <p>
                 {location.description}
               </p>
-            )}
-            
-            <div className="location-details mb-4 gap-2">
+            <div className='card-info'>
               <div>
                 <IonIcon icon={navigateOutline} />
-                <span className='ml-4'>{formatCoordinates(location.lat, location.lng)}</span>
+                <span>{formatCoordinates(location.lat, location.lng)}</span>
               </div>
               
               <div>
                 <IonIcon icon={calendarOutline} />
-                <span className='ml-4'>{formatDate(location.createdAt)}</span>
+                <span>{formatDate(location.createdAt)}</span>
               </div>
             </div>
-            
-            {/* Botons d'acció sempre visibles */}
-            <div className="flex gap-2">
+          </div>
+        
+      </IonCardContent>
+      {/* Botons d'acció sempre visibles */}
+            <div className="form-actions">
               <IonButton
                 size="small"
                 fill="outline"
@@ -121,15 +121,35 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
                 size="small"
                 fill="clear"
                 className="btn-delete-icon"
-                onClick={() => onDelete(location)}
+                onClick={() => setShowDeleteAlert(true)}
                 title="Eliminar localització"
               >
                 <IonIcon icon={trashOutline} />
               </IonButton>
             </div>
-          </div>
-        </div>
-      </IonCardContent>
+
+      {/* Alert de confirmació d'eliminació */}
+      <IonAlert
+        isOpen={showDeleteAlert}
+        onDidDismiss={() => setShowDeleteAlert(false)}
+        header="Confirmar eliminació"
+        message={`Estàs segur que vols eliminar la localització "${location.name}"? Aquesta acció no es pot desfer.`}
+        buttons={[
+          {
+            text: 'Cancel·lar',
+            role: 'cancel',
+            cssClass: 'alert-button-cancel'
+          },
+          {
+            text: 'Eliminar',
+            role: 'confirm',
+            cssClass: 'alert-button-confirm',
+            handler: () => {
+              onDelete(location);
+            }
+          }
+        ]}
+      />
     </IonCard>
   );
 };

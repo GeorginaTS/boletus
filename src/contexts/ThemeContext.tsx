@@ -29,14 +29,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const applyTheme = (newTheme: Theme) => {
     const isDark = newTheme === 'dark';
     
-    // Aplicar classe Ionic
-    if (isDark) {
-      document.body.classList.add('ion-palette-dark');
-    } else {
-      document.body.classList.remove('ion-palette-dark');
-    }
-    
-    // Aplicar classe personalitzada per CSS personalitzat
+    // Només aplicar .dark-theme (conté totes les variables necessàries)
     document.body.classList.toggle('dark-theme', isDark);
     
     // Guardar preferència

@@ -18,13 +18,7 @@
 }
 
 
-.form-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--spacing-sm);
-  gap: var(--spacing-sm);
-}
+
 
 /* Centrar botons dins de seccions amb text d'error */
 .text-center {

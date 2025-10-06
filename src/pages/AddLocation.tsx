@@ -217,10 +217,10 @@ const AddLocation: React.FC = () => {
         {/* Loading component fora del contenidor condicional */}
         <IonLoading isOpen={loading} message="Obtenint ubicació..." />
 
-        <div className="container">
-          <IonCard className="nature-card location-card-compact">
+        <div>
+          <IonCard>
             <IonCardHeader>
-              <IonCardTitle className="card-title">
+              <IonCardTitle>
                 <IonIcon icon={locationOutline} />
                 La Teva Ubicació
               </IonCardTitle>
@@ -311,7 +311,7 @@ const AddLocation: React.FC = () => {
 
           {/* Formulari per afegir localització */}
           {location && !loading && (
-            <IonCard className="nature-card">
+            <IonCard>
               <IonCardHeader>
                 <IonCardTitle className="card-title">
                   <IonIcon icon={addOutline} />

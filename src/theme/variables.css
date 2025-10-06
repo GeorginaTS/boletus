@@ -3,87 +3,106 @@
  * Colors basats en tons terrestres, verds del bosc i marrons dels bolets
  */
 
-/* Paleta de colors terra natural */
 :root {
+  /* ========== COLORS IONIC - TEMA CLAR ========== */
+  /* ========== COLORS PERSONALITZATS ========== */
+
+  --falu-red: #6f1d1b;
+  --falu-red-shade: #621918;
+  --falu-red-tint: #7d3432;
+
+  --lion: #bb9457;
+  --lion-shade: #a4824d;
+  --lion-tint: #c29f68;
+
+  --bistre: #432818;
+  --bistre-light: #5a3722;
+
+  --brown: #99582a;
+  --brown-shade: #864f25;
+  --brown-tint: #a3663f;
+  --brown-light: #a66237;
+
+  --peach: #ffe6a7;
+  --peach-shade: #e0ca93;
+  --peach-tint: #ffe9b0;
+  --peach-light: #fff5dc;
+
+  --white: #ffffff;
+  --background-light: #fffbf3;
+  --border-light: #f0e4c7;
+
   /* Colors primaris - Brown com a color principal */
-  --ion-color-primary: #99582a;
+  --ion-color-primary: var(--brown);
   --ion-color-primary-rgb: 153, 88, 42;
-  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast: var(--white);
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #864f25;
-  --ion-color-primary-tint: #a3663f;
+  --ion-color-primary-shade: var(--brown-shade);
+  --ion-color-primary-tint: var(--brown-tint);
 
   /* Colors secundaris - Lion daurat */
-  --ion-color-secondary: #bb9457;
+  --ion-color-secondary: var(--lion);
   --ion-color-secondary-rgb: 187, 148, 87;
-  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast: var(--white);
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #a4824d;
-  --ion-color-secondary-tint: #c29f68;
+  --ion-color-secondary-shade: var(--lion-shade);
+  --ion-color-secondary-tint: var(--lion-tint);
 
   /* Colors terciaris - Peach suau */
-  --ion-color-tertiary: #ffe6a7;
+  --ion-color-tertiary: var(--peach);
   --ion-color-tertiary-rgb: 255, 230, 167;
-  --ion-color-tertiary-contrast: #432818;
+  --ion-color-tertiary-contrast: var(--bistre);
   --ion-color-tertiary-contrast-rgb: 67, 40, 24;
-  --ion-color-tertiary-shade: #e0ca93;
-  --ion-color-tertiary-tint: #ffe9b0;
+  --ion-color-tertiary-shade: var(--peach-shade);
+  --ion-color-tertiary-tint: var(--peach-tint);
 
   /* Colors de sistema amb tons terra */
-  --ion-color-success: #bb9457;
+  --ion-color-success: var(--lion);
   --ion-color-success-rgb: 187, 148, 87;
-  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast: var(--white);
   --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #a4824d;
-  --ion-color-success-tint: #c29f68;
+  --ion-color-success-shade: var(--lion-shade);
+  --ion-color-success-tint: var(--lion-tint);
 
-  --ion-color-warning: #99582a;
+  --ion-color-warning: var(--brown);
   --ion-color-warning-rgb: 153, 88, 42;
-  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast: var(--white);
   --ion-color-warning-contrast-rgb: 255, 255, 255;
-  --ion-color-warning-shade: #864f25;
-  --ion-color-warning-tint: #a3663f;
+  --ion-color-warning-shade: var(--brown-shade);
+  --ion-color-warning-tint: var(--brown-tint);
 
-  --ion-color-danger: #6f1d1b;
+  --ion-color-danger: var(--falu-red);
   --ion-color-danger-rgb: 111, 29, 27;
-  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast: var(--white);
   --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #621918;
-  --ion-color-danger-tint: #7d3432;
+  --ion-color-danger-shade: var(--falu-red-shade);
+  --ion-color-danger-tint: var(--falu-red-tint);
 
   /* Colors de fons - Peach molt suau */
-  --ion-background-color: #fffbf3;
+  --ion-background-color: var(--background-light);
   --ion-background-color-rgb: 255, 251, 243;
 
-  --ion-text-color: #432818;
+  --ion-text-color: var(--bistre);
   --ion-text-color-rgb: 67, 40, 24;
 
   /* Colors de targetes i superfícies */
-  --ion-card-background: #ffffff;
-  --ion-item-background: #ffffff;
+  --ion-card-background: var(--white);
+  --ion-item-background: var(--white);
 
   /* Colors de borders i separadors */
-  --ion-border-color: #f0e4c7;
+  --ion-border-color: var(--border-light);
   --ion-border-color-rgb: 240, 228, 199;
 
-  /* Nova paleta de colors personalitzats */
-  --falu-red: #6f1d1b;
-  --lion: #bb9457;
-  --bistre: #432818;
-  --brown: #99582a;
-  --peach: #ffe6a7;
-  --peach-light: #fff5dc;
-  --bistre-light: #5a3722;
-  --brown-light: #a66237;
+  /* ========== COMPONENTS IONIC ========== */
 
-  /* Variables específiques per Ion Segment amb nova paleta */
+  /* Ion Segment */
   --ion-segment-background: var(--peach-light);
   --ion-segment-button-color: var(--bistre);
-  --ion-segment-button-color-checked: #ffffff;
+  --ion-segment-button-color-checked: var(--white);
   --ion-segment-button-background-checked: var(--brown);
   --ion-segment-indicator-color: var(--brown);
 
-  /* Gradients amb nova paleta */
+  /* ========== GRADIENTS ========== */
 
   --autumn-gradient: linear-gradient(135deg, var(--lion) 0%, var(--brown) 100%);
   --nature-gradient: linear-gradient(
@@ -92,11 +111,11 @@
     var(--lion) 50%,
     var(--peach) 100%
   );
-}
 
-/* Variables globals personalitzades (aplicables en tots els temes) */
-:root {
-  /* Tipografia */
+  /* ========== TIPOGRAFIA ========== */
+
+  --font-family-primary: "Roboto", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", sans-serif;
   --font-family-primary: "Roboto", -apple-system, BlinkMacSystemFont,
     "Helvetica Neue", sans-serif;
   --font-weight-light: 300;
@@ -115,7 +134,8 @@
   --font-size-3xl: 30px;
   --font-size-4xl: 36px;
 
-  /* Espaiats */
+  /* ========== ESPAIATS ========== */
+
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -124,34 +144,39 @@
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
 
-  /* Border radius */
+  /* ========== BORDER RADIUS ========== */
+
   --border-radius-sm: 4px;
   --border-radius-base: 8px;
   --border-radius-lg: 12px;
   --border-radius-xl: 16px;
   --border-radius-full: 50%;
 
-  /* Shadows */
+  /* ========== SHADOWS ========== */
+
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
   --shadow-nature: 0 4px 12px rgba(74, 124, 60, 0.15);
 
-  /* Transicions */
+  /* ========== TRANSICIONS ========== */
+
   --transition-fast: 0.15s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
 
-  /* Alçades estàndard */
+  /* ========== ALÇADES ESTÀNDARD ========== */
+
   --height-input: 48px;
   --height-button: 48px;
   --height-header: 56px;
 }
 
-/*
- * Tema fosc - Combinació perfecta amb els tons terra
- */
+/* ============================================================================
+   TEMA FOSC - .ion-palette-dark (NO S'UTILITZA, mantingut per compatibilitat)
+   NOTA: El tema fosc ara s'aplica via .dark-theme a globals-dark.css
+   ============================================================================ */
 .ion-palette-dark {
   /* Colors primaris ajustats per fosc */
   --ion-color-primary: #bb9457;

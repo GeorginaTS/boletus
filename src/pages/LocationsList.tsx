@@ -22,8 +22,7 @@ import { firestoreService } from '@services/firestoreService';
 import { googleMapsService } from '@services/googleMapsService';
 import {
     listOutline,
-    locationOutline,
-    refreshOutline
+    locationOutline
 } from 'ionicons/icons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -126,11 +125,10 @@ const LocationsList: React.FC = () => {
 
         <div className="container">
           {!loading && locations.length === 0 && (
-            <IonCard className="nature-card">
-              <IonCardContent className="text-center p-lg">
+            <IonCard>
+              <IonCardContent>
                 <IonIcon 
                   icon={locationOutline} 
-                  className="text-6xl text-gray-500 mb-1" 
                 />
                 <h2>Cap localització trobada</h2>
                 <p>Afegeix la teva primera localització des de la pestanya "Afegir lloc"</p>
@@ -147,26 +145,13 @@ const LocationsList: React.FC = () => {
 
           {!loading && locations.length > 0 && (
             <>
-              <IonCard className="nature-card">
+              <IonCard>
                 <IonCardHeader>
-                  <IonCardTitle className="card-title">
+                  <IonCardTitle>
                     <IonIcon icon={locationOutline} />
                     {locations.length} Localitzaci{locations.length !== 1 ? 'ons' : 'ó'} Guardad{locations.length !== 1 ? 'es' : 'a'}
                   </IonCardTitle>
                 </IonCardHeader>
-                
-                <IonCardContent>
-                  <div className="form-actions">
-                    <IonButton
-                      expand="block"
-                      fill="outline"
-                      onClick={loadLocations}
-                    >
-                      <IonIcon icon={refreshOutline} slot="start" />
-                      Actualitzar llista
-                    </IonButton>
-                  </div>
-                </IonCardContent>
               </IonCard>
 
               <div>
