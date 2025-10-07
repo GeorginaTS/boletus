@@ -1,33 +1,33 @@
 import { Location } from '@/types/location';
 import {
-  IonAlert,
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardTitle,
-  IonIcon
+    IonAlert,
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardTitle,
+    IonIcon
 } from '@ionic/react';
 import { photoService } from '@services/photoService';
 import {
-  calendarOutline,
-  locationOutline,
-  mapOutline,
-  navigateOutline,
-  trashOutline
+    calendarOutline,
+    locationOutline,
+    mapOutline,
+    navigateOutline,
+    trashOutline
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
-import './LocationCard.css';
-export interface LocationCardData {
+import './LocationListCard.css';
+export interface LocationListCardData {
   location: Location;
   onViewOnMap: (location: Location) => void;
   onDelete: (location: Location) => void;
 }
 
-interface LocationCardProps {
-  data: LocationCardData;
+interface LocationListCardProps {
+  data: LocationListCardData;
 }
 
-const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
+const LocationListCard: React.FC<LocationListCardProps> = ({ data }) => {
   const { location, onViewOnMap, onDelete } = data;
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -66,7 +66,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
   return (
     <IonCard>
       <IonCardContent>
-      
+      <article>
           {/* Foto de la localització si existeix */}
           {photoUrl ? (
             <img
@@ -74,11 +74,9 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
               alt={location.name}
             />
           ) : (
-            <div>
+            <div className='no-image'>
               <IonIcon 
                 icon={locationOutline} 
-                color="primary"
-                size='large'
               />
             </div>
           )}
@@ -88,30 +86,27 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
             <IonCardTitle>
               🍄 {location.name}
             </IonCardTitle>
-              <p>
-                {location.description}
-              </p>
-            <div className='card-info'>
-              <div>
+            <ul className='card-info'>
+              <li className='card-info-item'>
                 <IonIcon icon={navigateOutline} />
                 <span>{formatCoordinates(location.lat, location.lng)}</span>
-              </div>
-              
+              </li>
+
               {/* Mostrar ciutat si està disponible */}
               {location.city && (
-                <div>
+                <li className='card-info-item'>
                   <IonIcon icon={locationOutline} />
                   <span>{location.city}</span>
-                </div>
+                </li>
               )}
-              
-              <div>
+
+              <li className='card-info-item'>
                 <IonIcon icon={calendarOutline} />
                 <span>{formatDate(location.createdAt)}</span>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
-        
+        </article>
       </IonCardContent>
       {/* Botons d'acció sempre visibles */}
             <div className="form-actions">
@@ -162,4 +157,4 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
   );
 };
 
-export default LocationCard;
+export default LocationListCard;

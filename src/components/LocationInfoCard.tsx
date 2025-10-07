@@ -1,17 +1,27 @@
 import {
-    IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonIcon,
-    IonItem,
-    IonLabel,
-    IonList
-} from '@ionic/react';
-import { geolocationService, LocationData, LocationError } from '@services/geolocationService';
-import { locateOutline, locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
-import React from 'react';
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+} from "@ionic/react";
+import {
+  geolocationService,
+  LocationData,
+  LocationError,
+} from "@services/geolocationService";
+import {
+  locateOutline,
+  locationOutline,
+  navigateOutline,
+  refreshOutline,
+} from "ionicons/icons";
+import React from "react";
+import "../pages/AddLocation.css";
 
 interface LocationInfoCardProps {
   location: LocationData | null;
@@ -20,6 +30,8 @@ interface LocationInfoCardProps {
   accuracy: number | null;
   isHighAccuracy: boolean;
   cityName: string | null;
+  provinceName: string | null;
+  countryName: string | null;
   isLoadingCity: boolean;
   onUpdateLocation: () => void;
   onHighAccuracyLocation: () => void;
@@ -32,36 +44,29 @@ const LocationInfoCard: React.FC<LocationInfoCardProps> = ({
   accuracy,
   isHighAccuracy,
   cityName,
+  provinceName,
+  countryName,
   isLoadingCity,
   onUpdateLocation,
-  onHighAccuracyLocation
+  onHighAccuracyLocation,
 }) => {
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle>
-          <IonIcon icon={locationOutline} />
-          La Teva Ubicació
-        </IonCardTitle>
+        <IonCardTitle>La Teva Ubicació</IonCardTitle>
       </IonCardHeader>
 
       <IonCardContent>
         {loading && (
-          <div className="text-center">
+          <div>
             <p>Obtenint ubicació...</p>
           </div>
         )}
 
         {error && !loading && (
-          <div className="text-center">
-            <IonIcon
-              icon={locationOutline}
-              className="icon-danger mb-2"
-              style={{ fontSize: '1.5rem' }}
-            />
-            <p className="text-red-500 mb-2" style={{ fontSize: '0.9rem' }}>
-              {error?.message}
-            </p>
+          <div>
+            <IonIcon icon={locationOutline} color="danger" />
+            <p>{error?.message}</p>
             <IonButton fill="outline" onClick={onUpdateLocation} size="small">
               <IonIcon icon={refreshOutline} slot="start" />
               Reintentar
@@ -71,59 +76,61 @@ const LocationInfoCard: React.FC<LocationInfoCardProps> = ({
 
         {location && !loading && (
           <IonList>
-            <IonItem>
+            <IonItem lines="none">
               <IonIcon icon={navigateOutline} slot="start" color="primary" />
               <IonLabel>
                 <h3>Coordenades</h3>
                 <p>{geolocationService.formatCoordinates(location)}</p>
+                {/* Mostrar ciutat, província i país si estan disponibles */}
+                {(cityName || provinceName || countryName || isLoadingCity) && (
+                  <p>
+                    {isLoadingCity
+                      ? "Obtenint població..."
+                      : [cityName, provinceName, countryName]
+                          .filter(Boolean)
+                          .join(", ")}
+                  </p>
+                )}
               </IonLabel>
             </IonItem>
-
-            {/* Mostrar ciutat si està disponible */}
-            {(cityName || isLoadingCity) && (
-              <IonItem>
-                <IonIcon icon={locationOutline} slot="start" color="secondary" />
-                <IonLabel>
-                  <h3>Població</h3>
-                  <p>{isLoadingCity ? 'Obtenint població...' : cityName}</p>
-                </IonLabel>
-              </IonItem>
-            )}
-
             {accuracy && (
-              <IonItem>
+              <IonItem lines="none">
                 <IonIcon
                   icon={locateOutline}
                   slot="start"
-                  color={isHighAccuracy ? 'success' : accuracy > 50 ? 'danger' : 'warning'}
+                  color={
+                    isHighAccuracy
+                      ? "success"
+                      : accuracy > 50
+                      ? "danger"
+                      : "warning"
+                  }
                 />
                 <IonLabel>
                   <h3>Precisió GPS</h3>
                   <p>
-                    ±{accuracy.toFixed(0)}m
-                    {accuracy <= 20 && ' (Excel·lent)'}
-                    {accuracy > 20 && accuracy <= 50 && ' (OK)'}
-                    {accuracy > 50 && ' (Baixa)'}
+                    ±{accuracy.toFixed(0)}m{accuracy <= 20 && " (Excel·lent)"}
+                    {accuracy > 20 && accuracy <= 50 && " (OK)"}
+                    {accuracy > 50 && " (Baixa)"}
                   </p>
                 </IonLabel>
               </IonItem>
             )}
           </IonList>
         )}
-
         <div className="form-actions">
           <IonButton onClick={onUpdateLocation} disabled={loading} size="small">
             <IonIcon icon={refreshOutline} slot="start" />
-            {location ? 'Actualitzar' : 'Obtenir'}
+            {location ? "Actualitzar" : "Obtenir"}
           </IonButton>
 
           {location && accuracy && accuracy > 20 && (
             <IonButton
-              fill="outline"
-              color="warning"
               onClick={onHighAccuracyLocation}
               disabled={loading}
               size="small"
+              fill="outline"
+              color="primary"
             >
               <IonIcon icon={locateOutline} slot="start" />
               Precisió

@@ -37,6 +37,8 @@ const AddLocation: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cityName, setCityName] = useState<string | null>(null);
+  const [provinceName, setProvinceName] = useState<string | null>(null);
+  const [countryName, setCountryName] = useState<string | null>(null);
   const [isLoadingCity, setIsLoadingCity] = useState(false);
   
   // Estat per la foto
@@ -44,30 +46,36 @@ const AddLocation: React.FC = () => {
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
-  // Obtenir ciutat automàticament quan canvia la ubicació
+  // Obtenir ciutat, província i país automàticament quan canvia la ubicació
   useEffect(() => {
-    const fetchCity = async () => {
+    const fetchCityAndCountry = async () => {
       if (location && !loading) {
         setIsLoadingCity(true);
         try {
-          console.log('Obtenint ciutat per:', location.latitude, location.longitude);
-          const city = await geocodingService.getCityName(location.latitude, location.longitude);
-          console.log('Ciutat obtinguda:', city);
-          setCityName(city);
+          console.log('Obtenint ciutat, província i país per:', location.latitude, location.longitude);
+          const locationData = await geocodingService.getCityAndCountry(location.latitude, location.longitude);
+          console.log('Dades obtingudes:', locationData);
+          setCityName(locationData?.city || null);
+          setProvinceName(locationData?.province || null);
+          setCountryName(locationData?.country || null);
         } catch (error) {
-          console.error('Error obtenint la ciutat:', error);
+          console.error('Error obtenint la ubicació:', error);
           setCityName(null);
+          setProvinceName(null);
+          setCountryName(null);
         } finally {
           setIsLoadingCity(false);
         }
       } else if (!location) {
-        // Si no hi ha ubicació, netejar la ciutat
+        // Si no hi ha ubicació, netejar la ciutat, província i país
         setCityName(null);
+        setProvinceName(null);
+        setCountryName(null);
         setIsLoadingCity(false);
       }
     };
 
-    fetchCity();
+    fetchCityAndCountry();
   }, [location, loading]);
 
   const handleRefresh = async (event: CustomEvent) => {
@@ -233,7 +241,7 @@ const AddLocation: React.FC = () => {
         {/* Loading component fora del contenidor condicional */}
         <IonLoading isOpen={loading} message="Obtenint ubicació..." />
 
-        <div>
+        <div className="container">
           {/* Component de la ubicació */}
           <LocationInfoCard
             location={location}
@@ -242,6 +250,8 @@ const AddLocation: React.FC = () => {
             accuracy={accuracy}
             isHighAccuracy={isHighAccuracy}
             cityName={cityName}
+            provinceName={provinceName}
+            countryName={countryName}
             isLoadingCity={isLoadingCity}
             onUpdateLocation={handleLocationUpdate}
             onHighAccuracyLocation={handleHighAccuracyLocation}

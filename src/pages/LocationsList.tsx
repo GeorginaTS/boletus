@@ -1,4 +1,4 @@
-import LocationCard from '@/components/LocationCard';
+import LocationListCard from '@/components/LocationListCard';
 import SectionHeader from '@/components/SectionHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { Location } from '@/types/location';
@@ -150,7 +150,7 @@ const LocationsList: React.FC = () => {
 
               <div>
                 {locations.map((location) => (
-                  <LocationCard
+                  <LocationListCard
                     key={location.id}
                     data={{
                       location,

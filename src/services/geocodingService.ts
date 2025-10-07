@@ -124,6 +124,30 @@ class GeocodingService {
   }
 
   /**
+   * Obté la ciutat, província i el país
+   * @param lat Latitud
+   * @param lng Longitud
+   * @returns Objecte amb ciutat, província i país o null
+   */
+  async getCityAndCountry(
+    lat: number,
+    lng: number
+  ): Promise<{
+    city: string | null;
+    province: string | null;
+    country: string | null;
+  } | null> {
+    const locationInfo = await this.getLocationInfo(lat, lng);
+    if (!locationInfo) return null;
+
+    return {
+      city: locationInfo.city || null,
+      province: locationInfo.province || null,
+      country: locationInfo.country || null,
+    };
+  }
+
+  /**
    * Obté una descripció curta de la ubicació (ciutat, província)
    * @param lat Latitud
    * @param lng Longitud

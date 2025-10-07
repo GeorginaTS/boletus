@@ -1,34 +1,7 @@
 
-.location-card-compact {
-  margin-bottom: 1rem;
+.form-group {
+  width:100%;
 }
-.location-card-compact ion-card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.location-card-compact ion-label h3 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.location-card-compact ion-label p {
-  font-size: 0.85rem;
-}
-
-
-
-
-/* Centrar botons dins de seccions amb text d'error */
-.text-center {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
 /* Centrar secció de foto */
 .photo-section {
   width: 100%;

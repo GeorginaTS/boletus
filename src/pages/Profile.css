@@ -65,9 +65,3 @@
 }
 
 
-/* Mode fosc */
-@media (prefers-color-scheme: dark) {
-  .profile-actions {
-    border-top-color: var(--ion-border-color);
-  }
-}

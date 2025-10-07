@@ -8,42 +8,53 @@
 
 ion-content {
   --background: var(--content-background-gradient);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 /* --- ion-list --- */
 ion-list {
   width: 100%;
-  margin: 0;
+  margin-left: 1rem;
   --padding-top: 0;
   --padding-bottom: 0;
   --padding-start: 0;
   --padding-end: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 0.5rem;
 }
 
 /* --- ion-item --- */
 ion-item {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   --padding-top: 0;
   --padding-bottom: 0;
   --padding-start: 0;
   --padding-end: 0;
-  --border-radius: 0.5rem;
-  --padding-start: 1rem;
-  --inner-padding-end: 1rem;
 }
 
 /* --- ion-label --- */
 ion-label {
   margin: 0;
+  --border-width: 0;
   --padding-top: 0;
   --padding-bottom: 0;
   --padding-start: 0;
   --padding-end: 0;
   width: 100%;
   --color: var(--falu-red);
+}
+ion-label h3,
+ion-label p {
+  margin: 0;
+  padding: 0;
 }
 
 /* Excloure labels del TabBar */
@@ -58,6 +69,7 @@ ion-label:not(ion-tab-button ion-label) {
 /* --- ion-icon --- */
 ion-icon {
   color: inherit;
+  font-size: 1.5rem;
 }
 
 ion-icon.icon-danger {
@@ -107,13 +119,14 @@ ion-card {
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(153, 88, 42, 0.15);
   border: 1px solid var(--lion);
+  padding: 0.4rem;
 }
 ion-card-title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: bolder;
   color: var(--ion-color-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -124,31 +137,33 @@ ion-card-title ion-icon {
   color: var(--ion-color-primary);
 }
 ion-card-content {
-  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  width: 100%;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+}
+ion-card-content .flex-row{
+  display: flex;
+  flex-direction: row;
 }
 ion-card-content img {
   width: 25vw;
+  height: 25vw;
   max-width: 320px;
-  max-height: 25vw;
+  max-height: 320px;
+  background-color: var(--lion-shade);
   object-fit: cover;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(153, 88, 42, 0.15);
 }
 
 /* --- ion-input --- */
 ion-input {
-  --background: #fafaf9 !important;
-  --color: #2d1b10 !important;
-  --border-color: var(--ion-border-color);
-  --placeholder-color: #8b7355 !important;
-  --border-width: 1px;
-  --border-style: solid;
-  --border-radius: 8px;
+  --background: var(--peach-light);
+  --color: var(--bistre);
+  --placeholder-color: var(--lion-shade);
+
+  --border-radius: 1rem;
   --padding-start: 12px;
   --padding-end: 12px;
   --padding-top: 12px;
@@ -157,19 +172,15 @@ ion-input {
 
 ion-input.ion-focused {
   --border-color: var(--ion-color-primary);
-  --background: #f7f7f6 !important;
-  --color: #2d1b10 !important;
 }
 
 /* --- ion-textarea --- */
 ion-textarea {
-  --background: #fafaf9 !important;
-  --color: #2d1b10 !important;
-  --border-color: var(--ion-border-color);
-  --placeholder-color: #8b7355 !important;
+  --background: var(--peach-light);
+  --color: var(--bistre);
+  --placeholder-color: var(--lion-shade);
+  --border-radius: 1rem;
   --border-width: 1px;
-  --border-style: solid;
-  --border-radius: 8px;
   --padding-start: 12px;
   --padding-end: 12px;
   --padding-top: 12px;
@@ -178,8 +189,6 @@ ion-textarea {
 
 ion-textarea.ion-focused {
   --border-color: var(--ion-color-primary);
-  --background: #f7f7f6 !important;
-  --color: #2d1b10 !important;
 }
 
 /* ============================================================================
@@ -198,13 +207,30 @@ h3 {
   font-weight: 600;
   color: var(--falu-red);
 }
-
+ul {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap:0.4rem;
+}
+article {
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
 .form-actions {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-sm);
-  gap: var(--spacing-sm);
+  gap: 1rem;
 }
 
 .btn-danger {
@@ -218,7 +244,7 @@ h3 {
 
 /* --- Contenidors --- */
 .container {
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   max-width: px;
   margin: 0 auto;
 }
@@ -426,4 +452,3 @@ h3 {
     opacity: 1;
   }
 }
-

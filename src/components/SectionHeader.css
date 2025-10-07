@@ -10,7 +10,7 @@ ion-toolbar {
   --color: var(--white);
   --min-height: 56px;
   --padding-top: 0;
-  --padding-bottom: 0.2rem;
+  --padding-bottom: 0;
   --padding-start: 0;
   --padding-end: 0.5rem;
   --color: var( --peach-shade)
@@ -21,13 +21,14 @@ ion-toolbar {
   align-items: center;
   justify-content: start;
   gap:1rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: var(--font-weight-bold);
 }
 .theme-toggle-header { 
   --border-radius: 50%; 
   --color:var(--falu-red-shade);
-  font-weight: var(--font-weight-bold);
+  padding: 0.5rem;
+  transition: var(--transition-base);
 }
 .dark-theme .theme-toggle-header {
   --color:var(--peach);
