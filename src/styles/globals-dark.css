@@ -100,21 +100,7 @@
   --ion-border-color: var(--ion-color-step-200);
 
   /* --- ion-card --- */
-  ion-card {
-    --background: var(--ion-card-background) !important;
-    --color: var(--ion-text-color) !important;
-    background-color: var(--ion-card-background) !important;
-    color: var(--ion-text-color) !important;
-  }
 
-  .nature-card {
-    --background: var(--ion-color-step-100) !important;
-    --color: var(--ion-text-color) !important;
-    border-color: var(--ion-color-step-200) !important;
-  }
-
-  /* --- ion-input i ion-textarea --- */
-  ion-input,
   ion-textarea {
     --background: var(--ion-item-background) !important;
     --color: #e8dcc6 !important;
@@ -231,4 +217,11 @@
 
 .dark-theme ion-label:not(ion-tab-button ion-label) {
   --color: #e8dcc6 !important;
+}
+
+/* --- ion-toolbar --- */
+/* Header amb degradat en tema fosc */
+.dark-theme .nature-header {
+  --background: var(--autumn-gradient);
+  --color: var(--white);
 }

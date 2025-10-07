@@ -13,20 +13,16 @@ interface SectionHeaderProps {
 const SectionHeader: React.FC<SectionHeaderProps> = ({ 
   icon, 
   title, 
-  className = "nature-header",
   showThemeToggle = true
 }) => {
   return (
-    <IonToolbar className={className}>
+    <IonToolbar>
       <div 
         slot="start" 
-        className="section-header-container"
       >
         <IonIcon 
-          icon={icon} 
-          className="section-header-icon"
-        />
-        <span className="section-header-title">
+          icon={icon}  />
+        <span>
           {title}
         </span>
       </div>

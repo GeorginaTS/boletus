@@ -36,6 +36,35 @@
   font-size: 48px;
 }
 
+
+/* --- ion-segment --- */
+.segment-container {
+  margin-bottom: var(--spacing-md);
+  --background: var(--ion-segment-background);
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 0 2px 6px rgba(160, 82, 45, 0.15);
+}
+
+.segment-container ion-segment {
+  --background: transparent;
+}
+
+.segment-container ion-segment-button {
+  --color: var(--ion-segment-button-color);
+  --color-checked: var(--ion-segment-button-color-checked);
+  --background-checked: var(--ion-segment-button-background-checked);
+  --indicator-color: var(--ion-segment-indicator-color);
+  --indicator-height: 100%;
+  --indicator-box-shadow: 0 2px 8px rgba(153, 88, 42, 0.3);
+  border-radius: 8px;
+  margin: 2px;
+  font-weight: 600;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+
 /* Mode fosc */
 @media (prefers-color-scheme: dark) {
   .profile-actions {
