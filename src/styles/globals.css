@@ -144,7 +144,7 @@ ion-card-content {
   justify-content: center;
   align-items: center;
 }
-ion-card-content .flex-row{
+ion-card-content .flex-row {
   display: flex;
   flex-direction: row;
 }
@@ -214,11 +214,11 @@ ul {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap:0.4rem;
+  gap: 0.4rem;
 }
 article {
-  width:100%;
-  display:flex;
+  width: 100%;
+  display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
@@ -451,4 +451,168 @@ article {
   100% {
     opacity: 1;
   }
+}
+
+/* ============================================================================
+   5. GOOGLE MAPS - INFO WINDOW
+   ============================================================================ */
+
+.map-info-window {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 280px;
+  padding: 0;
+  background: white;
+  border-radius: 0.5rem;
+}
+
+.map-info-header {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.map-info-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--brown);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-info-title ion-icon {
+  font-size: 20px;
+  color: var(--lion);
+}
+
+.map-info-body {
+  padding: 12px;
+}
+
+.map-info-description {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--bistre);
+  line-height: 1.4;
+}
+
+.map-info-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--bistre-light);
+}
+
+.map-info-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-info-row ion-icon {
+  font-size: 16px;
+  color: var(--lion);
+  flex-shrink: 0;
+}
+
+.map-info-label {
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.map-info-value {
+  color: var(--bistre);
+}
+
+/* ============================================================================
+   6. GOOGLE MAPS - MARKER PIN
+   ============================================================================ */
+
+.mushroom-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mushroom-marker-pin {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  background: white;
+  border: 2px solid var(--brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mushroom-marker-icon {
+  font-size: 24px;
+  transform: rotate(45deg);
+}
+
+.mushroom-marker-title {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--bistre);
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
+}
+
+/* ============================================================================
+   7. GOOGLE MAPS - USER MARKER
+   ============================================================================ */
+
+.user-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-marker-pin {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  background: white;
+  border: 2px solid var(--ion-color-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-marker-icon {
+  font-size: 24px;
+  transform: rotate(45deg);
+  color: var(--ion-color-danger);
+}
+
+.user-marker-title {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ion-color-danger);
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
 }

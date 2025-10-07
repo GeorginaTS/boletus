@@ -62,6 +62,7 @@ interface MarkerInfo {
 interface LocationMarkerInfo {
   marker: google.maps.marker.AdvancedMarkerElement;
   location: Location;
+  infoWindow?: google.maps.InfoWindow;
 }
 
 class GoogleMapsService {
@@ -211,42 +212,17 @@ class GoogleMapsService {
       outline: none !important;
     `;
 
-    // Icona de persona
+    wrapper.className = "user-marker";
+
+    // Pin amb icona de persona
     const markerPin = document.createElement("div");
-    markerPin.textContent = "🙋";
-    markerPin.style.cssText = `
-      font-size: 20px !important;
-      background-color: #ffffff !important;
-      border-radius: 50% !important;
-      border: 2px solid #dc2626 !important;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
-      margin: 0 0 2px 0 !important;
-      padding: 1rem !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 1.4rem !important;
-      height: 1.4rem !important;
-    `;
+    markerPin.className = "user-marker-pin";
+    markerPin.innerHTML = `<span class="user-marker-icon">🙋</span>`;
 
     // Títol "Ets aquí"
     const title = document.createElement("div");
+    title.className = "user-marker-title";
     title.textContent = "Ets aquí";
-    title.style.cssText = `
-      font-size: 20px !important;
-      font-weight: 600 !important;
-      color: #374151 !important;
-      background-color: #ffffff !important;
-      padding: 1px 4px !important;
-      border-radius: 4px !important;
-      border: 1px solid #d1d5db !important;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
-      white-space: nowrap !important;
-      user-select: none !important;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-      margin: 0 !important;
-    `;
-
     wrapper.appendChild(markerPin);
     wrapper.appendChild(title);
     return wrapper;
@@ -270,57 +246,82 @@ class GoogleMapsService {
       outline: none !important;
     `;
 
-    // Icona de bolet
-    const markerPin = document.createElement("div");
-    markerPin.textContent = "🍄";
-    markerPin.style.cssText = `
-      font-size: 24px !important;
-      background-color: #ffffff !important;
-      border-radius: 50% !important;
-      border: 2px solid #7c3aed !important;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.4) !important;
-      margin: 0 0 2px 0 !important;
-      padding: 8px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 1.8rem !important;
-      height: 1.8rem !important;
-      transition: transform 0.2s ease !important;
-    `;
+    wrapper.className = "mushroom-marker";
 
-    // Efecte hover
-    markerPin.addEventListener("mouseenter", () => {
-      markerPin.style.transform = "scale(1.1)";
-    });
-    markerPin.addEventListener("mouseleave", () => {
-      markerPin.style.transform = "scale(1)";
-    });
+    // Pin amb icona de bolet
+    const markerPin = document.createElement("div");
+    markerPin.className = "mushroom-marker-pin";
+    markerPin.innerHTML = `<span class="mushroom-marker-icon">🍄</span>`;
 
     // Títol amb el nom de la localització
     const title = document.createElement("div");
+    title.className = "mushroom-marker-title";
     title.textContent = location.name;
-    title.style.cssText = `
-      font-size: 12px !important;
-      font-weight: 600 !important;
-      color: #374151 !important;
-      background-color: #ffffff !important;
-      padding: 2px 6px !important;
-      border-radius: 4px !important;
-      border: 1px solid #d1d5db !important;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
-      white-space: nowrap !important;
-      user-select: none !important;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-      margin: 0 !important;
-      max-width: 120px !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-    `;
-
     wrapper.appendChild(markerPin);
     wrapper.appendChild(title);
     return wrapper;
+  }
+
+  private createInfoWindowContent(location: Location): string {
+    const formattedDate = location.createdAt
+      ? new Date(location.createdAt).toLocaleDateString("ca-ES", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "Data desconeguda";
+
+    // Icones d'Ionic com SVG (nutritionOutline, locationOutline, navigateCircleOutline, calendarOutline)
+    const mushroomIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 20px; height: 20px;"><path fill="currentColor" d="M336,192a16,16,0,1,0,16,16A16,16,0,0,0,336,192Z"/><path fill="currentColor" d="M336,256a16,16,0,1,0,16,16A16,16,0,0,0,336,256Z"/><path fill="currentColor" d="M256,416c-21.12,0-41.05-8.29-56.08-23.33S176,361.12,176,340V308H160a16,16,0,0,1,0-32h16V245.31c-8.61-.89-15.93-7.39-16-16.11V192c0-17.67,14.33-45.33,32-48,14.25-2.14,23,12.87,30.42,24.14l9.68,14.71h73.8l9.68-14.71C323,156.87,331.75,141.86,346,144c17.67,2.67,32,30.33,32,48v37.2c-.07,8.72-7.39,15.22-16,16.11V276h16a16,16,0,0,1,0,32H362v32c0,21.12-8.29,41.05-23.33,56.08S277.12,416,256,416Z"/><path fill="currentColor" d="M416,112H96c-26.47,0-48,21.53-48,48s21.53,48,48,48h16c0-17.64,14.36-32,32-32s32,14.36,32,32h48c0-17.64,14.36-32,32-32s32,14.36,32,32h48c0-17.64,14.36-32,32-32s32,14.36,32,32h16c26.47,0,48-21.53,48-48S442.47,112,416,112Z"/></svg>`;
+    const locationIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px; height: 16px;"><path fill="currentColor" d="M256,48c-79.5,0-144,61.39-144,137,0,87,96,224.87,131.25,272.49a15.77,15.77,0,0,0,25.5,0C304,409.89,400,272.07,400,185,400,109.39,335.5,48,256,48Zm0,207a64,64,0,1,1,64-64A64.07,64.07,0,0,1,256,255Z"/></svg>`;
+    const compassIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px; height: 16px;"><path fill="currentColor" d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Zm88.67-206.71L300,199.65a16,16,0,0,0-7.65-7.65l-57.64-44.67a16,16,0,0,0-19.43,0L157.64,192a16,16,0,0,0-7.65,7.65l-44.67,57.64a16,16,0,0,0,0,19.43L160,334.36a16,16,0,0,0,7.65,7.65l57.64,44.67a16,16,0,0,0,19.43,0L302.36,342a16,16,0,0,0,7.65-7.65l44.67-57.64A16,16,0,0,0,344.67,257.29Z"/></svg>`;
+    const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px; height: 16px;"><path fill="currentColor" d="M480,128a64,64,0,0,0-64-64H400V48a16,16,0,0,0-32,0V64H144V48a16,16,0,0,0-32,0V64H96a64,64,0,0,0-64,64v12a4,4,0,0,0,4,4H476a4,4,0,0,0,4-4Z"/><path fill="currentColor" d="M32,416a64,64,0,0,0,64,64H416a64,64,0,0,0,64-64V179a3,3,0,0,0-3-3H35a3,3,0,0,0-3,3Zm344-168a24,24,0,1,1-24,24A24,24,0,0,1,376,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,376,328Zm-96-80a24,24,0,1,1-24,24A24,24,0,0,1,280,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,280,328Zm-96-80a24,24,0,1,1-24,24A24,24,0,0,1,184,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,184,328Zm-88-80a24,24,0,1,1-24,24A24,24,0,0,1,96,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,96,328Z"/></svg>`;
+
+    return `
+      <div class="map-info-window">
+        <div class="map-info-header">
+          <h3 class="map-info-title">
+            ${mushroomIcon}
+            ${location.name}
+          </h3>
+        </div>
+        
+        <div class="map-info-body">
+          ${
+            location.description
+              ? `<p class="map-info-description">${location.description}</p>`
+              : ""
+          }
+          
+          <div class="map-info-metadata">
+            ${
+              location.city
+                ? `
+              <div class="map-info-row">
+                ${locationIcon}
+                <span class="map-info-value">${location.city}</span>
+              </div>
+            `
+                : ""
+            }
+            
+            <div class="map-info-row">
+              ${compassIcon}
+              <span class="map-info-value">${location.lat.toFixed(
+                6
+              )}°, ${location.lng.toFixed(6)}°</span>
+            </div>
+            
+            <div class="map-info-row">
+              ${calendarIcon}
+              <span class="map-info-value">${formattedDate}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   updateUserLocation(location: LocationData): void {
@@ -430,22 +431,65 @@ class GoogleMapsService {
       zIndex: 500,
     });
 
-    // Afegir click listener per mostrar informació
+    // Crear InfoWindow amb les dades de la localització
+    const infoWindow = new google.maps.InfoWindow({
+      content: this.createInfoWindowContent(location),
+      disableAutoPan: false,
+    });
+
+    // Mostrar InfoWindow quan el ratolí passa per sobre
+    marker.addListener("mouseenter", () => {
+      // Tancar totes les altres InfoWindows abans d'obrir aquesta
+      this.closeAllInfoWindows();
+      infoWindow.open({
+        anchor: marker,
+        map: this.map!,
+      });
+    });
+
+    // Tancar InfoWindow quan el ratolí surt
+    marker.addListener("mouseleave", () => {
+      infoWindow.close();
+    });
+
+    // Afegir click listener per mantenir la InfoWindow oberta i fer zoom
     marker.addListener("click", () => {
       console.log("🍄 Localització seleccionada:", location);
-      // Aquí es podria obrir un modal o tooltip amb més informació
+      // Tancar totes les altres InfoWindows abans d'obrir aquesta
+      this.closeAllInfoWindows();
+      infoWindow.open({
+        anchor: marker,
+        map: this.map!,
+      });
+      // Centra en la localització amb un petit zoom
+      if (this.map) {
+        this.map.setCenter(position);
+        this.map.setZoom(15);
+      }
     });
 
     this.locationMarkers.push({
       marker,
       location,
+      infoWindow,
     });
 
     console.log(`🍄 Marker afegit per: ${location.name}`);
   }
 
+  private closeAllInfoWindows(): void {
+    this.locationMarkers.forEach(({ infoWindow }) => {
+      if (infoWindow) {
+        infoWindow.close();
+      }
+    });
+  }
+
   clearLocationMarkers(): void {
-    this.locationMarkers.forEach(({ marker }) => {
+    this.locationMarkers.forEach(({ marker, infoWindow }) => {
+      if (infoWindow) {
+        infoWindow.close();
+      }
       marker.map = null;
     });
     this.locationMarkers = [];
@@ -464,7 +508,11 @@ class GoogleMapsService {
     );
 
     if (index !== -1) {
-      this.locationMarkers[index].marker.map = null;
+      const { marker, infoWindow } = this.locationMarkers[index];
+      if (infoWindow) {
+        infoWindow.close();
+      }
+      marker.map = null;
       this.locationMarkers.splice(index, 1);
       console.log(`🗑️ Marker eliminat per localització: ${locationId}`);
 
