@@ -26,6 +26,14 @@
   --ion-text-color: #e8dcc6;
   --ion-text-color-rgb: 232, 220, 198;
 
+  /* Gradient suau per al fons de contingut (mode fosc) */
+  --content-background-gradient: linear-gradient(
+    180deg,
+    #1a1611 0%,
+    #1f1c16 50%,
+    #252119 100%
+  );
+
   --ion-color-step-50: #242018;
   --ion-color-step-100: #2e2a1f;
   --ion-color-step-150: #383426;
@@ -98,6 +106,11 @@
 
   /* Bordes i separadors */
   --ion-border-color: var(--ion-color-step-200);
+
+  /* --- ion-content --- */
+  ion-content {
+    --background: var(--content-background-gradient);
+  }
 
   /* --- ion-card --- */
 

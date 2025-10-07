@@ -18,6 +18,9 @@ export interface Location {
   /** Longitud de la coordenada geogràfica */
   lng: number;
 
+  /** Nom de la ciutat/població (obtingut per geocodificació inversa) */
+  city?: string;
+
   /** Indica si la localització té foto associada */
   hasPhoto?: boolean;
 

@@ -17,8 +17,7 @@ import {
   IonPage,
   IonSegment,
   IonSegmentButton,
-  IonToast,
-  IonToolbar
+  IonToast
 } from '@ionic/react';
 import { create, globeOutline, locationOutline, logOut, mail, navigateOutline, person } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
@@ -60,11 +59,6 @@ const Profile: React.FC = () => {
         <SectionHeader icon={person} title="El Meu Perfil" />
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-          </IonToolbar>
-        </IonHeader>
-        
         <div className="container">
           <IonSegment 
             value={currentView} 

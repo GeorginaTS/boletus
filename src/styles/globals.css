@@ -6,8 +6,12 @@
    1. IONIC COMPONENTS - MODE CLAR
    ============================================================================ */
 
+ion-content {
+  --background: var(--content-background-gradient);
+}
 /* --- ion-list --- */
 ion-list {
+  width: 100%;
   margin: 0;
   --padding-top: 0;
   --padding-bottom: 0;
@@ -20,6 +24,7 @@ ion-list {
 
 /* --- ion-item --- */
 ion-item {
+  width: 100%;
   margin: 0;
   --padding-top: 0;
   --padding-bottom: 0;
@@ -38,6 +43,7 @@ ion-label {
   --padding-start: 0;
   --padding-end: 0;
   width: 100%;
+  --color: var(--falu-red);
 }
 
 /* Excloure labels del TabBar */
@@ -48,18 +54,6 @@ ion-label:not(ion-tab-button ion-label) {
   margin-bottom: 8px !important;
   font-weight: bold !important;
   color: #2d1b10;
-}
-ion-toolbar {
-    display: flex;
-  align-items: center;
-  padding-left: var(--spacing-md);
-  gap: var(--spacing-sm);
-  transition: var(--transition-base);
-  --background: var(--autumn-gradient);
-  --color: var(--white);
-  --min-height: 56px;
-  --padding-top: 8px;
-  --padding-bottom: 8px;
 }
 /* --- ion-icon --- */
 ion-icon {
@@ -94,7 +88,6 @@ ion-button:not(ion-tab-button) {
   --padding-start: 1rem;
   --padding-end: 1rem;
 }
-
 
 /* --- ion-tab-button --- */
 ion-tab-button {
@@ -199,6 +192,11 @@ h2 {
   color: var(--ion-color-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--falu-red);
 }
 
 .form-actions {
@@ -429,96 +427,3 @@ h2 {
   }
 }
 
-/* ============================================================================
-   MUSHROOM FINDER - GLOBAL STYLES (MODE FOSC)
-   ============================================================================ */
-
-/* ============================================================================
-   1. IONIC COMPONENTS - MODE FOSC
-   ============================================================================ */
-
-@media (prefers-color-scheme: dark) {
-  /* --- ion-button --- */
-  ion-button {
-    --background: var(--ion-color-primary);
-    --color: var(--ion-color-primary-contrast);
-  }
-
-  /* --- ion-card --- */
-  .nature-card {
-    --background: linear-gradient(
-      145deg,
-      var(--bistre) 0%,
-      var(--bistre-light) 100%
-    );
-    border: 1px solid var(--brown);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --color: var(--peach);
-  }
-
-  /* --- ion-input --- */
-  ion-input,
-  ion-textarea {
-    --background: var(--ion-item-background) !important;
-    --color: #e8dcc6 !important;
-    --border-color: var(--ion-border-color) !important;
-    --placeholder-color: #a6a273 !important;
-  }
-
-  ion-input.ion-focused,
-  ion-textarea.ion-focused {
-    --border-color: var(--ion-color-primary) !important;
-    --background: var(--ion-item-background) !important;
-    --color: #e8dcc6 !important;
-  }
-
-  /* --- ion-label --- */
-  ion-label:not(ion-tab-button ion-label) {
-    --color: #e8dcc6 !important;
-  }
-
-  /* --- ion-segment --- */
-  .segment-container {
-    --background: var(--ion-item-background);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
-
-  .segment-container ion-segment-button {
-    --color: var(--ion-text-color);
-    --color-checked: var(--ion-color-primary-contrast);
-    --background-checked: var(--ion-color-primary);
-    --indicator-box-shadow: 0 2px 8px rgba(210, 180, 140, 0.4);
-  }
-}
-
-/* ============================================================================
-   2. CLASSES PER PÀGINES - MODE FOSC
-   ============================================================================ */
-
-@media (prefers-color-scheme: dark) {
-  /* --- Avatars --- */
-  .avatar-placeholder {
-    background: var(--bistre);
-    color: var(--lion);
-  }
-
-  /* --- Dades --- */
-  .data-group h3 {
-    color: var(--peach);
-  }
-
-  .data-value {
-    background: var(--bistre);
-    color: var(--peach);
-    border-color: var(--brown);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .data-timestamp p {
-    color: var(--peach);
-  }
-
-  .data-timestamp h4 {
-    color: var(--lion);
-  }
-}

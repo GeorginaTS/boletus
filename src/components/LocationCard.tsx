@@ -97,6 +97,14 @@ const LocationCard: React.FC<LocationCardProps> = ({ data }) => {
                 <span>{formatCoordinates(location.lat, location.lng)}</span>
               </div>
               
+              {/* Mostrar ciutat si està disponible */}
+              {location.city && (
+                <div>
+                  <IonIcon icon={locationOutline} />
+                  <span>{location.city}</span>
+                </div>
+              )}
+              
               <div>
                 <IonIcon icon={calendarOutline} />
                 <span>{formatDate(location.createdAt)}</span>

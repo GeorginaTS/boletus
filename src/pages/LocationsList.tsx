@@ -3,26 +3,25 @@ import SectionHeader from '@/components/SectionHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { Location } from '@/types/location';
 import {
-    IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonLoading,
-    IonPage,
-    IonRefresher,
-    IonRefresherContent,
-    IonToast,
-    IonToolbar
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonLoading,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonToast
 } from '@ionic/react';
 import { firestoreService } from '@services/firestoreService';
 import { googleMapsService } from '@services/googleMapsService';
 import {
-    listOutline,
-    locationOutline
+  listOutline,
+  locationOutline
 } from 'ionicons/icons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -111,11 +110,6 @@ const LocationsList: React.FC = () => {
       </IonHeader>
       
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-          </IonToolbar>
-        </IonHeader>
-
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>

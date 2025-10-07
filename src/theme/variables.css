@@ -112,6 +112,14 @@
     var(--peach) 100%
   );
 
+  /* Gradient suau per al fons de contingut (mode clar) */
+  --content-background-gradient: linear-gradient(
+    180deg,
+    #fffbf5 0%,
+    #fff8ed 50%,
+    #fff5e6 100%
+  );
+
   /* ========== TIPOGRAFIA ========== */
 
   --font-family-primary: "Roboto", -apple-system, BlinkMacSystemFont,

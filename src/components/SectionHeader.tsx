@@ -1,4 +1,4 @@
-import { IonIcon, IonToolbar } from '@ionic/react';
+import { IonIcon, IonText, IonToolbar } from '@ionic/react';
 import React from 'react';
 import './SectionHeader.css';
 import ThemeToggle from './ThemeToggle';
@@ -18,13 +18,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <IonToolbar>
       <div 
-        slot="start" 
-      >
+        slot="start" className='title'>
         <IonIcon 
           icon={icon}  />
-        <span>
+        <IonText>
           {title}
-        </span>
+        </IonText>
       </div>
       
       {showThemeToggle && (

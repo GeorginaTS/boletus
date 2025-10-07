@@ -1,35 +1,25 @@
+import AddLocationForm from '@/components/AddLocationForm';
+import LocationInfoCard from '@/components/LocationInfoCard';
 import SectionHeader from '@/components/SectionHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import useGeolocation from '@/hooks/useGeolocation';
 import { CreateLocation } from '@/types/location';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
   IonContent,
   IonHeader,
-  IonIcon,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
   IonLoading,
   IonPage,
   IonRefresher,
   IonRefresherContent,
-  IonTextarea,
-  IonToast,
-  IonToolbar
+  IonToast
 } from '@ionic/react';
 import { firestoreService } from '@services/firestoreService';
-import { geolocationService } from '@services/geolocationService';
+import { geocodingService } from '@services/geocodingService';
 import { googleMapsService } from '@services/googleMapsService';
 import { photoService } from '@services/photoService';
-import { addOutline, cameraOutline, checkmarkOutline, closeOutline,  locationOutline, navigateOutline, refreshOutline } from 'ionicons/icons';
-import React, { useState } from 'react';
+import { addOutline } from 'ionicons/icons';
+import React, { useEffect, useState } from 'react';
 import './AddLocation.css';
 
 const AddLocation: React.FC = () => {
@@ -46,11 +36,39 @@ const AddLocation: React.FC = () => {
     description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [cityName, setCityName] = useState<string | null>(null);
+  const [isLoadingCity, setIsLoadingCity] = useState(false);
   
   // Estat per la foto
   const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+
+  // Obtenir ciutat automàticament quan canvia la ubicació
+  useEffect(() => {
+    const fetchCity = async () => {
+      if (location && !loading) {
+        setIsLoadingCity(true);
+        try {
+          console.log('Obtenint ciutat per:', location.latitude, location.longitude);
+          const city = await geocodingService.getCityName(location.latitude, location.longitude);
+          console.log('Ciutat obtinguda:', city);
+          setCityName(city);
+        } catch (error) {
+          console.error('Error obtenint la ciutat:', error);
+          setCityName(null);
+        } finally {
+          setIsLoadingCity(false);
+        }
+      } else if (!location) {
+        // Si no hi ha ubicació, netejar la ciutat
+        setCityName(null);
+        setIsLoadingCity(false);
+      }
+    };
+
+    fetchCity();
+  }, [location, loading]);
 
   const handleRefresh = async (event: CustomEvent) => {
     await getCurrentLocation();
@@ -65,7 +83,8 @@ const AddLocation: React.FC = () => {
 
   const handleHighAccuracyLocation = async () => {
     await getHighAccuracyLocation();
-        // Determinar el color del toast segons la precisió
+    
+    // Determinar el color del toast segons la precisió
     let color: 'success' | 'warning' | 'danger' = 'success';
     let accuracyMsg : 'alta' | "mitjana" |'baixa' = 'alta';
     if (accuracy && accuracy > 50) {
@@ -158,6 +177,7 @@ const AddLocation: React.FC = () => {
         description: formData.description.trim(),
         lat: location.latitude,
         lng: location.longitude,
+        city: cityName || undefined, // Afegir ciutat si està disponible
         hasPhoto: !!selectedPhoto,
         userId: user.uid
       };
@@ -182,6 +202,7 @@ const AddLocation: React.FC = () => {
       
       // Resetear formulari
       setFormData({ name: '', description: '' });
+      setCityName(null);
       handleRemovePhoto();
       
       setToastMessage('Localització guardada amb èxit! 🍄');
@@ -205,11 +226,6 @@ const AddLocation: React.FC = () => {
         <SectionHeader icon={addOutline} title="Afegir Localització" />
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-          </IonToolbar>
-        </IonHeader>
-
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
@@ -218,187 +234,31 @@ const AddLocation: React.FC = () => {
         <IonLoading isOpen={loading} message="Obtenint ubicació..." />
 
         <div>
-          <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>
-                <IonIcon icon={locationOutline} />
-                La Teva Ubicació
-              </IonCardTitle>
-            </IonCardHeader>
-            
-            <IonCardContent>
-              {loading && (
-                <div className="text-center">
-                  <p>Obtenint ubicació...</p>
-                </div>
-              )}
+          {/* Component de la ubicació */}
+          <LocationInfoCard
+            location={location}
+            loading={loading}
+            error={error}
+            accuracy={accuracy}
+            isHighAccuracy={isHighAccuracy}
+            cityName={cityName}
+            isLoadingCity={isLoadingCity}
+            onUpdateLocation={handleLocationUpdate}
+            onHighAccuracyLocation={handleHighAccuracyLocation}
+          />
 
-              {error && !loading && (
-                <div className="text-center">
-                  <IonIcon 
-                    icon={locationOutline} 
-                    className="icon-danger mb-2" 
-                    style={{ fontSize: '1.5rem' }}
-                  />
-                  <p className="text-red-500 mb-2" style={{ fontSize: '0.9rem' }}>
-                    {error?.message}
-                  </p>
-                  <IonButton 
-                    fill="outline" 
-                    onClick={handleLocationUpdate}
-                    size="small"
-                  >
-                    <IonIcon icon={refreshOutline} slot="start" />
-                    Reintentar
-                  </IonButton>
-                </div>
-              )}
-
-              {location && !loading && (
-                <IonList>
-                  <IonItem>
-                    <IonIcon icon={navigateOutline} slot="start" color="primary" />
-                    <IonLabel>
-                      <h3>Coordenades</h3>
-                      <p>{geolocationService.formatCoordinates(location)}</p>
-                    </IonLabel>
-                  </IonItem>
-                  {accuracy && (
-                    <IonItem>
-                      <IonIcon 
-                        icon={locationOutline} 
-                        slot="start" 
-                        color={isHighAccuracy ? "success" : accuracy > 50 ? "danger" : "warning"} 
-                      />
-                      <IonLabel>
-                        <h3>Precisió GPS</h3>
-                        <p>
-                          ±{accuracy.toFixed(0)}m 
-                          {accuracy <= 20 && " (Excel·lent)"}
-                          {accuracy > 20 && accuracy <= 50 && " (OK)"}
-                          {accuracy > 50 && " (Baixa)"}
-                        </p>
-                      </IonLabel>
-                    </IonItem>
-                  )}            
-                </IonList>
-              )}
-              <div className="form-actions">
-                <IonButton
-                  onClick={handleLocationUpdate}
-                  disabled={loading}
-                  size="small"
-                >
-                  <IonIcon icon={refreshOutline} slot="start" />
-                  {location ? 'Actualitzar' : 'Obtenir'}
-                </IonButton>
-                
-                {location && accuracy && accuracy > 20 && (
-                  <IonButton
-                    fill="outline"
-                    color="warning"
-                    onClick={handleHighAccuracyLocation}
-                    disabled={loading}
-                    size="small"
-                  >
-                    <IonIcon icon={locationOutline} slot="start" />
-                    Precisió
-                  </IonButton>
-                )}
-              </div>
-            </IonCardContent>
-          </IonCard>
-
-          {/* Formulari per afegir localització */}
+          {/* Component del formulari */}
           {location && !loading && (
-            <IonCard>
-              <IonCardHeader>
-                <IonCardTitle className="card-title">
-                  <IonIcon icon={addOutline} />
-                  Afegir Nova Localització
-                </IonCardTitle>
-              </IonCardHeader>
-              
-              <IonCardContent>
-                <div className="form-container">
-                  <IonItem>
-                    <IonLabel position="stacked">Nom de la localització *</IonLabel>
-                    <IonInput
-                      value={formData.name}
-                      placeholder="Exemple: Rovelló gran"
-                      onIonInput={(e) => handleInputChange('name', e.detail.value!)}
-                      required
-                    />
-                  </IonItem>
-                  
-                  <IonItem>
-                    <IonLabel position="stacked">Descripció</IonLabel>
-                    <IonTextarea
-                      value={formData.description}
-                      placeholder="Descripció de la localització, tipus de bolets trobats, etc."
-                      rows={4}
-                      onIonInput={(e) => handleInputChange('description', e.detail.value!)}
-                    />
-                  </IonItem>
-                  
-                  {/* Secció de foto */}
-                  <IonItem>
-                    <IonLabel position="stacked">Foto (opcional)</IonLabel>
-                    <div className="photo-section">
-                      {/* Botó per fer foto */}
-                      {!photoPreviewUrl && (
-                        <IonButton
-                          onClick={handleTakePhoto}
-                        >
-                          <IonIcon icon={cameraOutline} slot="start" />
-                          Fer Foto
-                        </IonButton>
-                      )}
-                      
-                      {/* Previsualització de la foto */}
-                      {photoPreviewUrl && (
-                        <div className="photo-preview-container">
-                          <img
-                            src={photoPreviewUrl}
-                            alt="Previsualització"
-                            className="photo-preview"
-                          />
-                          <IonButton
-                            fill="clear"
-                            size="small"
-                            color="danger"
-                            onClick={handleRemovePhoto}
-                            className="photo-remove-button"
-                          >
-                            <IonIcon icon={closeOutline} />
-                          </IonButton>
-                          
-                          {/* Botó per fer nova foto */}
-                          <IonButton onClick={handleTakePhoto}>
-                            <IonIcon icon={cameraOutline} slot="start" />
-                            Fer Nova Foto
-                          </IonButton>
-                        </div>
-                      )}
-                    </div>
-                  </IonItem>
-                </div>
-                <div className='form-actions'>
-                  <IonButton
-                    expand="block"
-                    onClick={handleSubmitLocation}
-                    disabled={isSubmitting || !formData.name.trim()}
-                  >
-                    <IonIcon icon={checkmarkOutline} slot="start" />
-                    {isUploadingPhoto 
-                      ? 'Pujant foto...' 
-                      : isSubmitting 
-                        ? 'Guardant...' 
-                        : 'Guardar Localització'}
-                  </IonButton>
-                </div>
-              </IonCardContent>
-            </IonCard>
+            <AddLocationForm
+              formData={formData}
+              photoPreviewUrl={photoPreviewUrl}
+              isSubmitting={isSubmitting}
+              isUploadingPhoto={isUploadingPhoto}
+              onInputChange={handleInputChange}
+              onTakePhoto={handleTakePhoto}
+              onRemovePhoto={handleRemovePhoto}
+              onSubmit={handleSubmitLocation}
+            />
           )}
         </div>
 

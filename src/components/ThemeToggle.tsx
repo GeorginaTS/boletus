@@ -7,14 +7,14 @@ interface ThemeToggleProps {
   className?: string;
 }
 
-const ThemeToggle: React.FC<ThemeToggleProps> = ({ className }) => {
+const ThemeToggle: React.FC<ThemeToggleProps> = () => {
   const { isDark, toggleTheme } = useTheme();
 
   return (
     <IonButton
       fill="clear"
       onClick={toggleTheme}
-      className={className}
+      className='theme-toggle-header'
       title={isDark ? 'Canviar a mode clar' : 'Canviar a mode fosc'}
       aria-label={isDark ? 'Canviar a mode clar' : 'Canviar a mode fosc'}
     >
