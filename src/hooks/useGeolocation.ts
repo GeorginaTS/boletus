@@ -94,11 +94,11 @@ export const useGeolocation = (
 
   useEffect(() => {
     if (autoFetch && !hasInitialized.current) {
-      console.log("🔄 useEffect triggered, calling getCurrentLocation...");
+      console.log("🔄 useEffect triggered, calling getHighAccuracyLocation...");
       hasInitialized.current = true;
-      getCurrentLocation();
+      getHighAccuracyLocation();
     }
-  }, [autoFetch, getCurrentLocation]);
+  }, [autoFetch, getHighAccuracyLocation]);
 
   return {
     location,

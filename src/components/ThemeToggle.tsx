@@ -21,6 +21,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
       <IonIcon 
         icon={isDark ? sunny : moon}
         slot="icon-only"
+        style={{ fontSize: '1rem' }}
       />
     </IonButton>
   );

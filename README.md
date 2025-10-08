@@ -1,22 +1,18 @@
+# 🍄 Mushroom Finder
 
+A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated Google Maps system, comprehensive location management, and real-time weather data.
 
-A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated Google Maps system and comprehensive location management.
+## 🌟 Features
 
-# 🍄## 🌟 Features
-
-- **🗺️ Google Maps Integration**: Advanced mapping with Google Maps JavaScript API and custom mushroom markers
-- **🍄 Mushroom Location Management**: Complete CRUD system for tracking mushroom spots with detailed information
-- **📍 Interactive Markers**: Click-to-add locations with emoji mushroom markers (🍄) on the map
-- **📱 Location List Management**: Comprehensive list view with swipe actions and map navigation
-- **🎨 Theme System**: Dynamic light/dark mode with persistent user preferences and earth-toned color palette
-- **🌓 Theme Toggle**: Seamless switching between light and dark modes with system preference detection
-- **🔐 Firebase Authentication**: Secure user authentication and session management
-- **💾 Firestore Database**: Real-time cloud storage for locations and user data
-- **🚀 Production Ready**: Deployed to Firebase Hosting with optimized build performance
-- **⚡ Code Splitting**: Lazy loading and manual chunking for optimal performance
-- **📱 Cross-Platform**: Native mobile experience with web compatibility
-- **🎨 Modern UI**: Clean Ionic design with intuitive navigation and responsive layout
-- **🌍 Earth Theme**: Custom color palette inspired by nature with mushroom-themed browns, golds, and peach tonesnder
+### Core Features
+- **🗺️ Google Maps Integration**: Interactive mapping with custom mushroom markers and terrain mode
+- **🍄 Location Management**: Complete CRUD system with photos, geolocation, and detailed information
+- **🌦️ Weather Integration**: Real-time weather data with AI-powered mushroom hunting forecasts
+- **📱 Location Detail**: Comprehensive view with weather, photos, and interactive navigation
+- **🎨 Dynamic Theming**: Light/dark mode with persistent preferences and earth-toned palette
+- **🔐 Firebase Backend**: Authentication, Firestore database, and photo storage
+- **📸 Photo Capture**: Native camera integration with Capacitor
+- **⚡ Optimized Performance**: Code splitting, lazy loading, and global CSS reuse
 
 ## 🚀 Tech Stack
 
@@ -28,6 +24,7 @@ A modern hybrid mobile application built with Ionic React and TypeScript for mus
 - **Styling**: Ionic CSS with custom theming and earth-toned color palette
 - **Theme System**: Context-based theme management with light/dark mode support
 - **Maps**: Google Maps JavaScript API with AdvancedMarkerElement
+- **Weather**: OpenWeather API with free tier (1000 calls/day)
 - **UI Icons**: Ionicons v7.4.0
 - **Performance**: Code splitting with React.lazy and Suspense
 
@@ -35,15 +32,24 @@ A modern hybrid mobile application built with Ionic React and TypeScript for mus
 
 - **Database**: [Firebase Firestore](https://firebase.google.com/products/firestore) v10.x
 - **Authentication**: Firebase Auth v10.x
+- **Storage**: Firebase Storage for photo uploads
 - **Hosting**: Firebase Hosting with SPA configuration
 - **Deployment**: Firebase CLI with automated builds
+
+### External APIs
+
+- **Maps**: Google Maps JavaScript API with custom mushroom markers
+- **Weather**: OpenWeather Current Weather API v2.5
+- **Geocoding**: Google Maps Geocoding API (reverse geocoding)
+- **Photos**: Capacitor Camera API for native photo capture
 
 ### Mapping & Location
 
 - **Maps**: Google Maps JavaScript API with custom mushroom markers
 - **Advanced Markers**: Modern AdvancedMarkerElement with emoji icons (🍄)
-- **Location Services**: Browser geolocation with Firebase persistence
+- **Location Services**: Browser geolocation with high accuracy mode
 - **Map Interactions**: Click-to-add locations and location-focused navigation
+- **Geolocation Hook**: Custom useGeolocation hook with high accuracy default
 
 ### Performance & Optimization
 
@@ -71,15 +77,22 @@ mushroom-finder/
 │   ├── components/          # Reusable UI components
 │   │   ├── AuthGuard.tsx   # Route protection component
 │   │   ├── ThemeToggle.tsx # Theme switcher component
-│   │   └── ExploreContainer.tsx # Template component
+│   │   ├── SectionHeader.tsx # Unified page header with title and theme toggle
+│   │   ├── DeleteButton.tsx # Generic reusable delete button with confirmation
+│   │   ├── PhotoManager.tsx # Photo capture and management component
+│   │   ├── WeatherInfo.tsx # Weather display with mushroom forecast
+│   │   ├── LocationListCard.tsx # Location card component with navigation
+│   │   ├── AddLocationForm.tsx # Location creation form component
+│   │   └── MapView.tsx     # Google Maps wrapper component
 │   ├── contexts/           # React Context providers
 │   │   ├── AuthContext.tsx # Authentication state management
 │   │   ├── ThemeContext.tsx # Theme management provider
 │   │   └── theme.ts        # Theme types and interfaces
 │   ├── pages/              # Main application screens (lazy loaded)
 │   │   ├── Map.tsx         # Google Maps with mushroom markers
-│   │   ├── AddLocation.tsx # Location creation form
+│   │   ├── AddLocation.tsx # Location creation page with photo & geolocation
 │   │   ├── LocationsList.tsx # Location management list
+│   │   ├── LocationDetail.tsx # Detailed location view with weather
 │   │   ├── Profile.tsx     # User profile management
 │   │   └── Login.tsx       # Authentication page
 │   ├── routes/             # Application routing
@@ -87,11 +100,20 @@ mushroom-finder/
 │   ├── services/           # API and external services
 │   │   ├── firestoreService.ts # Complete Firestore CRUD operations
 │   │   ├── googleMapsService.ts # Google Maps integration
+│   │   ├── weatherService.ts # OpenWeather API integration
+│   │   ├── geocodingService.ts # Reverse geocoding service
+│   │   ├── photoService.ts # Photo upload and management
 │   │   └── authService.ts  # Firebase authentication
+│   ├── hooks/              # Custom React hooks
+│   │   └── useGeolocation.ts # High-accuracy geolocation hook
 │   ├── types/              # TypeScript type definitions
 │   │   ├── location.ts     # Location interfaces and types
+│   │   ├── weather.ts      # Weather data interfaces
 │   │   └── user.ts         # User profile interfaces
-│   ├── theme/              # Global styling and theming
+│   ├── styles/             # Global styling
+│   │   ├── globals.css     # Global light theme styles
+│   │   └── globals-dark.css # Global dark theme styles
+│   ├── theme/              # Ionic theming
 │   │   └── variables.css   # Ionic CSS custom properties
 │   └── config/             # Configuration files
 │       └── firebase.ts     # Firebase initialization
@@ -101,6 +123,7 @@ mushroom-finder/
 ├── cypress/                # E2E testing configuration
 ├── firebase.json           # Firebase Hosting configuration
 ├── .firebaserc            # Firebase project configuration
+├── .env.example           # Environment variables template
 ├── vite.config.ts         # Optimized Vite configuration
 └── dist/                  # Optimized build output (chunked)
 ```
@@ -110,8 +133,9 @@ mushroom-finder/
 ### Prerequisites
 
 - Node.js 18+ and npm
-- Firebase project with Firestore and Authentication enabled
+- Firebase project with Firestore, Authentication, and Storage enabled
 - Google Maps API key with Maps JavaScript API enabled
+- OpenWeather API key (free tier available)
 - (Optional) Android Studio or Xcode for native development
 
 ### Setup Steps
@@ -127,29 +151,38 @@ mushroom-finder/
    npm install
    ```
 
-3. **Firebase Configuration**
-   Configure Firebase in `src/config/firebase.ts`:
+3. **Environment Configuration**
+   
+   Copy `.env.example` to `.env` and fill in your API keys:
 
-   ```typescript
-   // Firebase Configuration (required)
-   const firebaseConfig = {
-     apiKey: "your_firebase_api_key",
-     authDomain: "your_project.firebaseapp.com",
-     projectId: "your_project_id",
-     storageBucket: "your_project.appspot.com",
-     messagingSenderId: "123456789",
-     appId: "your_app_id"
-   };
+   ```bash
+   cp .env.example .env
    ```
 
-4. **Google Maps Setup**
-   Add your Google Maps API key to the HTML head in `index.html`:
+   Required environment variables:
+   ```bash
+   # Google Maps API Key
+   VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
 
-   ```html
-   <script async defer
-     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=marker">
-   </script>
+   # OpenWeather API Key (free tier: 1000 calls/day)
+   VITE_OPENWEATHER_API_KEY=your_openweather_api_key_here
+
+   # Firebase Configuration
+   VITE_FIREBASE_API_KEY=your-api-key
+   VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   VITE_FIREBASE_PROJECT_ID=your-project-id
+   VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+   VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+   VITE_FIREBASE_APP_ID=your-app-id
    ```
+
+4. **Firebase Configuration**
+   
+   Ensure your Firebase project has:
+   - ✅ Firestore Database enabled
+   - ✅ Authentication enabled (Email/Password)
+   - ✅ Storage enabled (for photos)
+   - ✅ Hosting configured (optional, for deployment)
 
 5. **Start development server**
 
@@ -163,9 +196,20 @@ mushroom-finder/
 ### 🗺️ Google Maps API Setup
 
 1. **Get API Key**: Visit [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/)
-2. **Enable APIs**: Enable "Maps JavaScript API" and "Advanced Markers API"
+2. **Enable APIs**: 
+   - Maps JavaScript API
+   - Advanced Markers API
+   - Geocoding API
 3. **Set Restrictions**: Configure API key restrictions for security
-4. **Add to HTML**: Add the script tag with your API key to `index.html`
+4. **Add to .env**: Add your API key to `VITE_GOOGLE_MAPS_API_KEY`
+
+### 🌦️ OpenWeather API Setup
+
+1. **Create Account**: Visit [OpenWeather](https://openweathermap.org/api)
+2. **Sign Up**: Free tier includes 1,000 calls/day
+3. **Generate Key**: Get your API key from [API Keys page](https://home.openweathermap.org/api_keys)
+4. **Add to .env**: Add your API key to `VITE_OPENWEATHER_API_KEY`
+5. **Wait**: New API keys may take ~10 minutes to activate
 
 > **Note**: This project uses Tailwind CSS v3.4.x with CommonJS configuration files (`tailwind.config.cjs` and `postcss.config.cjs`) to ensure compatibility with ES modules.
 
@@ -256,10 +300,63 @@ const { theme, toggleTheme, setTheme } = useTheme();
 ### CSS Architecture
 
 - **CSS Custom Properties**: Centralized design tokens in `src/theme/variables.css`
-- **Earth Theme**: Nature-inspired globals in `src/styles/earth-theme.css`
-- **Component Styles**: Modular CSS files for each component
+- **Global Styles**: Shared styles in `src/styles/globals.css` and `globals-dark.css`
+- **Component Styles**: Minimal, component-specific CSS co-located with components
 - **Responsive Design**: Mobile-first approach with Ionic utilities
 - **Gradient Backgrounds**: Custom linear gradients for TabBar and headers
+- **Class Reuse**: Maximum reuse of global CSS classes to minimize code duplication
+
+### CSS Best Practices
+
+This project follows strict CSS organization principles:
+
+1. **Global First**: Use existing global classes (`.card-info`, `.info-section`, `.form-actions`, etc.)
+2. **Minimal Components**: Component CSS files only contain unique, component-specific styles
+3. **No Duplication**: Avoid recreating styles that already exist globally
+4. **Dark Theme**: Use `.dark-theme` class prefix, NOT media queries for dark mode
+5. **Ionic Classes**: Leverage built-in Ionic classes (`.ion-text-center`, `.ion-padding`, etc.)
+
+Example:
+```css
+/* ✅ GOOD - Minimal component CSS (WeatherInfo.css: ~53 lines) */
+.temp-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--lion);
+}
+
+/* ❌ BAD - Recreating global styles */
+.weather-card-info-item {
+  /* Don't recreate .card-info-item styles */
+}
+```
+
+## 🧩 Component Architecture
+
+### Reusable Components
+
+- **DeleteButton**: Generic delete with confirmation (used in LocationListCard, PhotoManager, LocationDetail)
+- **PhotoManager**: Photo capture/preview/delete UI with Capacitor Camera
+- **WeatherInfo**: Weather display with mushroom forecast (only ~53 lines of CSS!)
+- **SectionHeader**: Page header with title and theme toggle
+- **LocationListCard**: Clickable location card with navigation
+- **MapView**: Google Maps wrapper with advanced markers
+
+### Key Services
+
+- **weatherService**: OpenWeather API + mushroom condition scoring algorithm
+- **firestoreService**: Complete CRUD operations for locations
+- **photoService**: Firebase Storage integration with compression
+- **googleMapsService**: Maps initialization, markers, terrain toggle
+- **geocodingService**: Reverse geocoding (coordinates → city name)
+
+### Design Principles
+
+1. **Single Responsibility** - Each component has one clear purpose
+2. **Props Over State** - Configuration via props and callbacks
+3. **Global CSS First** - Maximize reuse of `.card-info`, `.info-section`, `.form-actions`
+4. **Minimal Component CSS** - Only unique styles (e.g., WeatherInfo: 53 lines vs 233!)
+5. **TypeScript Strict** - Full typing for all props and state
 
 ## 🗺️ Geolocation Features
 
@@ -288,6 +385,32 @@ const handleLocationUpdate = useCallback(() => {
 - **Dynamic Bounds Calculation**: Uses Google Maps LatLngBounds for optimal viewing
 - **User-Centric Zoom**: Prioritizes user's current position in view calculations
 - **Responsive Adjustment**: Adapts to different screen sizes and location densities
+
+## 🌦️ Weather & Mushroom Forecasting
+
+Real-time weather integration using OpenWeather API with intelligent mushroom hunting predictions.
+
+### Mushroom Condition Scoring (0-100)
+
+The app analyzes weather conditions and scores them for optimal mushroom hunting:
+
+- **Humidity (35 pts)**: 70-95% ideal, 60-69% acceptable
+- **Temperature (30 pts)**: 10-25°C ideal, 5-30°C acceptable  
+- **Precipitation (20 pts)**: Recent rainfall is excellent
+- **Cloud Coverage (15 pts)**: 30-80% ideal, >80% acceptable
+
+Score 60+ = Good conditions ✓
+
+### Weather Data Displayed
+
+Temperature, humidity, wind, clouds, precipitation, city name, and visual weather emoji.
+
+### API Info
+
+- **Provider**: OpenWeather Current Weather API v2.5
+- **Free Tier**: 1,000 calls/day
+- **Language**: Catalan (ca)
+- **Units**: Metric (°C, m/s)
 
 ## 🔐 Authentication & User Management
 
@@ -402,17 +525,16 @@ dist/assets/components-*.js   (~5kB)   # UI components
 - iOS requires location permissions configuration in Info.plist
 - Some older Android devices may have reduced GPS accuracy
 
+## 🍄 Application Pages
+
+- **Map** (`/map`): Interactive Google Maps with mushroom markers, terrain toggle, fit bounds
+- **Add Location** (`/add-location`): Create locations with photo capture, auto-geolocation, reverse geocoding
+- **Locations List** (`/locations`): View/manage all locations with clickable cards
+- **Location Detail** (`/location/:id`): Full details with weather forecast, photos, map navigation, delete option
+- **Profile** (`/profile`): User account management and location info
+- **Login** (`/login`): Firebase authentication
+
 ## 🍄 Location Management System
-
-### Core Features
-
-- **Interactive Map**: Click anywhere on the map to add new mushroom locations
-- **Mushroom Markers**: Custom emoji markers (🍄) for visual location identification
-- **Location Details**: Name, description, coordinates, and timestamps for each location
-- **CRUD Operations**: Complete Create, Read, Update, Delete functionality
-- **Real-time Sync**: Instant synchronization with Firebase Firestore
-- **List Management**: Comprehensive location list with swipe-to-delete actions
-- **Map Navigation**: Jump directly to locations from the list view
 
 ### Location Data Structure
 
@@ -457,127 +579,31 @@ const photoUrl = await getPhotoUrl(locationId);
 - **Real-time Updates**: Live synchronization across all application instances
 - **Performance Optimization**: Lazy loading, efficient data fetching, and component modularity
 
-## � Photo Integration System
+## 📸 Photo Management
 
-### Camera Functionality
-
-- **Native Camera Integration**: Uses Capacitor Camera API for high-quality photo capture
-- **Web Camera Support**: PWA Elements integration for browser compatibility
-- **Instant Photo Preview**: Immediate preview after capture with retake option
-- **Firebase Storage Integration**: Secure cloud storage with location-based naming
-- **Automatic Upload**: Photos uploaded after successful location creation
-- **Smart File Management**: Location ID-based naming system (`locations/{locationId}.jpg`)
-
-### Photo Capture Workflow
-
-```typescript
-// Camera capture with Capacitor
-const photo = await Camera.getPhoto({
-  quality: 80,
-  allowEditing: false,
-  resultType: CameraResultType.DataUrl,
-  source: CameraSource.Camera,
-  saveToGallery: true
-});
-```
-
-### Firebase Storage Configuration
-
-- **Security Rules**: Authenticated user access with proper CORS headers
-- **Optimized Uploads**: Image compression and efficient data transfer
-- **Location-Based Organization**: Systematic file structure for easy management
-- **Auto-scaling**: Handles multiple concurrent uploads efficiently
-
-### Photo Display Features
-
-- **Dynamic Loading**: Photos loaded automatically in LocationCard components
-- **Loading States**: Smooth loading indicators during photo retrieval
-- **Error Handling**: Graceful fallback when photos are unavailable
-- **Performance Optimization**: Efficient caching and memory management
+- **Capacitor Camera API**: Native photo capture with quality 80, DataUrl result
+- **Firebase Storage**: Location-based naming (`locations/{locationId}.jpg`)
+- **PWA Elements**: Browser camera support for web compatibility
+- **Preview & Upload**: Instant preview, automatic upload after location creation
 
 ## 🎛️ Component Architecture
 
-### LocationCard Component
+### Core Components
 
-A standalone, reusable component for displaying location information:
+- **SectionHeader**: Unified page header with icon, title, and theme toggle
+- **DeleteButton**: Generic delete button with confirmation dialog
+- **PhotoManager**: Camera capture with preview and Firebase upload
+- **WeatherInfo**: Real-time weather with mushroom forecast
+- **LocationListCard**: Location display with navigation actions
+- **AddLocationForm**: Location creation with validation
+- **MapView**: Google Maps wrapper with custom markers
 
-- **Modular Design**: Self-contained component with internal photo loading
-- **Data Props**: Clean interface accepting location data objects
-- **Visible Actions**: Always-visible action buttons for better UX
-- **Photo Integration**: Automatic photo loading from Firebase Storage
-- **Responsive Layout**: Optimized for mobile and desktop views
+## 🔮 Roadmap
 
-```typescript
-interface LocationCardProps {
-  location: {
-    id: string;
-    name: string;
-    description: string;
-    lat: number;
-    lng: number;
-    createdAt: Date;
-  };
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-  onViewOnMap: (id: string) => void;
-}
-```
-
-### UI/UX Improvements
-
-- **Always-Visible Actions**: Replaced swipe gestures with prominent action buttons
-- **Clear Visual Hierarchy**: Improved spacing and typography for better readability
-- **Enhanced Loading States**: Fixed loading indicators to prevent UI blocking
-- **Intuitive Navigation**: Direct map navigation from location cards
-- **Better Touch Targets**: Larger, more accessible button areas
-
-## 🗺️ Enhanced Map Features
-
-### Automatic Zoom Functionality
-
-- **Smart Bounds Calculation**: Automatically fits user location and all saved locations
-- **Dynamic Zoom Levels**: Adjusts zoom based on location spread
-- **User Location Priority**: Ensures user's current position is always visible
-- **Smooth Transitions**: Animated zoom and pan for better user experience
-- **Fallback Handling**: Graceful degradation when location services unavailable
-
-### Map Optimization
-
-```typescript
-// Automatic bounds fitting
-const bounds = new google.maps.LatLngBounds();
-bounds.extend(userLocation);
-locations.forEach(location => bounds.extend(location));
-map.fitBounds(bounds);
-```
-
-## 🚀 Recent Performance Enhancements
-
-### Loading State Optimization
-
-- **Fixed Loading Indicators**: Resolved issues with persistent loading spinners
-- **Conditional Rendering**: Proper component lifecycle management
-- **State Management**: Improved loading state handling across components
-- **User Feedback**: Clear loading indicators with appropriate timing
-
-### Technical Improvements
-
-- **PWA Elements Integration**: Added to main.tsx for camera functionality
-- **Firebase Storage Rules**: Proper security configuration with CORS support
-- **Component Modularity**: Better separation of concerns and reusability
-- **Error Handling**: Enhanced error management throughout the application
-
-## �🔮 Roadmap
-
-- [x] ~~Photo upload for mushroom findings with image storage~~ ✅ **Completed**
-- [x] ~~Component architecture improvements~~ ✅ **Completed**
-- [x] ~~Camera integration with native functionality~~ ✅ **Completed**
-- [x] ~~UI/UX enhancements for better user experience~~ ✅ **Completed**
-- [ ] Mushroom species database and identification features
-- [ ] Weather integration for optimal foraging conditions
+- [ ] Mushroom species database and identification
 - [ ] Offline map caching and location storage
-- [ ] Social features for sharing discoveries with community
-- [ ] Advanced filtering and search capabilities
+- [ ] Social features for sharing discoveries
+- [ ] Advanced filtering and search
 - [ ] GPS track recording for foraging routes
 - [ ] Push notifications for nearby discoveries
 

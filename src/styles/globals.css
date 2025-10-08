@@ -97,8 +97,8 @@ ion-button:not(ion-tab-button) {
   --border-radius: 1rem;
   --padding-top: 0.4rem;
   --padding-bottom: 0.4rem;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
+  --padding-start: 0.8rem;
+  --padding-end: 0.8rem;
 }
 
 /* --- ion-tab-button --- */
@@ -204,7 +204,7 @@ h2 {
 }
 h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 600 !important;
   color: var(--falu-red);
 }
 ul {
@@ -232,15 +232,24 @@ article {
   align-items: center;
   gap: 1rem;
 }
-
-.btn-danger {
-  --background: var(--ion-color-danger);
-  --background-hover: var(--ion-color-danger-shade);
-  --color: var(--ion-color-danger-contrast);
+.btn-delete-icon {
+  color: var(--ion-color-danger);
+  aspect-ratio: 1/1;
+  --background: rgba(255, 255, 255, 0.1);
+  --background-activated: rgba(255, 255, 255, 0.2);
+  --background-hover: rgba(255, 255, 255, 0.2);
   --border-radius: var(--border-radius-lg);
   height: var(--height-button);
   font-weight: var(--font-weight-semibold);
+  border-radius: 50%;
 }
+.absolute-top-right {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 20;
+}
+
 
 /* --- Contenidors --- */
 .container {

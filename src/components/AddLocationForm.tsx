@@ -10,12 +10,10 @@ import {
   IonLabel,
   IonTextarea,
 } from "@ionic/react";
-import {
-  cameraOutline,
-  checkmarkOutline,
-  closeOutline,
-} from "ionicons/icons";
+import { checkmarkOutline } from "ionicons/icons";
 import React from "react";
+import "./AddLocationForm.css";
+import PhotoManager from "./PhotoManager";
 
 interface AddLocationFormProps {
   formData: {
@@ -72,44 +70,12 @@ const AddLocationForm: React.FC<AddLocationFormProps> = ({
           </IonItem>
 
           {/* Secció de foto */}
-          <IonItem>
-            <IonLabel position="stacked">Foto (opcional)</IonLabel>
-            <div className="photo-section">
-              {/* Botó per fer foto */}
-              {!photoPreviewUrl && (
-                <IonButton onClick={onTakePhoto}>
-                  <IonIcon icon={cameraOutline} slot="start" />
-                  Fer Foto
-                </IonButton>
-              )}
-
-              {/* Previsualització de la foto */}
-              {photoPreviewUrl && (
-                <div className="photo-preview-container">
-                  <img
-                    src={photoPreviewUrl}
-                    alt="Previsualització"
-                    className="photo-preview"
-                  />
-                  <IonButton
-                    fill="clear"
-                    size="small"
-                    color="danger"
-                    onClick={onRemovePhoto}
-                    className="photo-remove-button"
-                  >
-                    <IonIcon icon={closeOutline} />
-                  </IonButton>
-
-                  {/* Botó per fer nova foto */}
-                  <IonButton onClick={onTakePhoto}>
-                    <IonIcon icon={cameraOutline} slot="start" />
-                    Fer Nova Foto
-                  </IonButton>
-                </div>
-              )}
-            </div>
-          </IonItem>
+          <PhotoManager
+            photoPreviewUrl={photoPreviewUrl}
+            isUploadingPhoto={isUploadingPhoto}
+            onTakePhoto={onTakePhoto}
+            onRemovePhoto={onRemovePhoto}
+          />
         </div>
 
         <div className="form-actions">

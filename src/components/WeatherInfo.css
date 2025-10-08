@@ -1,0 +1,62 @@
+/* WeatherInfo - Només estils específics que no existeixen a globals.css */
+
+.weather-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.temp-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--lion);
+  line-height: 1;
+}
+
+.temp-feels {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.weather-description {
+  text-align: right;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.score-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lion), var(--ion-color-success));
+  transition: width 0.3s ease;
+}
+
+.forecast-reasons {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-sm);
+}
+
+/* Dark theme */
+.dark-theme .temp-value {
+  color: var(--peach);
+}
+
+.dark-theme .score-bar {
+  background: var(--border-dark);
+}

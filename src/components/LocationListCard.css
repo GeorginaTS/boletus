@@ -1,9 +1,13 @@
-.btn-delete-icon {
-  color: var(--ion-color-danger);
-  --background: white;
-  --background-activated: white;
-  --background-hover: white;
+ion-card[button] {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+ion-card[button]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .card-info {
   margin-top: 0.4rem;
   width: 100%;

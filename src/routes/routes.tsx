@@ -1,11 +1,12 @@
-import { lazy } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { lazy } from "react";
+import { Redirect, Route } from "react-router-dom";
 
 // Lazy load components for code splitting
-const Map = lazy(() => import('@pages/Map'));
-const AddLocation = lazy(() => import('@pages/AddLocation'));
-const LocationsList = lazy(() => import('@pages/LocationsList'));
-const Profile = lazy(() => import('@pages/Profile'));
+const Map = lazy(() => import("@pages/Map"));
+const AddLocation = lazy(() => import("@pages/AddLocation"));
+const LocationsList = lazy(() => import("@pages/LocationsList"));
+const LocationDetail = lazy(() => import("@pages/LocationDetail"));
+const Profile = lazy(() => import("@pages/Profile"));
 
 // Configuració de routes
 const routesConfig = [
@@ -22,6 +23,11 @@ const routesConfig = [
   {
     path: "/locations",
     component: LocationsList,
+    exact: true,
+  },
+  {
+    path: "/location/:id",
+    component: LocationDetail,
     exact: true,
   },
   {
@@ -49,4 +55,3 @@ export const AppRoutes: React.FC = () => (
     </Route>
   </>
 );
-
