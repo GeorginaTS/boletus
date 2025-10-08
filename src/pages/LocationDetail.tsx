@@ -23,7 +23,6 @@ import {
   locationOutline,
   mapOutline,
   navigateOutline,
-  personOutline,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -124,8 +123,10 @@ const LocationDetail: React.FC = () => {
             title="Detall de Localització"
           />
         </IonHeader>
-        <IonContent className="ion-padding ion-text-center">
-          <IonSpinner />
+        <IonContent fullscreen>
+          <div className="container ion-text-center">
+            <IonSpinner />
+          </div>
         </IonContent>
       </IonPage>
     );
@@ -140,10 +141,12 @@ const LocationDetail: React.FC = () => {
             title="Detall de Localització"
           />
         </IonHeader>
-        <IonContent className="ion-padding">
-          <p className="ion-text-center">
-            {error || "Localització no trobada"}
-          </p>
+        <IonContent fullscreen>
+          <div className="container">
+            <p className="ion-text-center">
+              {error || "Localització no trobada"}
+            </p>
+          </div>
         </IonContent>
       </IonPage>
     );
@@ -157,43 +160,33 @@ const LocationDetail: React.FC = () => {
         <SectionHeader icon={locationOutline} title="Detall de Localització" />
       </IonHeader>
 
-      <IonContent className="ion-padding">
+      <IonContent fullscreen>
         <div className="container">
+          {/* Card principal: Imatge + Nom + Coordenades + Ubicació + Data */}
           <IonCard>
+            {/* Foto si existeix */}
+            {photoUrl && (
+              <div className="photo-container">
+                <img
+                  src={photoUrl}
+                  alt={location.name}
+                  className="location-photo"
+                />
+              </div>
+            )}
+
             <IonCardHeader>
               <IonCardTitle>🍄 {location.name}</IonCardTitle>
             </IonCardHeader>
 
             <IonCardContent>
-              {/* Foto si existeix */}
-              {photoUrl && (
-                <div className="photo-container">
-                  <img
-                    src={photoUrl}
-                    alt={location.name}
-                    className="location-photo"
-                  />
-                </div>
-              )}
-
               {/* Descripció */}
               {location.description && (
-                <div className="info-section">
+                <div className="info-section mb-md">
                   <p className="description-text">{location.description}</p>
                 </div>
               )}
-            </IonCardContent>
-          </IonCard>
 
-          {/* Informació meteorològica */}
-          <WeatherInfo
-            latitude={location.lat}
-            longitude={location.lng}
-            showMushroomForecast={true}
-          />
-
-          <IonCard>
-            <IonCardContent>
               {/* Informació de la localització */}
               <div className="info-section">
                 <ul className="card-info">
@@ -222,16 +215,6 @@ const LocationDetail: React.FC = () => {
                       <p>{formatDate(location.createdAt)}</p>
                     </div>
                   </li>
-
-                  {isOwner && (
-                    <li className="card-info-item">
-                      <IonIcon icon={personOutline} />
-                      <div>
-                        <strong>Propietari</strong>
-                        <p>Tu</p>
-                      </div>
-                    </li>
-                  )}
                 </ul>
               </div>
 
@@ -257,6 +240,13 @@ const LocationDetail: React.FC = () => {
               </div>
             </IonCardContent>
           </IonCard>
+
+          {/* Informació meteorològica */}
+          <WeatherInfo
+            latitude={location.lat}
+            longitude={location.lng}
+            showMushroomForecast={true}
+          />
         </div>
 
         <IonToast
