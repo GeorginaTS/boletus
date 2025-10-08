@@ -1,3 +1,6 @@
+.white-bg {
+  --background: white !important;
+}
 /* Contenidor del contingut del mapa */
 .map-content {
   --padding-top: 0;

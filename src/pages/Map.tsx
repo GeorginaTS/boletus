@@ -45,7 +45,7 @@ const Map: React.FC = () => {
     <IonPage>
       <IonHeader>
         <SectionHeader icon={mapOutline} title="Mapa" />
-        <IonToolbar>
+        <IonToolbar className='white-bg'>
           <IonButton
             slot="end"
             fill="clear"
