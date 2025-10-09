@@ -598,7 +598,33 @@ const photoUrl = await getPhotoUrl(locationId);
 - **AddLocationForm**: Location creation with validation
 - **MapView**: Google Maps wrapper with custom markers
 
-## 🔮 Roadmap
+## � Deployment
+
+### Google Play Store
+
+Per publicar l'aplicació a Google Play Store, segueix la guia completa:
+
+📖 **[Guia de Publicació a Google Play Store](docs/GOOGLE_PLAY_DEPLOYMENT.md)**
+
+La guia inclou:
+- Configuració de comptes i eines
+- Generació de keystore i signatura
+- Creació d'AAB (Android App Bundle)
+- Materials de marketing (screenshots, icones, descripcions)
+- Process de pujada i revisió
+- Actualitzacions futures
+
+**Scripts d'ajuda:**
+
+```bash
+# Windows PowerShell
+.\build-release.ps1
+
+# Linux/Mac
+./build-release.sh
+```
+
+## �🔮 Roadmap
 
 - [ ] Mushroom species database and identification
 - [ ] Offline map caching and location storage
