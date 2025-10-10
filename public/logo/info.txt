@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: OleoScript-Regular
+font link: https://fonts.google.com/specimen/Oleo+Script
+font author: soytutype fonts
+font author site: https://twitter.com/soytutype
+
+
+icon designer: Shovy Rahman
+icon designer link: /creator/shovyrahman/
+        
+{"bg":"transparent","icon-gradient-0":"#913C00","icon-gradient-1":"#D9AD76","font":"#000000","slogan":"#141414"}
+      

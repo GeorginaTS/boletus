@@ -62,12 +62,15 @@ const Login: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Mushroom Finder</IonTitle>
+
         </IonToolbar>
       </IonHeader>
-      
+                
       <IonContent className="login-content">
+       <img src="../assets/img/logo.png" alt="Boletus" />
         <div className="login-container">
-          <IonCard className="form-container">
+           
+           <IonCard className="form-container">
             <IonCardContent>
               <div className="login-header">
                 <h1 className="title-primary">Iniciar Sessió</h1>
