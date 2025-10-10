@@ -1,9 +1,14 @@
 
 # 🍄 Mushroom Finder
 
-![Screenshot 1](public/screenshoots/screenshot1.png)
-![Screenshot 2](public/screenshoots/screenshot2.png)
-![Screenshot 3](public/screenshoots/screenshot3.png)
+
+<table>
+  <tr>
+    <td><img src="public/screenshoots/screenshot1.png" alt="Screenshot 1" width="200"/></td>
+    <td><img src="public/screenshoots/screenshot2.png" alt="Screenshot 2" width="200"/></td>
+    <td><img src="public/screenshoots/screenshot3.png" alt="Screenshot 3" width="200"/></td>
+  </tr>
+</table>
 
 Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets. Inclou mapa interactiu, gestió de localitzacions amb fotos, previsió meteorològica i autenticació amb Firebase.
 
