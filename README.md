@@ -1,54 +1,66 @@
+
 # 🍄 Mushroom Finder
 
-A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated Google Maps system, comprehensive location management, and real-time weather data.
+<p align="center">
+  <img src="public/assets/img/logo.png" alt="Boletus Logo" width="120" />
+</p>
+<table>
+  <tr>
+    <td><img src="public/screenshoots/screenshot1.png" alt="Screenshot 1" width="200"/></td>
+    <td><img src="public/screenshoots/screenshot2.png" alt="Screenshot 2" width="200"/></td>
+    <td><img src="public/screenshoots/screenshot3.png" alt="Screenshot 3" width="200"/></td>
+  </tr>
+</table>
 
-## 🌟 Features
+## 🚀 PWA: Instal·la-la al teu dispositiu
 
-### Core Features
-- **🗺️ Google Maps Integration**: Interactive mapping with custom mushroom markers and terrain mode
-- **🍄 Location Management**: Complete CRUD system with photos, geolocation, and detailed information
-- **🌦️ Weather Integration**: Real-time weather data with AI-powered mushroom hunting forecasts
-- **📱 Location Detail**: Comprehensive view with weather, photos, and interactive navigation
-- **🎨 Dynamic Theming**: Light/dark mode with persistent preferences and earth-toned palette
-- **🔐 Firebase Backend**: Authentication, Firestore database, and photo storage
-- **📸 Photo Capture**: Native camera integration with Capacitor
-- **⚡ Optimized Performance**: Code splitting, lazy loading, and global CSS reuse
+**Prova-la i instal·la-la directament des d'aquesta adreça:**
 
-## 🚀 Tech Stack
+👉 [https://boletus-eb305.web.app](https://boletus-eb305.web.app)
 
-### Frontend
+Aplicació preparada com a Progressive Web App (PWA):
 
-- **Framework**: [Ionic React](https://ionicframework.com/) v8.5.0
-- **Language**: TypeScript v5.1.6
-- **Build Tool**: Vite v5.4.20 with optimized chunking
-- **Styling**: Ionic CSS with custom theming and earth-toned color palette
-- **Theme System**: Context-based theme management with light/dark mode support
-- **Maps**: Google Maps JavaScript API with AdvancedMarkerElement
-- **Weather**: OpenWeather API with free tier (1000 calls/day)
-- **UI Icons**: Ionicons v7.4.0
-- **Performance**: Code splitting with React.lazy and Suspense
+- Pots instal·lar-la al mòbil o ordinador des del navegador (icona de descàrrega).
+- Funciona offline, amb service worker i manifest configurats.
+- Experiència nativa: icona, splash, mode fosc automàtic.
 
-### Backend & Cloud
+---
 
-- **Database**: [Firebase Firestore](https://firebase.google.com/products/firestore) v10.x
-- **Authentication**: Firebase Auth v10.x
-- **Storage**: Firebase Storage for photo uploads
-- **Hosting**: Firebase Hosting with SPA configuration
-- **Deployment**: Firebase CLI with automated builds
+Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets amb mapa, fotos, temps i autenticació.
 
-### External APIs
+### Funcionalitats
 
-- **Maps**: Google Maps JavaScript API with custom mushroom markers
-- **Weather**: OpenWeather Current Weather API v2.5
-- **Geocoding**: Google Maps Geocoding API (reverse geocoding)
-- **Photos**: Capacitor Camera API for native photo capture
+- Mapa interactiu amb Google Maps
+- Gestió de localitzacions amb fotos i coordenades
+- Previsió meteorològica en temps real
+- Autenticació i base de dades amb Firebase
+- Captura de fotos amb la càmera
+- Mode clar/fosc automàtic
 
-### Mapping & Location
+### Stack
 
-- **Maps**: Google Maps JavaScript API with custom mushroom markers
-- **Advanced Markers**: Modern AdvancedMarkerElement with emoji icons (🍄)
-- **Location Services**: Browser geolocation with high accuracy mode
-- **Map Interactions**: Click-to-add locations and location-focused navigation
+- Ionic React + TypeScript
+- Vite
+- Firebase (Firestore, Auth, Storage, Hosting)
+- Google Maps API
+- OpenWeather API
+
+### Instal·lació
+
+```bash
+git clone <repo>
+cd mushroom-finder
+npm install
+npm run dev
+```
+
+### Build i desplegament
+
+```bash
+npm run build
+npx serve dist
+```
+
 - **Geolocation Hook**: Custom useGeolocation hook with high accuracy default
 
 ### Performance & Optimization
@@ -141,18 +153,20 @@ mushroom-finder/
 ### Setup Steps
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/GeorginaTS/boletus.git
    cd mushroom-finder
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Configuration**
-   
+
    Copy `.env.example` to `.env` and fill in your API keys:
 
    ```bash
@@ -160,6 +174,7 @@ mushroom-finder/
    ```
 
    Required environment variables:
+
    ```bash
    # Google Maps API Key
    VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
@@ -177,7 +192,7 @@ mushroom-finder/
    ```
 
 4. **Firebase Configuration**
-   
+
    Ensure your Firebase project has:
    - ✅ Firestore Database enabled
    - ✅ Authentication enabled (Email/Password)
@@ -196,7 +211,7 @@ mushroom-finder/
 ### 🗺️ Google Maps API Setup
 
 1. **Get API Key**: Visit [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/)
-2. **Enable APIs**: 
+2. **Enable APIs**:
    - Maps JavaScript API
    - Advanced Markers API
    - Geocoding API
@@ -317,6 +332,7 @@ This project follows strict CSS organization principles:
 5. **Ionic Classes**: Leverage built-in Ionic classes (`.ion-text-center`, `.ion-padding`, etc.)
 
 Example:
+
 ```css
 /* ✅ GOOD - Minimal component CSS (WeatherInfo.css: ~53 lines) */
 .temp-value {
@@ -607,6 +623,7 @@ Per publicar l'aplicació a Google Play Store, segueix la guia completa:
 📖 **[Guia de Publicació a Google Play Store](docs/GOOGLE_PLAY_DEPLOYMENT.md)**
 
 La guia inclou:
+
 - Configuració de comptes i eines
 - Generació de keystore i signatura
 - Creació d'AAB (Android App Bundle)

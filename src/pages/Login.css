@@ -7,10 +7,11 @@
 
 .login-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   min-height: 100vh;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
 }
 
 .login-container ion-card {
@@ -30,6 +31,12 @@
   color: var(--ion-color-medium);
   margin: 0;
   font-size: var(--font-size-base);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
 .login-switch {
