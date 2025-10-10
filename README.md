@@ -1,6 +1,9 @@
 
 # 🍄 Mushroom Finder
 
+<p align="center">
+  <img src="public/assets/img/logo.png" alt="Boletus Logo" width="120" />
+</p>
 <table>
   <tr>
     <td><img src="public/screenshoots/screenshot1.png" alt="Screenshot 1" width="200"/></td>
@@ -9,13 +12,14 @@
   </tr>
 </table>
 
+## 🚀 PWA: Instal·la-la al teu dispositiu
 
-## 🚀 PWA: Instal·la-la al teu dispositiu!
 **Prova-la i instal·la-la directament des d'aquesta adreça:**
 
 👉 [https://boletus-eb305.web.app](https://boletus-eb305.web.app)
 
 Aplicació preparada com a Progressive Web App (PWA):
+
 - Pots instal·lar-la al mòbil o ordinador des del navegador (icona de descàrrega).
 - Funciona offline, amb service worker i manifest configurats.
 - Experiència nativa: icona, splash, mode fosc automàtic.
@@ -25,6 +29,7 @@ Aplicació preparada com a Progressive Web App (PWA):
 Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets amb mapa, fotos, temps i autenticació.
 
 ### Funcionalitats
+
 - Mapa interactiu amb Google Maps
 - Gestió de localitzacions amb fotos i coordenades
 - Previsió meteorològica en temps real
@@ -33,6 +38,7 @@ Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bol
 - Mode clar/fosc automàtic
 
 ### Stack
+
 - Ionic React + TypeScript
 - Vite
 - Firebase (Firestore, Auth, Storage, Hosting)
@@ -40,6 +46,7 @@ Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bol
 - OpenWeather API
 
 ### Instal·lació
+
 ```bash
 git clone <repo>
 cd mushroom-finder
@@ -48,10 +55,12 @@ npm run dev
 ```
 
 ### Build i desplegament
+
 ```bash
 npm run build
 npx serve dist
 ```
+
 - **Geolocation Hook**: Custom useGeolocation hook with high accuracy default
 
 ### Performance & Optimization
@@ -144,18 +153,20 @@ mushroom-finder/
 ### Setup Steps
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/GeorginaTS/boletus.git
    cd mushroom-finder
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Configuration**
-   
+
    Copy `.env.example` to `.env` and fill in your API keys:
 
    ```bash
@@ -163,6 +174,7 @@ mushroom-finder/
    ```
 
    Required environment variables:
+
    ```bash
    # Google Maps API Key
    VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
@@ -180,7 +192,7 @@ mushroom-finder/
    ```
 
 4. **Firebase Configuration**
-   
+
    Ensure your Firebase project has:
    - ✅ Firestore Database enabled
    - ✅ Authentication enabled (Email/Password)
@@ -199,7 +211,7 @@ mushroom-finder/
 ### 🗺️ Google Maps API Setup
 
 1. **Get API Key**: Visit [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/)
-2. **Enable APIs**: 
+2. **Enable APIs**:
    - Maps JavaScript API
    - Advanced Markers API
    - Geocoding API
@@ -320,6 +332,7 @@ This project follows strict CSS organization principles:
 5. **Ionic Classes**: Leverage built-in Ionic classes (`.ion-text-center`, `.ion-padding`, etc.)
 
 Example:
+
 ```css
 /* ✅ GOOD - Minimal component CSS (WeatherInfo.css: ~53 lines) */
 .temp-value {
@@ -610,6 +623,7 @@ Per publicar l'aplicació a Google Play Store, segueix la guia completa:
 📖 **[Guia de Publicació a Google Play Store](docs/GOOGLE_PLAY_DEPLOYMENT.md)**
 
 La guia inclou:
+
 - Configuració de comptes i eines
 - Generació de keystore i signatura
 - Creació d'AAB (Android App Bundle)
