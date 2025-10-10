@@ -1,16 +1,14 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "io.ionic.starter",
-  appName: "mushroom-finder",
-  webDir: "dist",
+  appId: "com.georginats.boletus", // identificador únic de la teva app
+  appName: "Boletus",
+  webDir: "dist", // deixa-ho igual si builda a dist/
   plugins: {
     Geolocation: {
-      // Configuració per màxima precisió GPS
       enableHighAccuracy: true,
-      timeout: 30000, // 30 segons per donar temps al GPS
-      maximumAge: 10000, // Només 10 segons per forçar dades fresques
-      // Configuracions addicionals per Android/iOS
+      timeout: 30000,
+      maximumAge: 10000,
       androidGpsTimeout: 30000,
       iosLocationTimeout: 30000,
     },
@@ -21,3 +19,4 @@ const config: CapacitorConfig = {
 };
 
 export default config;
+
