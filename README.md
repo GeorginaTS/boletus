@@ -131,7 +131,7 @@ mushroom-finder/
 │       └── firebase.ts     # Firebase initialization
 ├── public/                 # Static assets
 │   ├── manifest.json       # PWA manifest
-│   └── favicon.png         # App icon
+│   └── favicon.svg         # App icon
 ├── cypress/                # E2E testing configuration
 ├── firebase.json           # Firebase Hosting configuration
 ├── .firebaserc            # Firebase project configuration

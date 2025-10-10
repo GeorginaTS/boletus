@@ -171,13 +171,26 @@ class NotificationService {
     if (!this.messaging) return;
 
     try {
+      // Register custom service worker for Firebase Messaging
+      if ("serviceWorker" in navigator) {
+        const registration = await navigator.serviceWorker.register(
+          "/firebase-messaging-sw-custom.js"
+        );
+        console.log(
+          "📱 Firebase Messaging Service Worker registered:",
+          registration
+        );
+      }
+
       // Request permission
       const permission = await Notification.requestPermission();
 
       if (permission === "granted") {
-        // Get FCM token
+        // Get FCM token using the custom service worker
+        const registration = await navigator.serviceWorker.ready;
         const token = await getToken(this.messaging, {
           vapidKey: process.env.VITE_FIREBASE_VAPID_KEY,
+          serviceWorkerRegistration: registration,
         });
 
         console.log("🌐 FCM Token: ", token);
@@ -315,7 +328,7 @@ class NotificationService {
       if ("Notification" in window && Notification.permission === "granted") {
         new Notification(notification.title, {
           body: notification.body,
-          icon: notification.icon || "/favicon.png",
+          icon: notification.icon || "/favicon.svg",
           badge: notification.badge?.toString(),
           data: notification.data,
         });

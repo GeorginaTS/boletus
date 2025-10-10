@@ -111,7 +111,7 @@ export const useNotifications = (): UseNotificationsReturn => {
       const testNotification: NotificationPayload = {
         title: "🍄 Mushroom Finder",
         body: "Aquesta és una notificació de prova! El sistema funciona correctament.",
-        icon: "/favicon.png",
+        icon: "/favicon.svg",
         data: {
           type: "test",
           timestamp: Date.now().toString(),

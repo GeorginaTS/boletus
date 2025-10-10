@@ -12,6 +12,8 @@ export default defineConfig({
     react(),
     legacy(),
     VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
         name: "Mushroom Finder",
         short_name: "Bolets",
@@ -26,24 +28,31 @@ export default defineConfig({
         scope: ".",
         icons: [
           {
-            src: "favicon.png",
+            src: "web-app-manifest-192x192.png",
             sizes: "192x192",
             type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "web-app-manifest-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
           },
         ],
         screenshots: [
           {
-            src: "screenshots/screenshot1.png",
+            src: "screenshoots/screenshot1.png",
             sizes: "1080x1920",
             type: "image/png",
           },
           {
-            src: "screenshots/screenshot2.png",
+            src: "screenshoots/screenshot2.png",
             sizes: "1080x1920",
             type: "image/png",
           },
           {
-            src: "screenshots/screenshot3.png",
+            src: "screenshoots/screenshot3.png",
             sizes: "1080x1920",
             type: "image/png",
           },

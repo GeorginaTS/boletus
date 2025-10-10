@@ -35,8 +35,8 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification?.title || "Mushroom Finder";
   const notificationOptions = {
     body: payload.notification?.body || "Nova notificació",
-    icon: payload.notification?.icon || "/favicon.png",
-    badge: "/favicon.png",
+    icon: payload.notification?.icon || "/favicon.svg",
+    badge: "/favicon.svg",
     data: payload.data,
     actions: [
       {
@@ -128,8 +128,8 @@ self.addEventListener("push", (event) => {
       const title = payload.notification?.title || "Mushroom Finder";
       const options = {
         body: payload.notification?.body || "Nova notificació",
-        icon: payload.notification?.icon || "/favicon.png",
-        badge: "/favicon.png",
+        icon: payload.notification?.icon || "/favicon.svg",
+        badge: "/favicon.svg",
         data: payload.data,
       };
 
