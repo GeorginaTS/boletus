@@ -250,7 +250,6 @@ article {
   z-index: 20;
 }
 
-
 /* --- Contenidors --- */
 .container {
   padding: var(--spacing-sm);
@@ -472,6 +471,12 @@ article {
   padding: 0;
   background: white;
   border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.map-info-window:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .map-info-header {

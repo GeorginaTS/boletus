@@ -1,7 +1,9 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { Location } from '@/types/location';
 import { LocationData } from '@services/geolocationService';
 import { googleMapsService } from '@services/googleMapsService';
 import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -9,7 +11,7 @@ interface MapViewProps {
   userLocation?: LocationData | null;
   height?: string;
   className?: string;
-  mapType?: 'roadmap' | 'satellite' | 'hybrid' | 'terrain';
+  mapType?: 'roadmap' | 'satellite' | 'hybrid' | 'terrain' ;
   showMapTypeControls?: boolean;
 }
 
@@ -21,8 +23,16 @@ const MapView: React.FC<MapViewProps> = ({
   showMapTypeControls = true
 }) => {
   const { user } = useAuth();
+  const history = useHistory();
   const mapRef = useRef<HTMLDivElement>(null);
   const isInitialized = useRef<boolean>(false);
+
+  // Callback per navegar a la pàgina de detalls de la localització
+  const handleLocationClick = (location: Location) => {
+    if (location.id) {
+      history.push(`/location/${location.id}`);
+    }
+  };
 
   useEffect(() => {
     if (!mapRef.current || isInitialized.current) return;
@@ -42,7 +52,7 @@ const MapView: React.FC<MapViewProps> = ({
         
         // Carrega les localitzacions guardades de l'usuari
         if (user) {
-          await googleMapsService.loadAndDisplayLocations(user.uid);
+          await googleMapsService.loadAndDisplayLocations(user.uid, handleLocationClick);
         }
         
         // Redimensiona el mapa després d'un petit retard

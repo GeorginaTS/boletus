@@ -63,6 +63,7 @@ interface LocationMarkerInfo {
   marker: google.maps.marker.AdvancedMarkerElement;
   location: Location;
   infoWindow?: google.maps.InfoWindow;
+  isClickedOpen?: boolean; // Per controlar si l'InfoWindow està oberta per clic
 }
 
 class GoogleMapsService {
@@ -70,6 +71,7 @@ class GoogleMapsService {
   private isLoaded = false;
   private userMarker: MarkerInfo | null = null;
   private locationMarkers: LocationMarkerInfo[] = [];
+  private onLocationClickCallback?: (location: Location) => void;
 
   async initialize(): Promise<void> {
     if (this.isLoaded) return;
@@ -188,6 +190,11 @@ class GoogleMapsService {
 
     this.map = new google.maps.Map(container, mapConfig);
 
+    // Afegir event listener per tancar InfoWindows quan es clica al mapa
+    this.map.addListener("click", () => {
+      this.closeAllInfoWindows();
+    });
+
     console.log("🗺️ Mapa de Google Maps creat amb mode terrain (relleu)");
     return this.map;
   }
@@ -280,7 +287,9 @@ class GoogleMapsService {
     const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 16px; height: 16px;"><path fill="currentColor" d="M480,128a64,64,0,0,0-64-64H400V48a16,16,0,0,0-32,0V64H144V48a16,16,0,0,0-32,0V64H96a64,64,0,0,0-64,64v12a4,4,0,0,0,4,4H476a4,4,0,0,0,4-4Z"/><path fill="currentColor" d="M32,416a64,64,0,0,0,64,64H416a64,64,0,0,0,64-64V179a3,3,0,0,0-3-3H35a3,3,0,0,0-3,3Zm344-168a24,24,0,1,1-24,24A24,24,0,0,1,376,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,376,328Zm-96-80a24,24,0,1,1-24,24A24,24,0,0,1,280,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,280,328Zm-96-80a24,24,0,1,1-24,24A24,24,0,0,1,184,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,184,328Zm-88-80a24,24,0,1,1-24,24A24,24,0,0,1,96,248Zm0,80a24,24,0,1,1-24,24A24,24,0,0,1,96,328Z"/></svg>`;
 
     return `
-      <div class="map-info-window">
+      <div class="map-info-window" onclick="window.navigateToLocation('${
+        location.id
+      }')" style="cursor: pointer;">
         <div class="map-info-header">
           <h3 class="map-info-title">
             ${mushroomIcon}
@@ -379,7 +388,13 @@ class GoogleMapsService {
     }
   }
 
-  async loadAndDisplayLocations(userId?: string): Promise<void> {
+  async loadAndDisplayLocations(
+    userId?: string,
+    onLocationClick?: (location: Location) => void
+  ): Promise<void> {
+    // Guardar el callback per utilitzar-lo a les InfoWindows
+    this.onLocationClickCallback = onLocationClick;
+
     if (!this.map) {
       console.warn("⚠️ El mapa no està inicialitzat");
       return;
@@ -437,26 +452,39 @@ class GoogleMapsService {
       disableAutoPan: false,
     });
 
-    // Mostrar InfoWindow quan el ratolí passa per sobre
+    // Mostrar InfoWindow quan el ratolí passa per sobre (només si no està oberta per clic)
     marker.addListener("mouseenter", () => {
-      // Tancar totes les altres InfoWindows abans d'obrir aquesta
-      this.closeAllInfoWindows();
-      infoWindow.open({
-        anchor: marker,
-        map: this.map!,
-      });
+      const markerInfo = this.locationMarkers.find((m) => m.marker === marker);
+      if (markerInfo && !markerInfo.isClickedOpen) {
+        // Tancar totes les altres InfoWindows abans d'obrir aquesta
+        this.closeAllInfoWindows();
+        infoWindow.open({
+          anchor: marker,
+          map: this.map!,
+        });
+      }
     });
 
-    // Tancar InfoWindow quan el ratolí surt
+    // Tancar InfoWindow quan el ratolí surt (només si no està oberta per clic)
     marker.addListener("mouseleave", () => {
-      infoWindow.close();
+      const markerInfo = this.locationMarkers.find((m) => m.marker === marker);
+      if (markerInfo && !markerInfo.isClickedOpen) {
+        infoWindow.close();
+      }
     });
 
-    // Afegir click listener per mantenir la InfoWindow oberta i fer zoom
+    // Afegir click listener per obrir la InfoWindow de forma permanent
     marker.addListener("click", () => {
-      console.log("🍄 Localització seleccionada:", location);
+      console.log("🍄 Obrint InfoWindow de la localització:", location);
       // Tancar totes les altres InfoWindows abans d'obrir aquesta
       this.closeAllInfoWindows();
+
+      // Marcar que aquesta InfoWindow està oberta per clic
+      const markerInfo = this.locationMarkers.find((m) => m.marker === marker);
+      if (markerInfo) {
+        markerInfo.isClickedOpen = true;
+      }
+
       infoWindow.open({
         anchor: marker,
         map: this.map!,
@@ -472,16 +500,19 @@ class GoogleMapsService {
       marker,
       location,
       infoWindow,
+      isClickedOpen: false,
     });
 
     console.log(`🍄 Marker afegit per: ${location.name}`);
   }
 
   private closeAllInfoWindows(): void {
-    this.locationMarkers.forEach(({ infoWindow }) => {
-      if (infoWindow) {
-        infoWindow.close();
+    this.locationMarkers.forEach((markerInfo) => {
+      if (markerInfo.infoWindow) {
+        markerInfo.infoWindow.close();
       }
+      // Resetejar l'estat de clic quan es tanca
+      markerInfo.isClickedOpen = false;
     });
   }
 
@@ -687,4 +718,26 @@ class GoogleMapsService {
   }
 }
 
-export const googleMapsService = new GoogleMapsService();
+// Funció global per navegar des de les InfoWindows
+declare global {
+  interface Window {
+    navigateToLocation?: (locationId: string) => void;
+  }
+}
+
+// Crear una instància singleton del servei
+const googleMapsServiceInstance = new GoogleMapsService();
+
+// Funció global que pot ser cridada des de l'HTML de les InfoWindows
+window.navigateToLocation = (locationId: string) => {
+  // Buscar la localització amb aquest ID entre els markers actuals
+  const markerInfo = googleMapsServiceInstance["locationMarkers"].find(
+    (marker) => marker.location.id === locationId
+  );
+
+  if (markerInfo && googleMapsServiceInstance["onLocationClickCallback"]) {
+    googleMapsServiceInstance["onLocationClickCallback"](markerInfo.location);
+  }
+};
+
+export { googleMapsServiceInstance as googleMapsService };
