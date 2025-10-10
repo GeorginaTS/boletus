@@ -4,10 +4,58 @@ import legacy from "@vitejs/plugin-legacy";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), legacy()],
+  plugins: [
+    react(),
+    legacy(),
+    VitePWA({
+      manifest: {
+        name: "Mushroom Finder",
+        short_name: "Bolets",
+        description:
+          "Troba, guarda i comparteix les millors ubicacions per recollir bolets.",
+        start_url: ".",
+        display: "standalone",
+        background_color: "#f8f8f8",
+        theme_color: "#8B4513",
+        orientation: "portrait",
+        lang: "ca",
+        scope: ".",
+        icons: [
+          {
+            src: "favicon.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+        screenshots: [
+          {
+            src: "screenshots/screenshot1.png",
+            sizes: "1080x1920",
+            type: "image/png",
+          },
+          {
+            src: "screenshots/screenshot2.png",
+            sizes: "1080x1920",
+            type: "image/png",
+          },
+          {
+            src: "screenshots/screenshot3.png",
+            sizes: "1080x1920",
+            type: "image/png",
+          },
+        ],
+        categories: ["travel", "nature", "tools"],
+        prefer_related_applications: false,
+      },
+      devOptions: {
+        enabled: true,
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

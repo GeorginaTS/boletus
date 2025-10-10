@@ -1,42 +1,45 @@
+
 # 🍄 Mushroom Finder
 
-A modern hybrid mobile application built with Ionic React and TypeScript for mushroom enthusiasts to discover, track, and share mushroom locations with an integrated Google Maps system, comprehensive location management, and real-time weather data.
+![Screenshot 1](public/screenshoots/screenshot1.png)
+![Screenshot 2](public/screenshoots/screenshot2.png)
+![Screenshot 3](public/screenshoots/screenshot3.png)
 
-## 🌟 Features
+Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets. Inclou mapa interactiu, gestió de localitzacions amb fotos, previsió meteorològica i autenticació amb Firebase.
 
-### Core Features
-- **🗺️ Google Maps Integration**: Interactive mapping with custom mushroom markers and terrain mode
-- **🍄 Location Management**: Complete CRUD system with photos, geolocation, and detailed information
-- **🌦️ Weather Integration**: Real-time weather data with AI-powered mushroom hunting forecasts
-- **📱 Location Detail**: Comprehensive view with weather, photos, and interactive navigation
-- **🎨 Dynamic Theming**: Light/dark mode with persistent preferences and earth-toned palette
-- **🔐 Firebase Backend**: Authentication, Firestore database, and photo storage
-- **📸 Photo Capture**: Native camera integration with Capacitor
-- **⚡ Optimized Performance**: Code splitting, lazy loading, and global CSS reuse
 
-## 🚀 Tech Stack
 
-### Frontend
+## Funcionalitats principals
+- 🗺️ Mapa interactiu amb Google Maps
+- 🍄 Gestió de localitzacions amb fotos i coordenades
+- �️ Previsió meteorològica en temps real
+- 🔐 Autenticació i base de dades amb Firebase
+- 📸 Captura de fotos amb la càmera
+- 🎨 Mode clar/fosc i temes personalitzats
 
-- **Framework**: [Ionic React](https://ionicframework.com/) v8.5.0
-- **Language**: TypeScript v5.1.6
-- **Build Tool**: Vite v5.4.20 with optimized chunking
-- **Styling**: Ionic CSS with custom theming and earth-toned color palette
-- **Theme System**: Context-based theme management with light/dark mode support
-- **Maps**: Google Maps JavaScript API with AdvancedMarkerElement
-- **Weather**: OpenWeather API with free tier (1000 calls/day)
-- **UI Icons**: Ionicons v7.4.0
-- **Performance**: Code splitting with React.lazy and Suspense
+## Stack tecnològic
+- Ionic React + TypeScript
+- Vite per build i optimització
+- Firebase (Firestore, Auth, Storage, Hosting)
+- Google Maps API
+- OpenWeather API
 
-### Backend & Cloud
+## Instal·lació ràpida
+```bash
+git clone <repo>
+cd mushroom-finder
+npm install
+npm run dev
+```
 
-- **Database**: [Firebase Firestore](https://firebase.google.com/products/firestore) v10.x
-- **Authentication**: Firebase Auth v10.x
-- **Storage**: Firebase Storage for photo uploads
-- **Hosting**: Firebase Hosting with SPA configuration
-- **Deployment**: Firebase CLI with automated builds
+## Build i desplegament
+```bash
+npm run build
+npx serve dist
+```
 
-### External APIs
+## PWA
+Manifest i service worker configurats per instal·lació en dispositius mòbils.
 
 - **Maps**: Google Maps JavaScript API with custom mushroom markers
 - **Weather**: OpenWeather Current Weather API v2.5
