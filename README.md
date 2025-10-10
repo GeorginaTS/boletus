@@ -1,7 +1,6 @@
 
 # 🍄 Mushroom Finder
 
-
 <table>
   <tr>
     <td><img src="public/screenshoots/screenshot1.png" alt="Screenshot 1" width="200"/></td>
@@ -10,26 +9,37 @@
   </tr>
 </table>
 
-Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets. Inclou mapa interactiu, gestió de localitzacions amb fotos, previsió meteorològica i autenticació amb Firebase.
 
+## 🚀 PWA: Instal·la-la al teu dispositiu!
+**Prova-la i instal·la-la directament des d'aquesta adreça:**
 
+👉 [https://boletus-eb305.web.app](https://boletus-eb305.web.app)
 
-## Funcionalitats principals
-- 🗺️ Mapa interactiu amb Google Maps
-- 🍄 Gestió de localitzacions amb fotos i coordenades
-- �️ Previsió meteorològica en temps real
-- 🔐 Autenticació i base de dades amb Firebase
-- 📸 Captura de fotos amb la càmera
-- 🎨 Mode clar/fosc i temes personalitzats
+Aplicació preparada com a Progressive Web App (PWA):
+- Pots instal·lar-la al mòbil o ordinador des del navegador (icona de descàrrega).
+- Funciona offline, amb service worker i manifest configurats.
+- Experiència nativa: icona, splash, mode fosc automàtic.
 
-## Stack tecnològic
+---
+
+Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets amb mapa, fotos, temps i autenticació.
+
+### Funcionalitats
+- Mapa interactiu amb Google Maps
+- Gestió de localitzacions amb fotos i coordenades
+- Previsió meteorològica en temps real
+- Autenticació i base de dades amb Firebase
+- Captura de fotos amb la càmera
+- Mode clar/fosc automàtic
+
+### Stack
 - Ionic React + TypeScript
-- Vite per build i optimització
+- Vite
 - Firebase (Firestore, Auth, Storage, Hosting)
 - Google Maps API
 - OpenWeather API
 
-## Instal·lació ràpida
+### Instal·lació
 ```bash
 git clone <repo>
 cd mushroom-finder
@@ -37,26 +47,11 @@ npm install
 npm run dev
 ```
 
-## Build i desplegament
+### Build i desplegament
 ```bash
 npm run build
 npx serve dist
 ```
-
-## PWA
-Manifest i service worker configurats per instal·lació en dispositius mòbils.
-
-- **Maps**: Google Maps JavaScript API with custom mushroom markers
-- **Weather**: OpenWeather Current Weather API v2.5
-- **Geocoding**: Google Maps Geocoding API (reverse geocoding)
-- **Photos**: Capacitor Camera API for native photo capture
-
-### Mapping & Location
-
-- **Maps**: Google Maps JavaScript API with custom mushroom markers
-- **Advanced Markers**: Modern AdvancedMarkerElement with emoji icons (🍄)
-- **Location Services**: Browser geolocation with high accuracy mode
-- **Map Interactions**: Click-to-add locations and location-focused navigation
 - **Geolocation Hook**: Custom useGeolocation hook with high accuracy default
 
 ### Performance & Optimization
