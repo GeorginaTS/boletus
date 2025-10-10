@@ -8,6 +8,9 @@
   justify-content: start;
   min-height: 100vh;
   padding: var(--spacing-md);
+  > img {
+    max-width:260px;
+  }
 }
 
 .login-container ion-card {
@@ -16,7 +19,6 @@
   margin: 0;
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-xl);
-
 }
 
 .login-header {
