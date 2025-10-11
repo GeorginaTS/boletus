@@ -5,7 +5,7 @@ import {
 } from "@/services/geolocationService";
 import { notificationService } from "@/services/notificationService";
 import { Location } from "@/types/location";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Calcula la distància entre dos punts (Haversine formula)
 function getDistanceMeters(
@@ -31,25 +31,55 @@ function getDistanceMeters(
  * Hook que comprova cada X segons si l'usuari està a prop d'una localització guardada
  * i mostra una notificació local si està a menys de 100m
  */
+
 export function useProximityNotification(
   userId: string,
   intervalMs: number = 120000
 ) {
   const lastNotifiedRef = useRef<string[]>([]); // IDs de localitzacions ja notificades
+  const [toast, setToast] = useState<{ show: boolean; message: string }>({
+    show: false,
+    message: "",
+  });
+  const [debugToast, setDebugToast] = useState<{
+    show: boolean;
+    message: string;
+  }>({
+    show: false,
+    message: "",
+  });
 
   useEffect(() => {
     if (!userId) return;
-    // interval només es declara i assigna una vegada
 
     const checkProximity = async () => {
       try {
+        setDebugToast({
+          show: true,
+          message: "[DEBUG] Comprovant ubicació i proximitat...",
+        });
         // 1. Obtenir ubicació actual
-        const location: LocationData =
-          await geolocationService.getCurrentPosition();
+        let location: LocationData;
+        try {
+          location = await geolocationService.getCurrentPosition();
+        } catch (geoErr) {
+          setToast({
+            show: true,
+            message: "Error de geolocalització: " + geoErr,
+          });
+          return;
+        }
         // 2. Recuperar localitzacions guardades de l'usuari
-        const locations: Location[] = await firestoreService.getUserLocations(
-          userId
-        );
+        let locations: Location[];
+        try {
+          locations = await firestoreService.getUserLocations(userId);
+        } catch (dbErr) {
+          setToast({
+            show: true,
+            message: "Error accedint a Firestore: " + dbErr,
+          });
+          return;
+        }
         // 3. Comprovar distància amb cada localització
         for (const loc of locations) {
           const dist = getDistanceMeters(
@@ -59,6 +89,11 @@ export function useProximityNotification(
             loc.lng
           );
           if (dist <= 100 && !lastNotifiedRef.current.includes(loc.id || "")) {
+            // Mostra toast per pantalla
+            setToast({
+              show: true,
+              message: `Estàs a prop de ${loc.name} (${Math.round(dist)}m)`,
+            });
             // 4. Notificació local
             await notificationService.sendLocalNotification({
               title: "Estàs a prop de " + loc.name,
@@ -75,8 +110,11 @@ export function useProximityNotification(
           }
         }
       } catch (err) {
-        // No bloqueja l'app si falla la geolocalització o la consulta
-        console.warn("Proximity notification error:", err);
+        // Error inesperat
+        setToast({
+          show: true,
+          message: "Error inesperat comprovant la proximitat: " + err,
+        });
       }
     };
 
@@ -85,4 +123,6 @@ export function useProximityNotification(
     const interval = setInterval(checkProximity, intervalMs);
     return () => clearInterval(interval);
   }, [userId, intervalMs]);
+
+  return { toast, debugToast };
 }

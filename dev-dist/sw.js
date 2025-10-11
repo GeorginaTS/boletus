@@ -3463,7 +3463,7 @@ define([],(function () { 'use strict';
       "revision": "3ca0b8505b4bec776b69afdba2768812"
     }, {
       "url": "index.html",
-      "revision": "0.6e63hg21e6"
+      "revision": "0.7pq1gihevt"
     }], {});
     cleanupOutdatedCaches();
     registerRoute(new NavigationRoute(createHandlerBoundToURL("index.html"), {

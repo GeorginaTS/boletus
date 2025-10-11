@@ -28,6 +28,7 @@ Aplicació preparada com a Progressive Web App (PWA):
 
 Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bolets amb mapa, fotos, temps i autenticació.
 
+
 ### Funcionalitats
 
 - Mapa interactiu amb Google Maps
@@ -36,6 +37,11 @@ Aplicació híbrida moderna per descobrir, guardar i compartir ubicacions de bol
 - Autenticació i base de dades amb Firebase
 - Captura de fotos amb la càmera
 - Mode clar/fosc automàtic
+- **Notificacions de proximitat:**
+  - L'app detecta si l'usuari està a menys de 100m d'una ubicació guardada i mostra una notificació local amb el nom de la ubicació.
+  - La ubicació de l'usuari es llegeix periòdicament amb l'API de geolocalització.
+  - Les ubicacions es recuperen de Firestore i es compara la distància amb la ubicació actual.
+  - Si s'està a prop, es mostra una notificació local automàticament.
 
 ### Stack
 

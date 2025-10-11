@@ -349,18 +349,49 @@ class NotificationService {
       return;
     }
 
+    // Log per debug: mostra el títol i body rebuts
+    console.log("🔔 Enviant notificació local:", {
+      title: notification.title,
+      body: notification.body,
+      data: notification.data,
+    });
+
     if (Capacitor.isNativePlatform()) {
       // For native platforms, we would typically use Local Notifications plugin
       console.log("📱 Would send native local notification:", notification);
     } else {
-      // For web, use Web Notifications API
+      // For web, use ServiceWorkerRegistration.showNotification if available
       if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(notification.title, {
-          body: notification.body,
-          icon: notification.icon || "/favicon.svg",
-          badge: notification.badge?.toString(),
-          data: notification.data,
-        });
+        try {
+          if ("serviceWorker" in navigator && navigator.serviceWorker.ready) {
+            const registration = await navigator.serviceWorker.ready;
+            registration.showNotification(notification.title, {
+              body: notification.body,
+              icon: notification.icon || "/favicon.svg",
+              badge: notification.badge?.toString(),
+              data: notification.data,
+            });
+          } else {
+            new Notification(notification.title, {
+              body: notification.body,
+              icon: notification.icon || "/favicon.svg",
+              badge: notification.badge?.toString(),
+              data: notification.data,
+            });
+          }
+        } catch (err) {
+          // Mostra error per toast si estem en PWA/mòbil
+          if (typeof window !== "undefined" && window.dispatchEvent) {
+            const event = new CustomEvent("show-toast", {
+              detail: {
+                message: "Error creant notificació: " + (err as Error).message,
+                color: "danger",
+                duration: 10000,
+              },
+            });
+            window.dispatchEvent(event);
+          }
+        }
       }
     }
   }

@@ -1,4 +1,5 @@
 import AppTabBar from "@/components/AppTabBar";
+// import DebugConsole from "@/components/DebugConsole";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { useProximityNotification } from "@/hooks/useProximityNotification";
@@ -12,7 +13,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -46,31 +47,64 @@ import "./theme/variables.css";
 
 setupIonicReact();
 
-const App: React.FC = () => {
+import { IonToast } from "@ionic/react";
+
+const AppContent: React.FC = () => {
   const { user } = useAuth();
-  useProximityNotification(user?.uid || "");
+  const { toast, debugToast } = useProximityNotification(user?.uid || "");
+  const [showToast, setShowToast] = useState(false);
+  const [showDebugToast, setShowDebugToast] = useState(false);
+  useEffect(() => {
+    setShowToast(toast.show);
+  }, [toast.show]);
+  useEffect(() => {
+    setShowDebugToast(debugToast.show);
+  }, [debugToast.show]);
+  return (
+    <>
+      <IonReactRouter>
+        <AuthGuard>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Suspense
+                fallback={
+                  <div className="flex justify-center items-center h-screen">
+                    <IonSpinner name="circular" />
+                  </div>
+                }
+              >
+                <AppRoutes />
+              </Suspense>
+            </IonRouterOutlet>
+            <AppTabBar />
+          </IonTabs>
+        </AuthGuard>
+      </IonReactRouter>
+      <IonToast
+        isOpen={showToast}
+        message={toast.message}
+        duration={toast.message.startsWith("Error") ? 10000 : 3500}
+        color={toast.message.startsWith("Error") ? "danger" : "success"}
+        onDidDismiss={() => setShowToast(false)}
+      />
+      <IonToast
+        isOpen={showDebugToast}
+        message={debugToast.message}
+        duration={1500}
+        color="primary"
+        onDidDismiss={() => setShowDebugToast(false)}
+      />
+    </>
+  );
+};
+
+const App: React.FC = () => {
   return (
     <IonApp>
+      {/* <DebugConsole /> */}
       <ThemeProvider>
         <AuthProvider>
-          <IonReactRouter>
-            <AuthGuard>
-              <IonTabs>
-                <IonRouterOutlet>
-                  <Suspense
-                    fallback={
-                      <div className="flex justify-center items-center h-screen">
-                        <IonSpinner name="circular" />
-                      </div>
-                    }
-                  >
-                    <AppRoutes />
-                  </Suspense>
-                </IonRouterOutlet>
-                <AppTabBar />
-              </IonTabs>
-            </AuthGuard>
-          </IonReactRouter>
+          <AppContent />
         </AuthProvider>
       </ThemeProvider>
     </IonApp>
