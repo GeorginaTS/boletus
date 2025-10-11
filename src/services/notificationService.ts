@@ -13,7 +13,9 @@ import {
   Messaging,
   onMessage,
 } from "firebase/messaging";
+
 import app, { db } from "../config/firebase";
+import { firestoreService } from "./firestoreService";
 
 export interface NotificationPayload {
   title: string;
@@ -40,6 +42,33 @@ export interface UserNotificationData {
 }
 
 class NotificationService {
+  /**
+   * Obté el token push i l'actualitza al document de l'usuari a Firestore
+   */
+  async requestAndSavePushToken(uid: string): Promise<string | null> {
+    try {
+      if (!this.messaging) {
+        this.messaging = getMessaging(app);
+      }
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        console.warn("⚠️ Permís de notificacions denegat");
+        return null;
+      }
+      const registration = await navigator.serviceWorker.ready;
+      const token = await getToken(this.messaging, {
+        vapidKey: process.env.VITE_FIREBASE_VAPID_KEY,
+        serviceWorkerRegistration: registration,
+      });
+      console.log("🌐 FCM Token obtingut:", token);
+      // Actualitza el document de l'usuari a Firestore
+      await firestoreService.updateUserProfile(uid, { pushToken: token });
+      return token;
+    } catch (error) {
+      console.error("❌ Error obtenint/guardant el token push:", error);
+      return null;
+    }
+  }
   private messaging: Messaging | null = null;
   private currentUserId: string | null = null;
   private isInitialized = false;

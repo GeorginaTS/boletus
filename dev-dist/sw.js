@@ -76,6 +76,23 @@ define([],(function () { 'use strict';
 
     /*
       Copyright 2019 Google LLC
+
+      Use of this source code is governed by an MIT-style
+      license that can be found in the LICENSE file or at
+      https://opensource.org/licenses/MIT.
+    */
+    /**
+     * Claim any currently available clients once the service worker
+     * becomes active. This is normally used in conjunction with `skipWaiting()`.
+     *
+     * @memberof workbox-core
+     */
+    function clientsClaim() {
+      self.addEventListener('activate', () => self.clients.claim());
+    }
+
+    /*
+      Copyright 2019 Google LLC
       Use of this source code is governed by an MIT-style
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
@@ -3433,11 +3450,8 @@ define([],(function () { 'use strict';
       return precacheController.createHandlerBoundToURL(url);
     }
 
-    self.addEventListener('message', event => {
-      if (event.data && event.data.type === 'SKIP_WAITING') {
-        self.skipWaiting();
-      }
-    });
+    self.skipWaiting();
+    clientsClaim();
 
     /**
      * The precacheAndRoute() method efficiently caches and responds to
@@ -3449,7 +3463,7 @@ define([],(function () { 'use strict';
       "revision": "3ca0b8505b4bec776b69afdba2768812"
     }, {
       "url": "index.html",
-      "revision": "0.er5cj19enoo"
+      "revision": "0.6e63hg21e6"
     }], {});
     cleanupOutdatedCaches();
     registerRoute(new NavigationRoute(createHandlerBoundToURL("index.html"), {

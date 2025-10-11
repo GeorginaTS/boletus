@@ -10,6 +10,7 @@ export interface UserProfile {
   lastLocationUpdate?: Date;
   createdAt?: Date;
   updatedAt?: Date;
+  pushToken?: string;
 }
 
 export interface CreateUserProfileData {
@@ -18,6 +19,7 @@ export interface CreateUserProfileData {
   city?: string;
   country?: string;
   photoURL?: string;
+  pushToken?: string;
 }
 
 export interface UpdateUserProfileData {
@@ -25,4 +27,5 @@ export interface UpdateUserProfileData {
   city?: string;
   country?: string;
   photoURL?: string;
+  pushToken?: string;
 }

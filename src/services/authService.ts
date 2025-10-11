@@ -9,6 +9,7 @@ import {
   signOut,
   User,
 } from "firebase/auth";
+import { notificationService } from "./notificationService";
 
 export interface AuthService {
   // Mètodes d'autenticació
@@ -32,7 +33,12 @@ class FirebaseAuthService implements AuthService {
         email,
         password
       );
-      return userCredential.user;
+      const user = userCredential.user;
+      // Demana permís i guarda el token push si l'usuari accepta
+      if (user?.uid) {
+        await notificationService.requestAndSavePushToken(user.uid);
+      }
+      return user;
     } catch (error) {
       const authError = error as AuthError;
       throw new Error(this.getErrorMessage(authError.code));
@@ -42,13 +48,13 @@ class FirebaseAuthService implements AuthService {
   async loginWithGoogle(): Promise<User> {
     try {
       const provider = new GoogleAuthProvider();
-      // Configurar proveïdor per forçar selecció de compte
-      provider.setCustomParameters({
-        prompt: "select_account",
-      });
-
+      provider.setCustomParameters({ prompt: "select_account" });
       const userCredential = await signInWithPopup(auth, provider);
-      return userCredential.user;
+      const user = userCredential.user;
+      if (user?.uid) {
+        await notificationService.requestAndSavePushToken(user.uid);
+      }
+      return user;
     } catch (error) {
       const authError = error as AuthError;
       throw new Error(this.getErrorMessage(authError.code));
@@ -62,7 +68,11 @@ class FirebaseAuthService implements AuthService {
         email,
         password
       );
-      return userCredential.user;
+      const user = userCredential.user;
+      if (user?.uid) {
+        await notificationService.requestAndSavePushToken(user.uid);
+      }
+      return user;
     } catch (error) {
       const authError = error as AuthError;
       throw new Error(this.getErrorMessage(authError.code));
