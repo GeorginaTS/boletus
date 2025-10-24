@@ -97,8 +97,8 @@ ion-button:not(ion-tab-button) {
   --border-radius: 1rem;
   --padding-top: 0.4rem;
   --padding-bottom: 0.4rem;
-  --padding-start: 0.8rem;
-  --padding-end: 0.8rem;
+  --padding-start: 1.8rem;
+  --padding-end: 1.8rem;
 }
 
 /* --- ion-tab-button --- */
@@ -121,6 +121,7 @@ ion-card {
   border: 1px solid var(--lion);
   padding: 0.4rem;
 }
+
 ion-card-title {
   display: flex;
   align-items: center;

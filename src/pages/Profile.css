@@ -64,4 +64,12 @@
   transition: all 0.2s ease;
 }
 
+/* Specific: LastLocationCard should occupy 90% width and be centered */
+.location-card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0.5rem auto; /* center within parent */
+  box-sizing: border-box;
+}
+
 

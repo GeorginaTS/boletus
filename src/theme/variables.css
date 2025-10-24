@@ -56,11 +56,27 @@
   --ion-color-tertiary-shade: var(--peach-shade);
   --ion-color-tertiary-tint: var(--peach-tint);
 
-  /* Colors de sistema amb tons terra */
-  --ion-color-success: green;
-  --ion-color-info: blue;
-  --ion-color-warning: yellow;
-  --ion-color-danger: red;
+  /* Colors de sistema*/
+  --ion-color-success: #7cb342;
+  --ion-color-success-rgb: 124, 179, 66;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #6d9e3a;
+  --ion-color-success-tint: #89bb55;
+
+  --ion-color-warning: #ffb74d;
+  --ion-color-warning-rgb: 255, 183, 77;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0a144;
+  --ion-color-warning-tint: #ffbf5f;
+
+  --ion-color-danger: #f44336;
+  --ion-color-danger-rgb: 244, 67, 54;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d73930;
+  --ion-color-danger-tint: #f5574a;
 
   --ion-background-color: var(--content-background-gradient);
   --ion-background-color-rgb: 255, 251, 243;

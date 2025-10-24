@@ -1,4 +1,5 @@
 import LastLocationCard from "@/components/LastLocationCard";
+import NotificationToggle from "@/components/NotificationToggle";
 import { UserProfile } from "@/types/user";
 import {
   IonAvatar,
@@ -114,7 +115,7 @@ const ProfileViewCard: React.FC<ProfileViewCardProps> = ({
             lastLocationUpdate={userProfile.lastLocationUpdate}
           />
         )}
-
+        <NotificationToggle user={user} pushToken={userProfile?.pushToken} />
         <div className="profile-actions">
           <IonButton
             expand="block"

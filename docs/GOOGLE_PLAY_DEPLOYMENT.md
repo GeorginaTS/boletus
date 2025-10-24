@@ -498,3 +498,81 @@ versionCode 2  // Era 1, ara 2
 ---
 
 **Bona sort amb la publicació! 🍄🚀**
+
+# Guia ràpida: Crear i publicar nova versió a Google Play
+
+## 1️⃣ Actualitzar versió
+
+- Edita `package.json`:
+  ```json
+  "version": "1.1.0"
+  ```
+- Edita `android/app/build.gradle`:
+  ```groovy
+  defaultConfig {
+      versionCode 2
+      versionName "1.1"
+  }
+  ```
+
+## 2️⃣ Construir web app
+
+```bash
+ionic build --prod
+```
+- Els fitxers generats es troben a `/www`
+
+## 3️⃣ Sincronitzar amb Android
+
+```bash
+npx cap copy android
+npx cap sync android
+```
+- Copia els fitxers web dins `android/`
+
+## 4️⃣ Configurar signatura
+
+- Col·loca `my-release-key.keystore` dins `android/app/` (o indica la ruta)
+- Edita `android/app/build.gradle`:
+  ```groovy
+  signingConfigs {
+      release {
+          storeFile file('my-release-key.keystore')
+          storePassword 'LA_CONTRASENYA'
+          keyAlias 'myalias'
+          keyPassword 'LA_CONTRASENYA'
+      }
+  }
+  buildTypes {
+      release {
+          signingConfig signingConfigs.release
+      }
+  }
+  ```
+
+## 5️⃣ Generar AAB
+
+```bash
+cd android
+./gradlew bundleRelease
+```
+- Es genera: `android/app/build/outputs/bundle/release/app-release.aab`
+
+## 6️⃣ Comprovar signatura (opcional)
+
+```bash
+jarsigner -verify -verbose -certs app/build/outputs/bundle/release/app-release.aab
+```
+- El SHA1 ha de coincidir amb l'Upload Key
+
+## 7️⃣ Pujar a Google Play
+
+- Google Play Console → Release → Production / Testing → Create new release
+- Puja `app-release.aab`
+- Afegeix notes de versió
+- Revisa → Start rollout / Publica
+
+## 8️⃣ Esperar publicació
+
+- Proves internes: quasi instantani
+- Producció: 2-24h

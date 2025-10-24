@@ -27,7 +27,10 @@ ion-toolbar {
 .theme-toggle-header { 
   --border-radius: 100%; 
   --color:var(--falu-red-shade);
-  padding: 0.5rem;
+  --padding-top: 0.2rem;
+  --padding-bottom: 0.2rem;
+  --padding-start: 0.2rem;
+  --padding-end: 0.2rem;
   transition: var(--transition-base);
 }
 .dark-theme .theme-toggle-header {
