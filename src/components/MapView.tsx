@@ -1,26 +1,24 @@
-import { useAuth } from '@/contexts/AuthContext';
-import { Location } from '@/types/location';
-import { LocationData } from '@services/geolocationService';
-import { googleMapsService } from '@services/googleMapsService';
-import React, { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
-
-
+import { useAuth } from "@/contexts/AuthContext";
+import { Location } from "@/types/location";
+import { LocationData } from "@services/geolocationService";
+import { googleMapsService } from "@services/googleMapsService";
+import React, { useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 
 interface MapViewProps {
   userLocation?: LocationData | null;
   height?: string;
   className?: string;
-  mapType?: 'roadmap' | 'satellite' | 'hybrid' | 'terrain' ;
+  mapType?: "roadmap" | "satellite" | "hybrid" | "terrain";
   showMapTypeControls?: boolean;
 }
 
-const MapView: React.FC<MapViewProps> = ({ 
-  userLocation, 
-  height = '400px',
-  className = '',
-  mapType = 'terrain', // Per defecte usa terrain (relleu)
-  showMapTypeControls = true
+const MapView: React.FC<MapViewProps> = ({
+  userLocation,
+  height = "400px",
+  className = "",
+  mapType = "terrain", // Per defecte usa terrain (relleu)
+  showMapTypeControls = true,
 }) => {
   const { user } = useAuth();
   const history = useHistory();
@@ -45,22 +43,25 @@ const MapView: React.FC<MapViewProps> = ({
           mapTypeId: mapType,
           mapTypeControl: showMapTypeControls,
         };
-        
+
         await googleMapsService.createMap(mapRef.current!, mapConfig);
         isInitialized.current = true;
         console.log(`🗺️ Google Maps inicialitzat amb tipus: ${mapType}`);
-        
+
         // Carrega les localitzacions guardades de l'usuari
         if (user) {
-          await googleMapsService.loadAndDisplayLocations(user.uid, handleLocationClick);
+          await googleMapsService.loadAndDisplayLocations(
+            user.uid,
+            handleLocationClick
+          );
         }
-        
+
         // Redimensiona el mapa després d'un petit retard
         setTimeout(() => {
           googleMapsService.resize();
         }, 100);
       } catch (error) {
-        console.error('❌ Error inicialitzant Google Maps:', error);
+        console.error("❌ Error inicialitzant Google Maps:", error);
       }
     };
 
@@ -70,7 +71,7 @@ const MapView: React.FC<MapViewProps> = ({
       // Neteja el mapa quan el component es desmunta
       googleMapsService.destroy();
       isInitialized.current = false;
-      console.log('🗺️ Google Maps eliminat');
+      console.log("🗺️ Google Maps eliminat");
     };
   }, [user, mapType, showMapTypeControls]);
 
@@ -78,15 +79,16 @@ const MapView: React.FC<MapViewProps> = ({
   useEffect(() => {
     if (!isInitialized.current || !userLocation) return;
 
-    console.log('📍 Actualitzant ubicació de l\'usuari:', userLocation);
+    console.log("📍 Actualitzant ubicació de l'usuari:", userLocation);
     googleMapsService.updateUserLocation(userLocation);
   }, [userLocation]);
 
   return (
-    <div 
-      ref={mapRef} 
-      style={{ height }} 
+    <div
+      ref={mapRef}
+      style={{ height }}
       className={`w-full absolute inset-0 google-map ${className}`}
+      data-testid="map-container"
     />
   );
 };

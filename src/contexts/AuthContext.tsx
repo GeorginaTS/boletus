@@ -1,9 +1,20 @@
-import { CreateUserProfileData, UpdateUserProfileData, UserProfile } from '@/types/user';
-import authService from '@services/authService';
-import firestoreService from '@services/firestoreService';
-import { notificationService } from '@services/notificationService';
-import { User } from 'firebase/auth';
-import React, { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  CreateUserProfileData,
+  UpdateUserProfileData,
+  UserProfile,
+} from "@/types/user";
+import authService from "@services/authService";
+import firestoreService from "@services/firestoreService";
+import { notificationService } from "@services/notificationService";
+import { User } from "firebase/auth";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface AuthContextType {
   user: User | null;
@@ -18,12 +29,14 @@ interface AuthContextType {
   refreshUserProfile: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -83,10 +96,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await authService.logout();
       setUserProfile(null); // Netejar perfil d'usuari
-      
+
       // Netejar service de notificacions
       notificationService.cleanup();
-      console.log('✨ Notifications cleaned up on logout');
+      console.log("✨ Notifications cleaned up on logout");
     } catch (error) {
       setLoading(false);
       throw error;
@@ -94,12 +107,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   // Funcions per gestionar el perfil d'usuari
-  const createUserProfile = async (userData: CreateUserProfileData): Promise<void> => {
-    if (!user) throw new Error('No hi ha usuari autenticat');
-    
+  const createUserProfile = async (
+    userData: CreateUserProfileData
+  ): Promise<void> => {
+    if (!user) throw new Error("No hi ha usuari autenticat");
+
     setLoading(true);
     try {
-      const profile = await firestoreService.createUserProfile(user.uid, userData);
+      const profile = await firestoreService.createUserProfile(
+        user.uid,
+        userData
+      );
       setUserProfile(profile);
       setLoading(false);
     } catch (error) {
@@ -108,9 +126,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const updateUserProfile = async (userData: UpdateUserProfileData): Promise<void> => {
-    if (!user) throw new Error('No hi ha usuari autenticat');
-    
+  const updateUserProfile = async (
+    userData: UpdateUserProfileData
+  ): Promise<void> => {
+    if (!user) throw new Error("No hi ha usuari autenticat");
+
     setLoading(true);
     try {
       await firestoreService.updateUserProfile(user.uid, userData);
@@ -124,12 +144,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const refreshUserProfile = useCallback(async (): Promise<void> => {
     if (!user) return;
-    
+
     try {
       const profile = await firestoreService.getUserProfile(user.uid);
       setUserProfile(profile);
     } catch (error) {
-      console.error('Error refrescant perfil d\'usuari:', error);
+      console.error("Error refrescant perfil d'usuari:", error);
       setUserProfile(null);
     }
   }, [user]);
@@ -147,12 +167,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (user && userProfile) {
       // Inicialitzar service de notificacions
-      notificationService.initialize(user.uid)
+      notificationService
+        .initialize(user.uid)
         .then(() => {
-          console.log('✨ Notifications initialized for user:', user.uid);
+          console.log("✨ Notifications initialized for user:", user.uid);
         })
         .catch((error) => {
-          console.error('❌ Error initializing notifications:', error);
+          console.error("❌ Error initializing notifications:", error);
         });
     }
   }, [user, userProfile]);
@@ -167,12 +188,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     createUserProfile,
     updateUserProfile,
-    refreshUserProfile
+    refreshUserProfile,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
