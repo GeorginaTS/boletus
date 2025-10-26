@@ -26,11 +26,14 @@ const MapView: React.FC<MapViewProps> = ({
   const isInitialized = useRef<boolean>(false);
 
   // Callback per navegar a la pàgina de detalls de la localització
-  const handleLocationClick = (location: Location) => {
-    if (location.id) {
-      history.push(`/location/${location.id}`);
-    }
-  };
+  const handleLocationClick = React.useCallback(
+    (location: Location) => {
+      if (location.id) {
+        history.push(`/location/${location.id}`);
+      }
+    },
+    [history]
+  );
 
   useEffect(() => {
     if (!mapRef.current || isInitialized.current) return;
@@ -73,7 +76,7 @@ const MapView: React.FC<MapViewProps> = ({
       isInitialized.current = false;
       console.log("🗺️ Google Maps eliminat");
     };
-  }, [user, mapType, showMapTypeControls]);
+  }, [user, mapType, showMapTypeControls, handleLocationClick]);
 
   // Actualitza la ubicació de l'usuari
   useEffect(() => {
@@ -87,7 +90,7 @@ const MapView: React.FC<MapViewProps> = ({
     <div
       ref={mapRef}
       style={{ height }}
-      className={`w-full absolute inset-0 google-map ${className}`}
+      className={`main-map map-container google-map ${className}`}
       data-testid="map-container"
     />
   );

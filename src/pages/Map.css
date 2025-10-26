@@ -1,3 +1,47 @@
+/* Error message styles (replaces Tailwind) */
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.error-message {
+  background: var(--ion-color-light);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(153, 88, 42, 0.08);
+  padding: 2rem 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.error-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.error-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--bistre);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.error-text {
+  color: var(--lion-shade);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
 .white-bg {
   --background: white !important;
 }

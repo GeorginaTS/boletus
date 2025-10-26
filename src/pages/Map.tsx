@@ -1,6 +1,6 @@
-import SectionHeader from '@/components/SectionHeader';
-import useGeolocation from '@/hooks/useGeolocation';
-import MapView from '@components/MapView';
+import SectionHeader from "@/components/SectionHeader";
+import useGeolocation from "@/hooks/useGeolocation";
+import MapView from "@components/MapView";
 import {
   IonButton,
   IonContent,
@@ -9,35 +9,43 @@ import {
   IonPage,
   IonSpinner,
   IonToast,
-  IonToolbar
-} from '@ionic/react';
-import { googleMapsService } from '@services/googleMapsService';
-import { layersOutline, locationOutline, mapOutline, refreshOutline, resizeOutline } from 'ionicons/icons';
-import { useState } from 'react';
-import './Map.css';
+  IonToolbar,
+} from "@ionic/react";
+import { googleMapsService } from "@services/googleMapsService";
+import {
+  layersOutline,
+  locationOutline,
+  mapOutline,
+  refreshOutline,
+  resizeOutline,
+} from "ionicons/icons";
+import { useState } from "react";
+import "./Map.css";
 
 const Map: React.FC = () => {
   const { location, loading, error, getCurrentLocation } = useGeolocation(true);
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('Mapa actualitzat!');
+  const [toastMessage, setToastMessage] = useState("Mapa actualitzat!");
 
   const handleRefreshLocation = async () => {
     await getCurrentLocation();
-    setToastMessage('Ubicació actualitzada! 📍');
+    setToastMessage("Ubicació actualitzada! 📍");
     setShowToast(true);
   };
 
   const handleFitBounds = () => {
     googleMapsService.fitBoundsToLocations();
-    setToastMessage('Mapa ajustat a totes les localitzacions');
+    setToastMessage("Mapa ajustat a totes les localitzacions");
     setShowToast(true);
   };
 
   const handleToggleTerrainMode = () => {
     googleMapsService.toggleTerrainMode();
     const currentType = googleMapsService.getCurrentMapType();
-    const isTerrainMode = currentType === 'terrain';
-    setToastMessage(isTerrainMode ? 'Mode relleu activat 🏔️' : 'Mode normal activat 🗺️');
+    const isTerrainMode = currentType === "terrain";
+    setToastMessage(
+      isTerrainMode ? "Mode relleu activat 🏔️" : "Mode normal activat 🗺️"
+    );
     setShowToast(true);
   };
 
@@ -45,7 +53,7 @@ const Map: React.FC = () => {
     <IonPage>
       <IonHeader>
         <SectionHeader icon={mapOutline} title="Mapa" />
-        <IonToolbar className='white-bg'>
+        <IonToolbar className="white-bg">
           <IonButton
             slot="end"
             fill="clear"
@@ -78,21 +86,19 @@ const Map: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="map-content">
-        
         {error && (
           <div className="error-container">
             <div className="error-message">
-              {/* Exemple d'integració Tailwind + Ionic */}
-              <div className="flex items-center justify-center mb-4">
-                <IonIcon icon={locationOutline} className="icon-xl icon-danger" />
+              <div className="error-icon">
+                <IonIcon
+                  icon={locationOutline}
+                  className="icon-xl icon-danger"
+                />
               </div>
-              <h3 className="text-lg font-bold text-center text-gray-800 mb-2">Error de geolocalització</h3>
-              <p className="text-center text-gray-600 mb-4">{error.message}</p>
-              <div className="flex justify-center">
-                <IonButton 
-                  onClick={handleRefreshLocation}
-                  disabled={loading}
-                >
+              <h3 className="error-title">Error de geolocalització</h3>
+              <p className="error-text">{error.message}</p>
+              <div className="error-actions">
+                <IonButton onClick={handleRefreshLocation} disabled={loading}>
                   <IonIcon icon={refreshOutline} slot="start" />
                   Tornar a intentar
                 </IonButton>
@@ -108,11 +114,7 @@ const Map: React.FC = () => {
           </div>
         )}
 
-        <MapView 
-          userLocation={location} 
-          height="100%"
-          className="main-map"
-        />
+        <MapView userLocation={location} height="100%" className="main-map" />
 
         <IonToast
           isOpen={showToast}

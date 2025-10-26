@@ -3,10 +3,16 @@ import LocationInfoCard from "../LocationInfoCard";
 describe("LocationInfoCard", () => {
   it("renders without crashing", () => {
     const mockLocation = {
-      latitude: 0,
-      longitude: 0,
-      accuracy: 0,
+      lat: 41.3851,
+      lng: 2.1734,
+      latitude: 41.3851,
+      longitude: 2.1734,
+      accuracy: 15,
       timestamp: Date.now(),
+      altitude: 0,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null,
     };
     const { container } = render(
       <LocationInfoCard

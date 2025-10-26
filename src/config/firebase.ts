@@ -17,7 +17,11 @@ const firebaseConfig = {
 
 // Inicialitza Firebase
 const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
+
+// Inicialitza analytics en browser i app, però no en entorn de test (Vitest)
+const isTestEnv = typeof process !== "undefined" && process.env?.VITEST;
+export const analytics = !isTestEnv ? getAnalytics(app) : undefined;
+
 // Inicialitza Firebase Authentication i exporta per usar
 export const auth = getAuth(app);
 // Inicialitza Firestore i exporta per usar

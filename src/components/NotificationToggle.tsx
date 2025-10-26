@@ -46,8 +46,9 @@ const NotificationToggle: React.FC<NotificationToggleProps> = ({
         <p>Activa o desactiva les notificacions push</p>
       </IonLabel>
       <IonToggle
+        data-testid="notification-toggle"
         checked={notifEnabled}
-        disabled={isToggling}
+        disabled={isToggling || !user}
         onIonChange={async (e) => {
           const enabled = e.detail.checked;
           setNotifEnabled(enabled);
