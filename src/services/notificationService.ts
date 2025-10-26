@@ -57,7 +57,7 @@ class NotificationService {
       }
       const registration = await navigator.serviceWorker.ready;
       const token = await getToken(this.messaging, {
-        vapidKey: process.env.VITE_FIREBASE_VAPID_KEY,
+        vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
         serviceWorkerRegistration: registration,
       });
       console.log("🌐 FCM Token obtingut:", token);
@@ -218,7 +218,7 @@ class NotificationService {
         // Get FCM token using the custom service worker
         const registration = await navigator.serviceWorker.ready;
         const token = await getToken(this.messaging, {
-          vapidKey: process.env.VITE_FIREBASE_VAPID_KEY,
+          vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
           serviceWorkerRegistration: registration,
         });
 
